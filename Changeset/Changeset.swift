@@ -81,19 +81,17 @@ public struct Changeset<T: CollectionType where T.Generator.Element: Equatable> 
 		var d: [[[Edit<T.Generator.Element>]]] = Array(count: m + 1, repeatedValue: Array(count: n + 1, repeatedValue: []))
 		
 		var edits = [Edit<T.Generator.Element>]()
-		var row = 0
-		for element in s {
+		for (row, element) in s.enumerate() {
 			let deletion = Edit(.Deletion, value: element, destination: row)
 			edits.append(deletion)
-			d[++row][0] = edits // I know; ++ in Swift 3, but let me have the pleasure while it lasts
+			d[row + 1][0] = edits
 		}
 		
 		edits.removeAll()
-		var col = 0
-		for element in t {
+		for (col, element) in t.enumerate() {
 			let insertion = Edit(.Insertion, value: element, destination: col)
 			edits.append(insertion)
-			d[0][++col] = edits
+			d[0][col + 1] = edits
 		}
 		
 		guard m > 0 && n > 0 else { return d[m][n] }
