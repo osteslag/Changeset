@@ -34,7 +34,7 @@ public enum EditOperation {
 /// - note: This implementation was inspired by [Dave DeLong](https://twitter.com/davedelong)'s article, [Edit distance and edit steps](http://davedelong.tumblr.com/post/134367865668/edit-distance-and-edit-steps).
 ///
 /// - seealso: `Changeset.editDistance`.
-public struct Changeset<T: CollectionType where T.Generator.Element: Equatable> {
+public struct Changeset<T: CollectionType where T.Generator.Element: Equatable, T.Index.Distance == Int> {
 	
 	/// The starting-point collection.
 	public let origin: T
@@ -68,13 +68,32 @@ public struct Changeset<T: CollectionType where T.Generator.Element: Equatable> 
 	/// - returns: An array of `Edit` elements.
 	/// The number of steps is then the `count` of elements.
 	public static func editDistance(source s: T, target t: T) -> [Edit<T.Generator.Element>] {
-		
-		let m = s.count as! Int
-		let n = t.count as! Int
-		
-		// Indexes into the two collections.
-		var sx: T.Index
-		var tx = t.startIndex
+        
+        // Guard source is not empty, else insert all target elements
+        guard !s.isEmpty else {
+            var edits = [Edit<T.Generator.Element>]()
+            for (row, element) in t.enumerate() {
+                let insertion = Edit(.Insertion, value: element, destination: row)
+                edits.append(insertion)
+            }
+            return edits
+        }
+        
+        // Source is not empty. Guard target is not empty, else delete all source elements
+        guard !t.isEmpty else {
+            var edits = [Edit<T.Generator.Element>]()
+            for (row, element) in s.enumerate() {
+                let deletion = Edit(.Deletion, value: element, destination: row)
+                edits.append(deletion)
+            }
+            return edits
+        }
+        
+        // We are guaranteed that both collections are not empty
+        
+		let m = s.count
+		let n = t.count 
+
 		
 		// Fill first row and column of insertions and deletions.
 		
@@ -94,10 +113,13 @@ public struct Changeset<T: CollectionType where T.Generator.Element: Equatable> 
 			d[0][col + 1] = edits
 		}
 		
-		guard m > 0 && n > 0 else { return d[m][n] }
 		
 		// Fill body of matrix.
-		
+        
+        // Indexes into the two collections.
+        var sx: T.Index
+        var tx = t.startIndex
+        
 		for j in 1...n {
 			sx = s.startIndex
 			
