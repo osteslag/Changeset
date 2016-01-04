@@ -61,6 +61,7 @@
 				29828DCA1C2A899D0056284E /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		29828DCA1C2A899D0056284E /* Products */ = {
 			isa = PBXGroup;
