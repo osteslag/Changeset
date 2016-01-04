@@ -34,7 +34,7 @@ public enum EditOperation {
 /// - note: This implementation was inspired by [Dave DeLong](https://twitter.com/davedelong)'s article, [Edit distance and edit steps](http://davedelong.tumblr.com/post/134367865668/edit-distance-and-edit-steps).
 ///
 /// - seealso: `Changeset.editDistance`.
-public struct Changeset<T: CollectionType where T.Generator.Element: Equatable> {
+public struct Changeset<T: CollectionType where T.Generator.Element: Equatable, T.Index.Distance == Int> {
 	
 	/// The starting-point collection.
 	public let origin: T
@@ -69,12 +69,9 @@ public struct Changeset<T: CollectionType where T.Generator.Element: Equatable> 
 	/// The number of steps is then the `count` of elements.
 	public static func editDistance(source s: T, target t: T) -> [Edit<T.Generator.Element>] {
 		
-		let m = s.count as! Int
-		let n = t.count as! Int
+		let m = s.count
+		let n = t.count
 		
-		// Indexes into the two collections.
-		var sx: T.Index
-		var tx = t.startIndex
 		
 		// Fill first row and column of insertions and deletions.
 		
@@ -97,6 +94,10 @@ public struct Changeset<T: CollectionType where T.Generator.Element: Equatable> 
 		guard m > 0 && n > 0 else { return d[m][n] }
 		
 		// Fill body of matrix.
+		
+		// Indexes into the two collections.
+		var sx: T.Index
+		var tx = t.startIndex
 		
 		for j in 1...n {
 			sx = s.startIndex

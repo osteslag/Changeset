@@ -30,7 +30,7 @@
 		29828DD31C2A899E0056284E /* ChangesetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChangesetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		29828DD81C2A899E0056284E /* ChangesetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangesetTests.swift; sourceTree = "<group>"; };
 		29828DDA1C2A899E0056284E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		29828DE31C2A8BD40056284E /* Changeset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Changeset.swift; sourceTree = "<group>"; };
+		29828DE31C2A8BD40056284E /* Changeset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Changeset.swift; sourceTree = "<group>"; usesTabs = 1; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
