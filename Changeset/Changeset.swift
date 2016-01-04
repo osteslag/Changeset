@@ -69,6 +69,22 @@ public struct Changeset<T: CollectionType where T.Generator.Element: Equatable, 
 	/// The number of steps is then the `count` of elements.
 	public static func editDistance(source s: T, target t: T) -> [Edit<T.Generator.Element>] {
 		
+		guard !s.isEmpty else {		// guard source is not empty else return all target's element as insertions
+			var idx = 0
+			
+			return t.map { let e = Edit(.Insertion, value: $0, destination: idx); idx += 1 ; return e }
+		}
+		
+		// source is not empty
+		
+		guard !t.isEmpty else {		// guard target is not empty else return all source's element as deletion
+			var idx = 0
+			
+			return s.map { let e = Edit(.Deletion, value: $0, destination: idx); idx += 1 ; return e }
+		}
+		
+		// both source and target are not empty
+		
 		let m = s.count
 		let n = t.count
 		
@@ -90,8 +106,7 @@ public struct Changeset<T: CollectionType where T.Generator.Element: Equatable, 
 			edits.append(insertion)
 			d[0][col + 1] = edits
 		}
-		
-		guard m > 0 && n > 0 else { return d[m][n] }
+
 		
 		// Fill body of matrix.
 		
