@@ -72,7 +72,6 @@ public struct Changeset<T: CollectionType where T.Generator.Element: Equatable, 
 		let m = s.count
 		let n = t.count
 		
-		
 		// Fill first row and column of insertions and deletions.
 		
 		var d: [[[Edit<T.Generator.Element>]]] = Array(count: m + 1, repeatedValue: Array(count: n + 1, repeatedValue: []))
@@ -93,11 +92,11 @@ public struct Changeset<T: CollectionType where T.Generator.Element: Equatable, 
 		
 		guard m > 0 && n > 0 else { return d[m][n] }
 		
-		// Fill body of matrix.
-		
 		// Indexes into the two collections.
 		var sx: T.Index
 		var tx = t.startIndex
+		
+		// Fill body of matrix.
 		
 		for j in 1...n {
 			sx = s.startIndex
@@ -119,11 +118,11 @@ public struct Changeset<T: CollectionType where T.Generator.Element: Equatable, 
 						del.append(deletion)
 						d[i][j] = del
 					} else if ins.count == minimumCount {
-						let insertion = Edit(.Insertion, value: t[tx], destination: i)
+						let insertion = Edit(.Insertion, value: t[tx], destination: j - 1)
 						ins.append(insertion)
 						d[i][j] = ins
 					} else {
-						let substitution = Edit(.Substitution, value: t[tx], destination: i - 1)
+						let substitution = Edit(.Substitution, value: t[tx], destination: j - 1)
 						sub.append(substitution)
 						d[i][j] = sub
 					}
