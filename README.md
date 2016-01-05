@@ -35,13 +35,15 @@ Note, indices are those exactly to be used within a `beginUpdates`/`endUpdates` 
 
 In short; first all deletions are made relative to the source collection, then, relative to the resulting collection, insertions and substitutions. A move is just a deletion followed by an insertion on the resulting collection. This is explained in much more detail under [_Batch Insertion, Deletion, and Reloading of Rows and Sections_](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/ManageInsertDeleteRow/ManageInsertDeleteRow.html#//apple_ref/doc/uid/TP40007451-CH10-SW9) in Apple’s [Table View Programming Guide for iOS](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/AboutTableViewsiPhone/AboutTableViewsiPhone.html).
 
-If you don’t want the overhead of the `Changeset`, which stores the source and target collections, you can call `editDistance` directly:
+If you don’t want the overhead of `Changeset` itself, which also stores the source and target collections, you can call `editDistance` directly (here with [example data](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/ManageInsertDeleteRow/ManageInsertDeleteRow.html#//apple_ref/doc/uid/TP40007451-CH10-SW16)) from Apple’s guide:
 
 ```swift
-let edits = Changeset.editDistance(source: "kitten".characters, target: "sitting".characters)
+let source = ["Arizona", "California", "Delaware", "New Jersey", "Washington"]
+let target = ["Alaska", "Arizona", "California", "Georgia", "New Jersey", "Virginia"]
+let edits = Changeset.editDistance(source: source, target: target)
 
 print(edits)
-// [replace with s at index 0, replace with i at index 4, insert g at index 6]
+// [insert Alaska at index 0, replace with Georgia at index 3, replace with Virginia at index 5]
 ```
 
 ## License
