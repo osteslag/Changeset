@@ -29,11 +29,11 @@ let edits = [
 assert(changeset.edits == edits)
 ```
 
-Note that the indexes are into the original source collection.
+Because `Changeset` works on any `CollectionType` of `Equatable`, it has many applications. For example, it could be used to identify the changes needed to go from one array of elements to another, where the elements are instances of a custom `Equatable` class. This is particularly useful if these elements are displayed in a `UITableView`, and you want to animate a transition between two sets of data.
 
-Because `Changeset` works on any `CollectionType` of `Equatable`, it has many applications. For example, it could be used to identify the changes needed to go from one array of elements to another, where the elements are instances of a custom `Equatable` class.
+Note, indices are those exactly to be used within a `beginUpdates`/`endUpdates` block on `UITableView`.
 
-This is particularly useful if these elements are displayed in a `UITableView` and you want to animate a transition between two sets of data.
+In short; first all deletions are made relative to the source collection, then, relative to the resulting collection, insertions and substitutions. A move is just a deletion followed by an insertion on the resulting collection. This is explained in much more detail under [_Batch Insertion, Deletion, and Reloading of Rows and Sections_](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/ManageInsertDeleteRow/ManageInsertDeleteRow.html#//apple_ref/doc/uid/TP40007451-CH10-SW9) in Apple’s [Table View Programming Guide for iOS](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/AboutTableViewsiPhone/AboutTableViewsiPhone.html).
 
 If you don’t want the overhead of the `Changeset`, which stores the source and target collections, you can call `editDistance` directly:
 
