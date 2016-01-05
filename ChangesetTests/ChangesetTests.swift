@@ -132,6 +132,33 @@ class ChangesetTests: XCTestCase {
 		XCTAssertEqual(changeset.edits, edits)
 	}
 	
+	func testListing7_8() {
+		
+		// https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/ManageInsertDeleteRow/ManageInsertDeleteRow.html#//apple_ref/doc/uid/TP40007451-CH10-SW16
+		
+		let changeset: Changeset<Array<String>>
+		let edits: Array<Edit<String>>
+		
+		let source = ["Arizona", "California", "Delaware", "New Jersey", "Washington"]
+		let target = ["Alaska", "Arizona", "California", "Georgia", "New Jersey", "Virginia"]
+		
+		/* In Apple's example the changeset consists of these five changes:
+		       Edit(.Insertion, value: "Alaska", destination: 0),
+		       Edit(.Deletion, value: "Delaware", destination: 2),
+		       Edit(.Insertion, value: "Georgia", destination: 3),
+		       Edit(.Deletion, value: "Washington", destination: 4),
+		       Edit(.Insertion, value: "Virginia", destination: 5),
+		   Changeset reduces this to the following three:*/
+		
+		changeset = Changeset(source: source, target: target)
+		edits = [
+			Edit(.Insertion, value: "Alaska", destination: 0),
+			Edit(.Substitution, value: "Georgia", destination: 3),
+			Edit(.Substitution, value: "Virginia", destination: 5),
+		]
+		XCTAssertEqual(changeset.edits, edits)
+	}
+	
 	func testDeLongTweet() {
 		
 		// https://twitter.com/davedelong/status/671051521371406336
