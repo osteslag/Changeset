@@ -45,21 +45,21 @@ class ChangesetTests: XCTestCase {
 		edits = [
 			Edit(.Deletion, value: "a", destination: 1),
 			Edit(.Deletion, value: "t", destination: 2),
-			Edit(.Substitution, value: "n", destination: 4),
+			Edit(.Substitution, value: "n", destination: 2),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "Sunday".characters, target: "Saturday".characters)
 		edits = [
 			Edit(.Insertion, value: "a", destination: 1),
-			Edit(.Insertion, value: "t", destination: 1),
-			Edit(.Substitution, value: "r", destination: 2),
+			Edit(.Insertion, value: "t", destination: 2),
+			Edit(.Substitution, value: "r", destination: 4),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "sword".characters, target: "words".characters)
 		edits = [
-			Edit(.Move(origin: 0), value: "s", destination: 5),
+			Edit(.Move(origin: 0), value: "s", destination: 4),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
@@ -78,27 +78,18 @@ class ChangesetTests: XCTestCase {
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "ABCD".characters, target: "abcd".characters)
-		edits = [
-			Edit(.Substitution, value: "a", destination: 0),
-			Edit(.Substitution, value: "b", destination: 1),
-			Edit(.Substitution, value: "c", destination: 2),
-			Edit(.Substitution, value: "d", destination: 3),
-		]
-		XCTAssertEqual(changeset.edits, edits)
-		
 		// GARVEY -> AVERY (http://stackoverflow.com/a/30795531)
 		changeset = Changeset(source: "GARVEY".characters, target: "AVERY".characters)
 		edits = [
 			Edit(.Deletion, value: "G", destination: 0),
-			Edit(.Move(origin: 2), value: "R", destination: 5),
+			Edit(.Move(origin: 2), value: "R", destination: 3),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "AVERY".characters, target: "GARVEY".characters)
 		edits = [
 			Edit(.Insertion, value: "G", destination: 0),
-			Edit(.Move(origin: 3), value: "R", destination: 1),
+			Edit(.Move(origin: 3), value: "R", destination: 2),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 	}
@@ -164,18 +155,18 @@ class ChangesetTests: XCTestCase {
 		changeset = Changeset(source: "a".characters, target: "bac".characters)
 		edits = [
 			Edit(.Insertion, value: "b", destination: 0),
-			Edit(.Insertion, value: "c", destination: 1),
+			Edit(.Insertion, value: "c", destination: 2),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "abcdef".characters, target: "aAbBcCdDeEfF".characters)
 		edits = [
 			Edit(.Insertion, value: "A", destination: 1),
-			Edit(.Insertion, value: "B", destination: 2),
-			Edit(.Insertion, value: "C", destination: 3),
-			Edit(.Insertion, value: "D", destination: 4),
-			Edit(.Insertion, value: "E", destination: 5),
-			Edit(.Insertion, value: "F", destination: 6),
+			Edit(.Insertion, value: "B", destination: 3),
+			Edit(.Insertion, value: "C", destination: 5),
+			Edit(.Insertion, value: "D", destination: 7),
+			Edit(.Insertion, value: "E", destination: 9),
+			Edit(.Insertion, value: "F", destination: 11),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 	}
@@ -196,15 +187,15 @@ class ChangesetTests: XCTestCase {
 		
 		changeset = Changeset(source: "abbcdefgh".characters, target: "acdefgbbh".characters)
 		edits = [
-			Edit(.Move(origin: 1), value: "b", destination: 8),
-			Edit(.Move(origin: 2), value: "b", destination: 8),
+			Edit(.Move(origin: 1), value: "b", destination: 6),
+			Edit(.Move(origin: 2), value: "b", destination: 7),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "acdefgbbh".characters, target: "abbcdefgh".characters)
 		edits = [
 			Edit(.Move(origin: 6), value: "b", destination: 1),
-			Edit(.Move(origin: 7), value: "b", destination: 1),
+			Edit(.Move(origin: 7), value: "b", destination: 2),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 	}
@@ -236,7 +227,7 @@ class ChangesetTests: XCTestCase {
 		let changes = [
 			Edit(.Deletion, value: NSURL(string: "http://a.b.c")!, destination: 0),
 			Edit(.Deletion, value: NSURL(string: "http://k.l.m")!, destination: 2),
-			Edit(.Insertion, value: NSURL(string: "http://h.i.j")!, destination: 4),
+			Edit(.Insertion, value: NSURL(string: "http://h.i.j")!, destination: 2),
 		]
 		XCTAssertEqual(changeset.edits, changes)
 	}

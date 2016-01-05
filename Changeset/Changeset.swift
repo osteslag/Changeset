@@ -118,11 +118,11 @@ public struct Changeset<T: CollectionType where T.Generator.Element: Equatable, 
 						del.append(deletion)
 						d[i][j] = del
 					} else if ins.count == minimumCount {
-						let insertion = Edit(.Insertion, value: t[tx], destination: i)
+						let insertion = Edit(.Insertion, value: t[tx], destination: j - 1)
 						ins.append(insertion)
 						d[i][j] = ins
 					} else {
-						let substitution = Edit(.Substitution, value: t[tx], destination: i - 1)
+						let substitution = Edit(.Substitution, value: t[tx], destination: j - 1)
 						sub.append(substitution)
 						d[i][j] = sub
 					}
