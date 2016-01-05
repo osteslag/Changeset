@@ -94,6 +94,44 @@ class ChangesetTests: XCTestCase {
 		XCTAssertEqual(changeset.edits, edits)
 	}
 	
+	func testInsertionsAfterDeletions() {
+		
+		var changeset: Changeset<String.CharacterView>
+		var edits: Array<Edit<String.CharacterView.Generator.Element>>
+		
+		changeset = Changeset(source: "abcdefgh".characters, target: "bdefijgh".characters)
+		edits = [
+			Edit(.Deletion, value: "a", destination: 0),
+			Edit(.Deletion, value: "c", destination: 2),
+			Edit(.Insertion, value: "i", destination: 4),
+			Edit(.Insertion, value: "j", destination: 5),
+		]
+		XCTAssertEqual(changeset.edits, edits)
+		
+		changeset = Changeset(source: "bdefijgh".characters, target: "abcdefgh".characters)
+		edits = [
+			Edit(.Insertion, value: "a", destination: 0),
+			Edit(.Insertion, value: "c", destination: 2),
+			Edit(.Deletion, value: "i", destination: 4),
+			Edit(.Deletion, value: "j", destination: 5),
+		]
+		XCTAssertEqual(changeset.edits, edits)
+		
+		changeset = Changeset(source: "abcdefgh".characters, target: "bdefagch".characters)
+		edits = [
+			Edit(.Move(origin: 0), value: "a", destination: 4),
+			Edit(.Move(origin: 2), value: "c", destination: 6),
+		]
+		XCTAssertEqual(changeset.edits, edits)
+		
+		changeset = Changeset(source: "bdefagch".characters, target: "abcdefgh".characters)
+		edits = [
+			Edit(.Move(origin: 4), value: "a", destination: 0),
+			Edit(.Move(origin: 6), value: "c", destination: 2),
+		]
+		XCTAssertEqual(changeset.edits, edits)
+	}
+	
 	func testEmptyStrings() {
 		
 		var changeset: Changeset<String.CharacterView>
