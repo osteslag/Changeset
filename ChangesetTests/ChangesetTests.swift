@@ -132,6 +132,51 @@ class ChangesetTests: XCTestCase {
 		XCTAssertEqual(changeset.edits, edits)
 	}
 	
+	func testDeLongTweet() {
+		
+		// https://twitter.com/davedelong/status/671051521371406336
+		
+		var changeset: Changeset<String.CharacterView>
+		var edits: Array<Edit<String.CharacterView.Generator.Element>>
+		
+		changeset = Changeset(source: "words".characters, target: "tsword".characters)
+		edits = [
+			Edit(.Insertion, value: "t", destination: 0),
+			Edit(.Move(origin: 4), value: "s", destination: 1),
+		]
+		XCTAssertEqual(changeset.edits, edits)
+		
+		changeset = Changeset(source: "abcdefgh".characters, target: "agbcdefh".characters)
+		edits = [
+			Edit(.Move(origin: 6), value: "g", destination: 1),
+		]
+		XCTAssertEqual(changeset.edits, edits)
+		
+		changeset = Changeset(source: "stick".characters, target: "tact".characters)
+		edits = [
+			Edit(.Deletion, value: "s", destination: 0),
+			Edit(.Substitution, value: "a", destination: 1),
+			Edit(.Substitution, value: "t", destination: 3),
+		]
+		XCTAssertEqual(changeset.edits, edits)
+		
+		changeset = Changeset(source: "12345".characters, target: "2a3".characters)
+		edits = [
+			Edit(.Deletion, value: "1", destination: 0),
+			Edit(.Insertion, value: "a", destination: 1),
+			Edit(.Deletion, value: "4", destination: 3),
+			Edit(.Deletion, value: "5", destination: 4),
+		]
+		XCTAssertEqual(changeset.edits, edits)
+		
+		changeset = Changeset(source: "dave".characters, target: "david".characters)
+		edits = [
+			Edit(.Substitution, value: "i", destination: 3),
+			Edit(.Insertion, value: "d", destination: 4),
+		]
+		XCTAssertEqual(changeset.edits, edits)
+	}
+	
 	func testEmptyStrings() {
 		
 		var changeset: Changeset<String.CharacterView>
