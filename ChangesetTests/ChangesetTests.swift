@@ -132,6 +132,30 @@ class ChangesetTests: XCTestCase {
 		XCTAssertEqual(changeset.edits, edits)
 	}
 	
+	func testComplexChange() {
+		
+		var changeset: Changeset<String.CharacterView>
+		var edits: Array<Edit<String.CharacterView.Generator.Element>>
+		
+		changeset = Changeset(source: "abcdefgh".characters, target: "bacefxhi".characters)
+		edits = [
+			Edit(.Move(origin: 1), value: "b", destination: 0),
+			Edit(.Deletion, value: "d", destination: 3),
+			Edit(.Substitution, value: "x", destination: 5),
+			Edit(.Insertion, value: "i", destination: 7),
+		]
+		XCTAssertEqual(changeset.edits, edits)
+		
+		changeset = Changeset(source: "bacefxhi".characters, target: "abcdefgh".characters)
+		edits = [
+			Edit(.Move(origin: 1), value: "a", destination: 0),
+			Edit(.Insertion, value: "d", destination: 3),
+			Edit(.Substitution, value: "g", destination: 6),
+			Edit(.Deletion, value: "i", destination: 7),
+		]
+		XCTAssertEqual(changeset.edits, edits)
+	}
+	
 	func testListing7_8() {
 		
 		// https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/ManageInsertDeleteRow/ManageInsertDeleteRow.html#//apple_ref/doc/uid/TP40007451-CH10-SW16
