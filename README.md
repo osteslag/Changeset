@@ -1,5 +1,8 @@
 # Changeset
 
+> _[Changeset – pretty awesome little project](https://twitter.com/joeldev/status/685253183992500225)_
+> — [Joel Levin](https://github.com/joeldev)
+
 A `Changeset` describes the minimal edits required to go from one `CollectionType` of `Equatable` elements to another. It detects additions, deletions, substitutions, and moves.
 
 This is an attempt at implementing the solution outlined in [Dave DeLong](https://github.com/davedelong)’s article, [Edit distance and edit steps](http://davedelong.tumblr.com/post/134367865668/edit-distance-and-edit-steps).
