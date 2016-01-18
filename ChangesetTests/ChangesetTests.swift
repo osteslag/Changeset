@@ -365,6 +365,20 @@ class ChangesetTests: XCTestCase {
 		]
 		XCTAssertEqual(changeset.edits, changes)
 	}
+	
+	func testUnreducedEdits() {
+		let old = "ABCD"
+		let new = "BCDA"
+		let edits: Array<Edit<String.CharacterView.Generator.Element>>
+		
+		let changeset = Changeset(source: old.characters, target: new.characters)
+		edits = [
+			Edit(.Deletion, value: "A", destination: 0),
+			Edit(.Insertion, value: "A", destination: 3),
+		]
+		
+		XCTAssertEqual(changeset.unreducedEdits, edits)
+	}
 }
 
 // MARK: -
