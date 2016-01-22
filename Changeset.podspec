@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
 	spec.name = 'Changeset'
-	spec.version = '1.0.2'
+	spec.version = '1.0.3'
 	spec.license = { :type => 'MIT', :file => 'LICENSE' }
 	spec.homepage = 'https://github.com/osteslag/Changeset'
 	spec.author = { 'Joachim Bondo' => 'joachim@bondo.net' }
