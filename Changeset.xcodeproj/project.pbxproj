@@ -15,12 +15,12 @@
 		CC41786D1C6EE5E000296FD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC41786B1C6EE5E000296FD8 /* Main.storyboard */; };
 		CC41786F1C6EE5E000296FD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC41786E1C6EE5E000296FD8 /* Assets.xcassets */; };
 		CC4178721C6EE5E000296FD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC4178701C6EE5E000296FD8 /* LaunchScreen.storyboard */; };
-		CC4178781C6EE70400296FD8 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4178771C6EE70400296FD8 /* CollectionViewController.swift */; };
 		CC41787A1C6EE8C700296FD8 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4178791C6EE8C700296FD8 /* CollectionViewCell.swift */; };
 		CC41787C1C6EF39100296FD8 /* UICollectionView+Changeset.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41787B1C6EF39100296FD8 /* UICollectionView+Changeset.swift */; };
 		CC41787E1C6EF41000296FD8 /* Changeset.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29828DC91C2A899D0056284E /* Changeset.framework */; };
 		CC41787F1C6EF41000296FD8 /* Changeset.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 29828DC91C2A899D0056284E /* Changeset.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CC4178841C6EF88B00296FD8 /* Changeset+Naive.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4178831C6EF88B00296FD8 /* Changeset+Naive.swift */; };
+		CCDD53621C7D901F00FEBCFC /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDD53611C7D901F00FEBCFC /* CollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,10 +68,10 @@
 		CC41786E1C6EE5E000296FD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC4178711C6EE5E000296FD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CC4178731C6EE5E000296FD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CC4178771C6EE70400296FD8 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewController.swift; path = "../../notables-ios/Notables/Features/FeedFilter/CollectionViewController.swift"; sourceTree = "<group>"; };
 		CC4178791C6EE8C700296FD8 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		CC41787B1C6EF39100296FD8 /* UICollectionView+Changeset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Changeset.swift"; sourceTree = "<group>"; };
 		CC4178831C6EF88B00296FD8 /* Changeset+Naive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Changeset+Naive.swift"; sourceTree = "<group>"; };
+		CCDD53611C7D901F00FEBCFC /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,12 +144,12 @@
 		CC4178661C6EE5E000296FD8 /* ChangesetTestApp */ = {
 			isa = PBXGroup;
 			children = (
+				CCDD53611C7D901F00FEBCFC /* CollectionViewController.swift */,
 				CC4178671C6EE5E000296FD8 /* AppDelegate.swift */,
 				CC41786B1C6EE5E000296FD8 /* Main.storyboard */,
 				CC41786E1C6EE5E000296FD8 /* Assets.xcassets */,
 				CC4178701C6EE5E000296FD8 /* LaunchScreen.storyboard */,
 				CC4178731C6EE5E000296FD8 /* Info.plist */,
-				CC4178771C6EE70400296FD8 /* CollectionViewController.swift */,
 				CC4178791C6EE8C700296FD8 /* CollectionViewCell.swift */,
 				CC41787B1C6EF39100296FD8 /* UICollectionView+Changeset.swift */,
 				CC4178831C6EF88B00296FD8 /* Changeset+Naive.swift */,
@@ -315,11 +315,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC4178781C6EE70400296FD8 /* CollectionViewController.swift in Sources */,
 				CC4178841C6EF88B00296FD8 /* Changeset+Naive.swift in Sources */,
 				CC4178681C6EE5E000296FD8 /* AppDelegate.swift in Sources */,
 				CC41787C1C6EF39100296FD8 /* UICollectionView+Changeset.swift in Sources */,
 				CC41787A1C6EE8C700296FD8 /* CollectionViewCell.swift in Sources */,
+				CCDD53621C7D901F00FEBCFC /* CollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -567,6 +567,7 @@
 				CC4178751C6EE5E000296FD8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
