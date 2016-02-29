@@ -517,7 +517,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = ChangesetTestApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = changeset.ChangesetTestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -531,7 +530,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = ChangesetTestApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = changeset.ChangesetTestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
