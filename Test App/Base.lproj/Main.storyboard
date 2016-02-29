@@ -9,7 +9,7 @@
         <!--CollectionView-->
         <scene sceneID="emd-0s-If5">
             <objects>
-                <collectionViewController title="CollectionView" id="KWc-S9-Oxs" customClass="CollectionViewController" customModule="ChangesetTestApp" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController title="CollectionView" id="KWc-S9-Oxs" customClass="CollectionViewController" customModule="Changeset_App" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="D7a-9v-vGw">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -20,7 +20,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="UCD-KA-GYI" customClass="CollectionViewCell" customModule="ChangesetTestApp" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="UCD-KA-GYI" customClass="CollectionViewCell" customModule="Changeset_App" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -62,7 +62,7 @@
         <!--TableView-->
         <scene sceneID="TtQ-0p-E7H">
             <objects>
-                <tableViewController title="TableView" id="Kur-rR-hdb" customClass="TableViewController" customModule="ChangesetTestApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="TableView" id="Kur-rR-hdb" customClass="TableViewController" customModule="Changeset_App" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="4Nc-Po-bh1">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
