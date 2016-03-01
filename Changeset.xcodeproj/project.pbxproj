@@ -11,6 +11,8 @@
 		29828DD91C2A899E0056284E /* ChangesetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29828DD81C2A899E0056284E /* ChangesetTests.swift */; };
 		29828DE41C2A8BD40056284E /* Changeset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29828DE31C2A8BD40056284E /* Changeset.swift */; };
 		29828DE51C2A8BD40056284E /* Changeset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29828DE31C2A8BD40056284E /* Changeset.swift */; };
+		CC3454AA1C854BEF00CE0C4D /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3454A91C854BEF00CE0C4D /* TableViewController.swift */; };
+		CC3454AC1C8553F400CE0C4D /* UITableView+Changeset.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3454AB1C8553F400CE0C4D /* UITableView+Changeset.swift */; };
 		CC4178681C6EE5E000296FD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4178671C6EE5E000296FD8 /* AppDelegate.swift */; };
 		CC41786D1C6EE5E000296FD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC41786B1C6EE5E000296FD8 /* Main.storyboard */; };
 		CC41786F1C6EE5E000296FD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC41786E1C6EE5E000296FD8 /* Assets.xcassets */; };
@@ -62,6 +64,8 @@
 		29828DD81C2A899E0056284E /* ChangesetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangesetTests.swift; sourceTree = "<group>"; };
 		29828DDA1C2A899E0056284E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29828DE31C2A8BD40056284E /* Changeset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Changeset.swift; sourceTree = "<group>"; usesTabs = 1; };
+		CC3454A91C854BEF00CE0C4D /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		CC3454AB1C8553F400CE0C4D /* UITableView+Changeset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Changeset.swift"; sourceTree = "<group>"; };
 		CC4178651C6EE5E000296FD8 /* ChangesetTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChangesetTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC4178671C6EE5E000296FD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC41786C1C6EE5E000296FD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -153,6 +157,8 @@
 				CC4178791C6EE8C700296FD8 /* CollectionViewCell.swift */,
 				CC41787B1C6EF39100296FD8 /* UICollectionView+Changeset.swift */,
 				CC4178831C6EF88B00296FD8 /* Changeset+Naive.swift */,
+				CC3454A91C854BEF00CE0C4D /* TableViewController.swift */,
+				CC3454AB1C8553F400CE0C4D /* UITableView+Changeset.swift */,
 			);
 			path = ChangesetTestApp;
 			sourceTree = "<group>";
@@ -316,10 +322,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC4178841C6EF88B00296FD8 /* Changeset+Naive.swift in Sources */,
+				CC3454AA1C854BEF00CE0C4D /* TableViewController.swift in Sources */,
 				CC4178681C6EE5E000296FD8 /* AppDelegate.swift in Sources */,
 				CC41787C1C6EF39100296FD8 /* UICollectionView+Changeset.swift in Sources */,
 				CC41787A1C6EE8C700296FD8 /* CollectionViewCell.swift in Sources */,
 				CCDD53621C7D901F00FEBCFC /* CollectionViewController.swift in Sources */,
+				CC3454AC1C8553F400CE0C4D /* UITableView+Changeset.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
