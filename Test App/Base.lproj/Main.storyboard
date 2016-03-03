@@ -101,7 +101,7 @@
         <scene sceneID="Ai1-xa-Ruh">
             <objects>
                 <navigationController id="wDy-jb-54J" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="TableView" id="aIh-DG-UqW"/>
+                    <tabBarItem key="tabBarItem" title="TableView" image="table" selectedImage="table-selected" id="aIh-DG-UqW"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4pe-yc-ob6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -118,7 +118,7 @@
         <scene sceneID="qiL-2w-yoD">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0aa-lW-SHh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="CollectionView" id="127-n6-M9o"/>
+                    <tabBarItem key="tabBarItem" title="CollectionView" image="collection" selectedImage="collection-selected" id="127-n6-M9o"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wUz-pn-oDE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -152,4 +152,10 @@
             <point key="canvasLocation" x="284" y="901"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="collection" width="23" height="23"/>
+        <image name="collection-selected" width="23" height="23"/>
+        <image name="table" width="24" height="22"/>
+        <image name="table-selected" width="24" height="22"/>
+    </resources>
 </document>
