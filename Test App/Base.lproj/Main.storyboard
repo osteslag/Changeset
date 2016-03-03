@@ -6,11 +6,11 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--CollectionView-->
+        <!--Collection View-->
         <scene sceneID="emd-0s-If5">
             <objects>
-                <collectionViewController title="CollectionView" id="KWc-S9-Oxs" customClass="CollectionViewController" customModule="Changeset_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="D7a-9v-vGw">
+                <collectionViewController id="KWc-S9-Oxs" customClass="CollectionViewController" customModule="Changeset_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="D7a-9v-vGw">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gf7-ok-kLo">
@@ -53,16 +53,16 @@
                             <outlet property="delegate" destination="KWc-S9-Oxs" id="MAz-xy-jXc"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="CollectionView" id="2mI-84-RS0"/>
+                    <navigationItem key="navigationItem" title="Collection View" id="2mI-84-RS0"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DrA-cn-IWJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1836" y="624"/>
         </scene>
-        <!--TableView-->
+        <!--Table View-->
         <scene sceneID="TtQ-0p-E7H">
             <objects>
-                <tableViewController title="TableView" id="Kur-rR-hdb" customClass="TableViewController" customModule="Changeset_App" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Kur-rR-hdb" customClass="TableViewController" customModule="Changeset_App" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="4Nc-Po-bh1">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -91,17 +91,17 @@
                             <outlet property="delegate" destination="Kur-rR-hdb" id="KFX-Fz-j4d"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="TableView" id="X7P-uE-6dE"/>
+                    <navigationItem key="navigationItem" title="Table View" id="X7P-uE-6dE"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Bu-hn-FB9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1784" y="1388"/>
         </scene>
-        <!--TableView-->
+        <!--Table-->
         <scene sceneID="Ai1-xa-Ruh">
             <objects>
                 <navigationController id="wDy-jb-54J" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="TableView" image="table" selectedImage="table-selected" id="aIh-DG-UqW"/>
+                    <tabBarItem key="tabBarItem" title="Table" image="table" selectedImage="table-selected" id="aIh-DG-UqW"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4pe-yc-ob6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -114,11 +114,11 @@
             </objects>
             <point key="canvasLocation" x="964" y="1387"/>
         </scene>
-        <!--CollectionView-->
+        <!--Collection-->
         <scene sceneID="qiL-2w-yoD">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0aa-lW-SHh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="CollectionView" image="collection" selectedImage="collection-selected" id="127-n6-M9o"/>
+                    <tabBarItem key="tabBarItem" title="Collection" image="collection" selectedImage="collection-selected" id="127-n6-M9o"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wUz-pn-oDE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
