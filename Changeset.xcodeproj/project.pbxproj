@@ -11,6 +11,18 @@
 		29828DD91C2A899E0056284E /* ChangesetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29828DD81C2A899E0056284E /* ChangesetTests.swift */; };
 		29828DE41C2A8BD40056284E /* Changeset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29828DE31C2A8BD40056284E /* Changeset.swift */; };
 		29828DE51C2A8BD40056284E /* Changeset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29828DE31C2A8BD40056284E /* Changeset.swift */; };
+		CC3454AA1C854BEF00CE0C4D /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3454A91C854BEF00CE0C4D /* TableViewController.swift */; };
+		CC3454AC1C8553F400CE0C4D /* UITableView+Changeset.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3454AB1C8553F400CE0C4D /* UITableView+Changeset.swift */; };
+		CC4178681C6EE5E000296FD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4178671C6EE5E000296FD8 /* AppDelegate.swift */; };
+		CC41786D1C6EE5E000296FD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC41786B1C6EE5E000296FD8 /* Main.storyboard */; };
+		CC41786F1C6EE5E000296FD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC41786E1C6EE5E000296FD8 /* Assets.xcassets */; };
+		CC4178721C6EE5E000296FD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC4178701C6EE5E000296FD8 /* LaunchScreen.storyboard */; };
+		CC41787A1C6EE8C700296FD8 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4178791C6EE8C700296FD8 /* CollectionViewCell.swift */; };
+		CC41787C1C6EF39100296FD8 /* UICollectionView+Changeset.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41787B1C6EF39100296FD8 /* UICollectionView+Changeset.swift */; };
+		CC41787E1C6EF41000296FD8 /* Changeset.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29828DC91C2A899D0056284E /* Changeset.framework */; };
+		CC41787F1C6EF41000296FD8 /* Changeset.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 29828DC91C2A899D0056284E /* Changeset.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CC4178841C6EF88B00296FD8 /* Changeset+Naive.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4178831C6EF88B00296FD8 /* Changeset+Naive.swift */; };
+		CCDD53621C7D901F00FEBCFC /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDD53611C7D901F00FEBCFC /* CollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -21,7 +33,28 @@
 			remoteGlobalIDString = 29828DC81C2A899D0056284E;
 			remoteInfo = Changeset;
 		};
+		CC4178801C6EF41000296FD8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29828DC01C2A899D0056284E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 29828DC81C2A899D0056284E;
+			remoteInfo = Changeset;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CC4178821C6EF41000296FD8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CC41787F1C6EF41000296FD8 /* Changeset.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		297DDB501C2BDDC9009EA889 /* Changeset.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Changeset.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -31,6 +64,18 @@
 		29828DD81C2A899E0056284E /* ChangesetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangesetTests.swift; sourceTree = "<group>"; };
 		29828DDA1C2A899E0056284E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29828DE31C2A8BD40056284E /* Changeset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Changeset.swift; sourceTree = "<group>"; usesTabs = 1; };
+		CC3454A91C854BEF00CE0C4D /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		CC3454AB1C8553F400CE0C4D /* UITableView+Changeset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Changeset.swift"; sourceTree = "<group>"; };
+		CC4178651C6EE5E000296FD8 /* ChangesetTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChangesetTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC4178671C6EE5E000296FD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CC41786C1C6EE5E000296FD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CC41786E1C6EE5E000296FD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CC4178711C6EE5E000296FD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CC4178731C6EE5E000296FD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC4178791C6EE8C700296FD8 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		CC41787B1C6EF39100296FD8 /* UICollectionView+Changeset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Changeset.swift"; sourceTree = "<group>"; };
+		CC4178831C6EF88B00296FD8 /* Changeset+Naive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Changeset+Naive.swift"; sourceTree = "<group>"; };
+		CCDD53611C7D901F00FEBCFC /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +94,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CC4178621C6EE5E000296FD8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC41787E1C6EF41000296FD8 /* Changeset.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -58,6 +111,7 @@
 				297DDB501C2BDDC9009EA889 /* Changeset.podspec */,
 				29828DCB1C2A899D0056284E /* Changeset */,
 				29828DD71C2A899E0056284E /* ChangesetTests */,
+				CC4178661C6EE5E000296FD8 /* ChangesetTestApp */,
 				29828DCA1C2A899D0056284E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -68,6 +122,7 @@
 			children = (
 				29828DC91C2A899D0056284E /* Changeset.framework */,
 				29828DD31C2A899E0056284E /* ChangesetTests.xctest */,
+				CC4178651C6EE5E000296FD8 /* ChangesetTestApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -88,6 +143,24 @@
 				29828DDA1C2A899E0056284E /* Info.plist */,
 			);
 			path = ChangesetTests;
+			sourceTree = "<group>";
+		};
+		CC4178661C6EE5E000296FD8 /* ChangesetTestApp */ = {
+			isa = PBXGroup;
+			children = (
+				CCDD53611C7D901F00FEBCFC /* CollectionViewController.swift */,
+				CC4178671C6EE5E000296FD8 /* AppDelegate.swift */,
+				CC41786B1C6EE5E000296FD8 /* Main.storyboard */,
+				CC41786E1C6EE5E000296FD8 /* Assets.xcassets */,
+				CC4178701C6EE5E000296FD8 /* LaunchScreen.storyboard */,
+				CC4178731C6EE5E000296FD8 /* Info.plist */,
+				CC4178791C6EE8C700296FD8 /* CollectionViewCell.swift */,
+				CC41787B1C6EF39100296FD8 /* UICollectionView+Changeset.swift */,
+				CC4178831C6EF88B00296FD8 /* Changeset+Naive.swift */,
+				CC3454A91C854BEF00CE0C4D /* TableViewController.swift */,
+				CC3454AB1C8553F400CE0C4D /* UITableView+Changeset.swift */,
+			);
+			path = ChangesetTestApp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,13 +212,32 @@
 			productReference = 29828DD31C2A899E0056284E /* ChangesetTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		CC4178641C6EE5E000296FD8 /* ChangesetTestApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC4178761C6EE5E000296FD8 /* Build configuration list for PBXNativeTarget "ChangesetTestApp" */;
+			buildPhases = (
+				CC4178611C6EE5E000296FD8 /* Sources */,
+				CC4178621C6EE5E000296FD8 /* Frameworks */,
+				CC4178631C6EE5E000296FD8 /* Resources */,
+				CC4178821C6EF41000296FD8 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC4178811C6EF41000296FD8 /* PBXTargetDependency */,
+			);
+			name = ChangesetTestApp;
+			productName = ChangesetTestApp;
+			productReference = CC4178651C6EE5E000296FD8 /* ChangesetTestApp.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		29828DC01C2A899D0056284E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Joachim Bondo";
 				TargetAttributes = {
@@ -155,6 +247,9 @@
 					29828DD21C2A899E0056284E = {
 						CreatedOnToolsVersion = 7.2;
 					};
+					CC4178641C6EE5E000296FD8 = {
+						CreatedOnToolsVersion = 7.3;
+					};
 				};
 			};
 			buildConfigurationList = 29828DC31C2A899D0056284E /* Build configuration list for PBXProject "Changeset" */;
@@ -163,6 +258,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 29828DBF1C2A899D0056284E;
 			productRefGroup = 29828DCA1C2A899D0056284E /* Products */;
@@ -171,6 +267,7 @@
 			targets = (
 				29828DC81C2A899D0056284E /* Changeset */,
 				29828DD21C2A899E0056284E /* ChangesetTests */,
+				CC4178641C6EE5E000296FD8 /* ChangesetTestApp */,
 			);
 		};
 /* End PBXProject section */
@@ -187,6 +284,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC4178631C6EE5E000296FD8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC4178721C6EE5E000296FD8 /* LaunchScreen.storyboard in Resources */,
+				CC41786F1C6EE5E000296FD8 /* Assets.xcassets in Resources */,
+				CC41786D1C6EE5E000296FD8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,6 +317,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CC4178611C6EE5E000296FD8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC4178841C6EF88B00296FD8 /* Changeset+Naive.swift in Sources */,
+				CC3454AA1C854BEF00CE0C4D /* TableViewController.swift in Sources */,
+				CC4178681C6EE5E000296FD8 /* AppDelegate.swift in Sources */,
+				CC41787C1C6EF39100296FD8 /* UICollectionView+Changeset.swift in Sources */,
+				CC41787A1C6EE8C700296FD8 /* CollectionViewCell.swift in Sources */,
+				CCDD53621C7D901F00FEBCFC /* CollectionViewController.swift in Sources */,
+				CC3454AC1C8553F400CE0C4D /* UITableView+Changeset.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -218,7 +339,31 @@
 			target = 29828DC81C2A899D0056284E /* Changeset */;
 			targetProxy = 29828DD51C2A899E0056284E /* PBXContainerItemProxy */;
 		};
+		CC4178811C6EF41000296FD8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 29828DC81C2A899D0056284E /* Changeset */;
+			targetProxy = CC4178801C6EF41000296FD8 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CC41786B1C6EE5E000296FD8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC41786C1C6EE5E000296FD8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		CC4178701C6EE5E000296FD8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC4178711C6EE5E000296FD8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		29828DDB1C2A899E0056284E /* Debug */ = {
@@ -365,6 +510,34 @@
 			};
 			name = Release;
 		};
+		CC4178741C6EE5E000296FD8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				INFOPLIST_FILE = ChangesetTestApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = changeset.ChangesetTestApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CC4178751C6EE5E000296FD8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				INFOPLIST_FILE = ChangesetTestApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = changeset.ChangesetTestApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -391,6 +564,15 @@
 			buildConfigurations = (
 				29828DE11C2A899E0056284E /* Debug */,
 				29828DE21C2A899E0056284E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC4178761C6EE5E000296FD8 /* Build configuration list for PBXNativeTarget "ChangesetTestApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC4178741C6EE5E000296FD8 /* Debug */,
+				CC4178751C6EE5E000296FD8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
