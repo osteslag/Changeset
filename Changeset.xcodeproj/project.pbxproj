@@ -148,17 +148,17 @@
 		CC4178661C6EE5E000296FD8 /* Test App */ = {
 			isa = PBXGroup;
 			children = (
-				CCDD53611C7D901F00FEBCFC /* CollectionViewController.swift */,
-				CC4178671C6EE5E000296FD8 /* AppDelegate.swift */,
-				CC41786B1C6EE5E000296FD8 /* Main.storyboard */,
-				CC41786E1C6EE5E000296FD8 /* Assets.xcassets */,
 				CC4178701C6EE5E000296FD8 /* LaunchScreen.storyboard */,
-				CC4178731C6EE5E000296FD8 /* Info.plist */,
+				CC41786B1C6EE5E000296FD8 /* Main.storyboard */,
+				CC4178671C6EE5E000296FD8 /* AppDelegate.swift */,
+				CC3454A91C854BEF00CE0C4D /* TableViewController.swift */,
+				CCDD53611C7D901F00FEBCFC /* CollectionViewController.swift */,
 				CC4178791C6EE8C700296FD8 /* CollectionViewCell.swift */,
+				CC3454AB1C8553F400CE0C4D /* UITableView+Changeset.swift */,
 				CC41787B1C6EF39100296FD8 /* UICollectionView+Changeset.swift */,
 				CC4178831C6EF88B00296FD8 /* Changeset+Naive.swift */,
-				CC3454A91C854BEF00CE0C4D /* TableViewController.swift */,
-				CC3454AB1C8553F400CE0C4D /* UITableView+Changeset.swift */,
+				CC41786E1C6EE5E000296FD8 /* Assets.xcassets */,
+				CC4178731C6EE5E000296FD8 /* Info.plist */,
 			);
 			path = "Test App";
 			sourceTree = "<group>";
