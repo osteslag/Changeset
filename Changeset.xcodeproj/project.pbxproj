@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29078AC81C895E9F00FBBEC9 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29078AC71C895E9F00FBBEC9 /* DataSource.swift */; };
 		29828DD41C2A899E0056284E /* Changeset.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29828DC91C2A899D0056284E /* Changeset.framework */; };
 		29828DD91C2A899E0056284E /* ChangesetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29828DD81C2A899E0056284E /* ChangesetTests.swift */; };
 		29828DE41C2A8BD40056284E /* Changeset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29828DE31C2A8BD40056284E /* Changeset.swift */; };
@@ -57,6 +58,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		29078AC71C895E9F00FBBEC9 /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		297DDB501C2BDDC9009EA889 /* Changeset.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Changeset.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		29828DC91C2A899D0056284E /* Changeset.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Changeset.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29828DCE1C2A899D0056284E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				CC3454AB1C8553F400CE0C4D /* UITableView+Changeset.swift */,
 				CC41787B1C6EF39100296FD8 /* UICollectionView+Changeset.swift */,
 				CC4178831C6EF88B00296FD8 /* Changeset+Naive.swift */,
+				29078AC71C895E9F00FBBEC9 /* DataSource.swift */,
 				CC41786E1C6EE5E000296FD8 /* Assets.xcassets */,
 				CC4178731C6EE5E000296FD8 /* Info.plist */,
 			);
@@ -327,6 +330,7 @@
 				CC41787C1C6EF39100296FD8 /* UICollectionView+Changeset.swift in Sources */,
 				CC41787A1C6EE8C700296FD8 /* CollectionViewCell.swift in Sources */,
 				CCDD53621C7D901F00FEBCFC /* CollectionViewController.swift in Sources */,
+				29078AC81C895E9F00FBBEC9 /* DataSource.swift in Sources */,
 				CC3454AC1C8553F400CE0C4D /* UITableView+Changeset.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

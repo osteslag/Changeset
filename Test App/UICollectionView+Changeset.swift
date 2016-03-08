@@ -14,7 +14,7 @@ import Changeset
 public extension UICollectionView {
 	
 	/// Performs batch updates on the table view, given the edits of a Changeset, and animates the transition.
-	public func updateWithEdits<T: Equatable> (edits: [Edit<T>], inSection section: Int, completion: ((Bool) -> Void)?) {
+	public func updateWithEdits<T: Equatable> (edits: [Edit<T>], inSection section: Int, completion: ((Bool) -> Void)? = nil) {
 		
 		guard !edits.isEmpty else { return }
 		
@@ -25,7 +25,7 @@ public extension UICollectionView {
 			if !indexPaths.insertions.isEmpty { self.insertItemsAtIndexPaths(indexPaths.insertions) }
 			if !indexPaths.updates.isEmpty { self.reloadItemsAtIndexPaths(indexPaths.updates) }
 			indexPaths.moves.forEach { self.moveItemAtIndexPath($0.from, toIndexPath: $0.to) }
-			}, completion: completion)
+		}, completion: completion)
 	}
 }
 

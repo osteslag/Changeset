@@ -10,76 +10,39 @@ import UIKit
 import Changeset
 
 class TableViewController: UITableViewController {
-
-	private var data = "changeset"
 	
-	private let tests = [
-		"64927513",
-		"917546832",
-		"8C9A2574361B",
-		"897A34B215C6",
-		"5198427",
-		"768952413",
-		"changeset"
-		]
-	
-	private var buttonsEnabled:Bool = true {
-		didSet {
-			navigationItem.rightBarButtonItem?.enabled = buttonsEnabled
-			navigationItem.leftBarButtonItem?.enabled = buttonsEnabled
-		}
-	}
+	private var dataSource = DataSource()
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-
-		self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Naive", style: .Plain, target: self, action: "testNaive")
-		self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Changeset", style: .Plain, target: self, action: "testChangeset")
+		
+		self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Naive", style: .Plain, target: self, action: "test:")
+		self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Changeset", style: .Plain, target: self, action: "test:")
+		
+		self.navigationItem.leftBarButtonItem?.tag = TestType.Naive.rawValue
+		self.navigationItem.rightBarButtonItem?.tag = TestType.Changeset.rawValue
     }
 	
-	dynamic private func testChangeset() {
-		buttonsEnabled = false
-		runTests(tests, naive: false)
-	}
-	
-	dynamic private func testNaive() {
-		buttonsEnabled = false
-		runTests(tests, naive: true)
-	}
-	
-	private func runTests(tests:[String], naive:Bool) {
-		guard tests.count > 0 else {
-			buttonsEnabled = true
-			return
-		}
-		var tail = tests
-		let next = tail.removeFirst()
+	dynamic private func test(sender: UIBarButtonItem) {
+		guard let testType = TestType(rawValue: sender.tag) else { return }
 		
-		let edits = naive ? Changeset.naiveEditDistance(source: data.characters, target: next.characters) : Changeset.editDistance(source: data.characters, target: next.characters)
-		
-		data = next
-		
-		tableView?.updateWithEdits(edits, inSection: 0)
-		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
-			self.runTests(tail, naive: naive)
+		self.dataSource.runTests(testType) {
+			(edits: [Edit<Character>], isComplete: Bool) in
+			self.tableView.updateWithEdits(edits, inSection: 0)
+			self.navigationItem.rightBarButtonItem?.enabled = isComplete
+			self.navigationItem.leftBarButtonItem?.enabled = isComplete
 		}
 	}
-}
-
-extension TableViewController { // Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.characters.count
-    }
-
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-		let char = data.characters[data.characters.startIndex.advancedBy(indexPath.row)]
-		cell.textLabel?.text = "\(char)"
-        return cell
-    }
+	
+	// MARK: - UITableViewDataSource
+	
+	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return self.dataSource.numberOfElementsInSection(section)
+	}
+	
+	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+		cell.textLabel?.text = self.dataSource.textForElementAtIndexPath(indexPath)
+		return cell
+	}
 }
