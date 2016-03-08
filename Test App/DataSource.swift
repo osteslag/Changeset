@@ -21,28 +21,15 @@ private let kTestData = [
 ]
 private let kTestInterval: NSTimeInterval = 0.5
 
-/// The type of the test.
-enum TestType: Int {
-	case Changeset = 1
-	case Naive = 2
-}
-
 class DataSource {
 	
 	private var data = kDefaultData
 	
 	/// The callback is called after each test to let the caller update its view, or whatever.
-	func runTests(type: TestType, var testData: [String] = kTestData, callback: ((edits: [Edit<Character>], isComplete: Bool) -> Void)) {
+	func runTests(var testData: [String] = kTestData, callback: ((edits: [Edit<Character>], isComplete: Bool) -> Void)) {
 		
 		let next = testData.removeAtIndex(0)
-		let edits: [Edit<Character>]
-		
-		switch type {
-		case .Changeset:
-			edits = Changeset.editDistance(source: self.data.characters, target: next.characters)
-		case .Naive:
-			edits = Changeset.naiveEditDistance(source: self.data.characters, target: next.characters)
-		}
+		let edits = Changeset.editDistance(source: self.data.characters, target: next.characters) // Call naiveEditDistance for a different approach
 		
 		self.data = next
 		callback(edits: edits, isComplete: testData.isEmpty)
@@ -52,7 +39,7 @@ class DataSource {
 		// Schedule next test.
 		let when = dispatch_time(DISPATCH_TIME_NOW, Int64(kTestInterval * Double(NSEC_PER_SEC)))
 		dispatch_after(when, dispatch_get_main_queue()) {
-			self.runTests(type, testData: testData, callback: callback)
+			self.runTests(testData, callback: callback)
 		}
 	}
 	

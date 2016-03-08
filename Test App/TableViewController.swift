@@ -15,22 +15,14 @@ class TableViewController: UITableViewController {
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		
-		self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Naive", style: .Plain, target: self, action: "test:")
-		self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Changeset", style: .Plain, target: self, action: "test:")
-		
-		self.navigationItem.leftBarButtonItem?.tag = TestType.Naive.rawValue
-		self.navigationItem.rightBarButtonItem?.tag = TestType.Changeset.rawValue
+		self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Test", style: .Plain, target: self, action: "test:")
     }
 	
 	dynamic private func test(sender: UIBarButtonItem) {
-		guard let testType = TestType(rawValue: sender.tag) else { return }
-		
-		self.dataSource.runTests(testType) {
+		self.dataSource.runTests() {
 			(edits: [Edit<Character>], isComplete: Bool) in
 			self.tableView.updateWithEdits(edits, inSection: 0)
 			self.navigationItem.rightBarButtonItem?.enabled = isComplete
-			self.navigationItem.leftBarButtonItem?.enabled = isComplete
 		}
 	}
 	
