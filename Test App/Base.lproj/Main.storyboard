@@ -55,7 +55,15 @@
                             <outlet property="delegate" destination="KWc-S9-Oxs" id="MAz-xy-jXc"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Collection View" id="2mI-84-RS0"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Collection View" id="2mI-84-RS0">
+                        <barButtonItem key="rightBarButtonItem" image="test-changes" id="L6O-KK-n0W">
+                            <connections>
+                                <action selector="test:" destination="KWc-S9-Oxs" id="V8c-HB-k4p"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DrA-cn-IWJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -93,7 +101,15 @@
                             <outlet property="delegate" destination="Kur-rR-hdb" id="KFX-Fz-j4d"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Table View" id="X7P-uE-6dE"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Table View" id="X7P-uE-6dE">
+                        <barButtonItem key="rightBarButtonItem" image="test-changes" id="ZmP-P0-Aox">
+                            <connections>
+                                <action selector="test:" destination="Kur-rR-hdb" id="lzt-hL-Seb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Bu-hn-FB9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -159,5 +175,6 @@
         <image name="collection-selected" width="23" height="23"/>
         <image name="table" width="24" height="22"/>
         <image name="table-selected" width="24" height="22"/>
+        <image name="test-changes" width="24" height="13"/>
     </resources>
 </document>

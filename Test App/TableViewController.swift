@@ -13,16 +13,11 @@ class TableViewController: UITableViewController {
 	
 	private var dataSource = DataSource()
 	
-    override func viewDidLoad() {
-        super.viewDidLoad()
-		self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Test", style: .Plain, target: self, action: "test:")
-    }
-	
-	dynamic private func test(sender: UIBarButtonItem) {
+	@IBAction func test(sender: UIBarButtonItem) {
 		self.dataSource.runTests() {
 			(edits: [Edit<Character>], isComplete: Bool) in
 			self.tableView.updateWithEdits(edits, inSection: 0)
-			self.navigationItem.rightBarButtonItem?.enabled = isComplete
+			sender.enabled = isComplete
 		}
 	}
 	
