@@ -2,9 +2,6 @@
 //  TableViewController.swift
 //  Changeset
 //
-//  Created by Bart Whiteley on 2/29/16.
-//  Copyright © 2016 Joachim Bondo. All rights reserved.
-//
 
 import UIKit
 import Changeset

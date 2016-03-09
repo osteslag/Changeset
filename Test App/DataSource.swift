@@ -2,9 +2,6 @@
 //  DataSource.swift
 //  Changeset
 //
-//  Created by Joachim Bondo on 04/03/16.
-//  Copyright © 2016 Joachim Bondo. All rights reserved.
-//
 
 import UIKit
 import Changeset

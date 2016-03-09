@@ -2,11 +2,6 @@
 //  UIKit+Changeset.swift
 //  Changeset
 //
-//  Created by Bart Whiteley on 2/12/16.
-//  Copyright © 2016 Joachim Bondo. All rights reserved.
-//
-
-// https://gist.github.com/osteslag/b7b22aa29e1c1dd5a4a6
 
 import UIKit
 import Changeset
