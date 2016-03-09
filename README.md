@@ -48,6 +48,12 @@ let edits = Changeset.editDistance(source: source, target: target)
 print(edits)
 // [insert Alaska at index 0, replace with Georgia at index 3, replace with Virginia at index 5]
 ```
+  
+## Test App
+
+The Xcode project contains a target to illustrate the usage in an app.
+
+![Test App](Test\ App/Screen.png "Test App")
 
 ## License
 
