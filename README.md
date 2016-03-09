@@ -1,6 +1,6 @@
 # Changeset
 
-> _[Changeset – pretty awesome little project](https://twitter.com/joeldev/status/685253183992500225)_
+> _[Changeset – pretty awesome little project](https://twitter.com/joeldev/status/685253183992500225)_  
 > — [Joel Levin](https://github.com/joeldev)
 
 A `Changeset` describes the minimal edits required to go from one `CollectionType` of `Equatable` elements to another. It detects additions, deletions, substitutions, and moves.
@@ -58,4 +58,4 @@ The Xcode project contains a target to illustrate the usage in an app.
 ## License
 
 This project is available under [The MIT License](http://opensource.org/licenses/MIT).  
-Copyright © 2015-16, [Joachim Bondo](mailto:joachim@bondo.net). See LICENSE file.
+Copyright © 2015-16, [Joachim Bondo](mailto:joachim@bondo.net). See [LICENSE](LICENSE) file.
