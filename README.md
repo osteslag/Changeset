@@ -1,6 +1,6 @@
 # Changeset
 
-> _[Changeset – pretty awesome little project](https://twitter.com/joeldev/status/685253183992500225)_
+> _[Changeset – pretty awesome little project](https://twitter.com/joeldev/status/685253183992500225)_  
 > — [Joel Levin](https://github.com/joeldev)
 
 A `Changeset` describes the minimal edits required to go from one `CollectionType` of `Equatable` elements to another. It detects additions, deletions, substitutions, and moves.
@@ -48,8 +48,14 @@ let edits = Changeset.editDistance(source: source, target: target)
 print(edits)
 // [insert Alaska at index 0, replace with Georgia at index 3, replace with Virginia at index 5]
 ```
+  
+## Test App
+
+The Xcode project contains a target to illustrate the usage in an app.
+
+![Test App](Test\ App/Screen.png "Test App")
 
 ## License
 
 This project is available under [The MIT License](http://opensource.org/licenses/MIT).  
-Copyright © 2015-16, [Joachim Bondo](mailto:joachim@bondo.net). See LICENSE file.
+Copyright © 2015-16, [Joachim Bondo](mailto:joachim@bondo.net). See [LICENSE](LICENSE) file.

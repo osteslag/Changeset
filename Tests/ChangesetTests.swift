@@ -1,6 +1,6 @@
 //
 //  ChangesetTests.swift
-//  Copyright (c) 2015 Joachim Bondo. All rights reserved.
+//  Changeset
 //
 
 import XCTest
