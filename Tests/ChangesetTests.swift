@@ -4,6 +4,7 @@
 //
 
 import XCTest
+import Changeset
 
 class ChangesetTests: XCTestCase {
 	
