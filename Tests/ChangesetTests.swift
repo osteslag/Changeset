@@ -45,7 +45,7 @@ class ChangesetTests: XCTestCase {
 		edits = [
 			Edit(.Deletion, value: "a", destination: 1),
 			Edit(.Deletion, value: "t", destination: 2),
-			Edit(.Substitution, value: "n", destination: 2),
+			Edit(.Substitution, value: "n", destination: 4),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
@@ -53,7 +53,7 @@ class ChangesetTests: XCTestCase {
 		edits = [
 			Edit(.Insertion, value: "a", destination: 1),
 			Edit(.Insertion, value: "t", destination: 2),
-			Edit(.Substitution, value: "r", destination: 4),
+			Edit(.Substitution, value: "r", destination: 2),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
@@ -141,7 +141,7 @@ class ChangesetTests: XCTestCase {
 		edits = [
 			Edit(.Move(origin: 1), value: "b", destination: 0),
 			Edit(.Deletion, value: "d", destination: 3),
-			Edit(.Substitution, value: "x", destination: 5),
+			Edit(.Substitution, value: "x", destination: 6),
 			Edit(.Insertion, value: "i", destination: 7),
 		]
 		XCTAssertEqual(changeset.edits, edits)
@@ -150,7 +150,7 @@ class ChangesetTests: XCTestCase {
 		edits = [
 			Edit(.Move(origin: 1), value: "a", destination: 0),
 			Edit(.Insertion, value: "d", destination: 3),
-			Edit(.Substitution, value: "g", destination: 6),
+			Edit(.Substitution, value: "g", destination: 5),
 			Edit(.Deletion, value: "i", destination: 7),
 		]
 		XCTAssertEqual(changeset.edits, edits)
@@ -177,8 +177,8 @@ class ChangesetTests: XCTestCase {
 		changeset = Changeset(source: source, target: target)
 		edits = [
 			Edit(.Insertion, value: "Alaska", destination: 0),
-			Edit(.Substitution, value: "Georgia", destination: 3),
-			Edit(.Substitution, value: "Virginia", destination: 5),
+			Edit(.Substitution, value: "Georgia", destination: 2),
+			Edit(.Substitution, value: "Virginia", destination: 4),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 	}
@@ -206,8 +206,8 @@ class ChangesetTests: XCTestCase {
 		changeset = Changeset(source: "stick".characters, target: "tact".characters)
 		edits = [
 			Edit(.Deletion, value: "s", destination: 0),
-			Edit(.Substitution, value: "a", destination: 1),
-			Edit(.Substitution, value: "t", destination: 3),
+			Edit(.Substitution, value: "a", destination: 2),
+			Edit(.Substitution, value: "t", destination: 4),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
