@@ -122,7 +122,7 @@ public struct Changeset<T: CollectionType where T.Generator.Element: Equatable, 
 						ins.append(insertion)
 						d[i][j] = ins
 					} else {
-						let substitution = Edit(.Substitution, value: t[tx], destination: j - 1)
+						let substitution = Edit(.Substitution, value: t[tx], destination: i - 1)
 						sub.append(substitution)
 						d[i][j] = sub
 					}
