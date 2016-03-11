@@ -19,7 +19,6 @@ extension UITableView {
 		if !indexPaths.deletions.isEmpty { self.deleteRowsAtIndexPaths(indexPaths.deletions, withRowAnimation: .Automatic) }
 		if !indexPaths.insertions.isEmpty { self.insertRowsAtIndexPaths(indexPaths.insertions, withRowAnimation: .Automatic) }
 		if !indexPaths.updates.isEmpty { self.reloadRowsAtIndexPaths(indexPaths.updates, withRowAnimation: .Automatic) }
-		indexPaths.moves.forEach { self.moveRowAtIndexPath($0.from, toIndexPath: $0.to) }
 		self.endUpdates()
 	}
 }
@@ -37,16 +36,14 @@ extension UICollectionView {
 			if !indexPaths.deletions.isEmpty { self.deleteItemsAtIndexPaths(indexPaths.deletions) }
 			if !indexPaths.insertions.isEmpty { self.insertItemsAtIndexPaths(indexPaths.insertions) }
 			if !indexPaths.updates.isEmpty { self.reloadItemsAtIndexPaths(indexPaths.updates) }
-			indexPaths.moves.forEach { self.moveItemAtIndexPath($0.from, toIndexPath: $0.to) }
 		}, completion: completion)
 	}
 }
 
-private func batchIndexPathsFromEdits<T: Equatable> (edits: [Edit<T>], inSection section: Int) -> (insertions: [NSIndexPath], deletions: [NSIndexPath], moves: [(from: NSIndexPath, to: NSIndexPath)], updates: [NSIndexPath]) {
+private func batchIndexPathsFromEdits<T: Equatable> (edits: [Edit<T>], inSection section: Int) -> (insertions: [NSIndexPath], deletions: [NSIndexPath], updates: [NSIndexPath]) {
 	
 	var insertions = [NSIndexPath]()
 	var deletions = [NSIndexPath]()
-	var moves = [(from: NSIndexPath, to: NSIndexPath)]()
 	var updates = [NSIndexPath]()
 	
 	for edit in edits {
@@ -58,11 +55,12 @@ private func batchIndexPathsFromEdits<T: Equatable> (edits: [Edit<T>], inSection
 			insertions.append(destinationIndexPath)
 		case .Move(let origin):
 			let originIndexPath = NSIndexPath(forRow: origin, inSection: section)
-			moves.append(from: originIndexPath, to: destinationIndexPath)
+			deletions.append(originIndexPath)
+			insertions.append(destinationIndexPath)
 		case .Substitution:
 			updates.append(destinationIndexPath)
 		}
 	}
 	
-	return (insertions: insertions, deletions: deletions, moves: moves, updates: updates)
+	return (insertions: insertions, deletions: deletions, updates: updates)
 }
