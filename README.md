@@ -36,7 +36,7 @@ Because `Changeset` works on any `CollectionType` of `Equatable`, it has many ap
 
 Note, indices are those exactly to be used within a `beginUpdates`/`endUpdates` block on `UITableView`.
 
-In short; first all deletions are made relative to the source collection, then, relative to the resulting collection, insertions and substitutions. A move is just a deletion followed by an insertion on the resulting collection. This is explained in much more detail under [_Batch Insertion, Deletion, and Reloading of Rows and Sections_](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/ManageInsertDeleteRow/ManageInsertDeleteRow.html#//apple_ref/doc/uid/TP40007451-CH10-SW9) in Apple’s [Table View Programming Guide for iOS](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/AboutTableViewsiPhone/AboutTableViewsiPhone.html).
+In short; first all deletions and substitutions are made, relative to the source collection, then, relative to the resulting collection, insertions. A move is just a deletion followed by an insertion. This is explained in more detail under [_Batch Insertion, Deletion, and Reloading of Rows and Sections_](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/ManageInsertDeleteRow/ManageInsertDeleteRow.html#//apple_ref/doc/uid/TP40007451-CH10-SW9) in Apple’s [Table View Programming Guide for iOS](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/AboutTableViewsiPhone/AboutTableViewsiPhone.html).
 
 If you don’t want the overhead of `Changeset` itself, which also stores the source and target collections, you can call `editDistance` directly (here with [example data](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/ManageInsertDeleteRow/ManageInsertDeleteRow.html#//apple_ref/doc/uid/TP40007451-CH10-SW16)) from Apple’s guide:
 
@@ -46,7 +46,7 @@ let target = ["Alaska", "Arizona", "California", "Georgia", "New Jersey", "Virgi
 let edits = Changeset.editDistance(source: source, target: target)
 
 print(edits)
-// [insert Alaska at index 0, replace with Georgia at index 3, replace with Virginia at index 5]
+// [insert Alaska at index 0, replace with Georgia at index 2, replace with Virginia at index 4]
 ```
   
 ## Test App
