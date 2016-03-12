@@ -60,4 +60,4 @@ This includes simple extensions on `UITableview` and `UICollectionView` making i
 ## License
 
 This project is available under [The MIT License](http://opensource.org/licenses/MIT).  
-Copyright © 2015-16, [Joachim Bondo](mailto:joachim@bondo.net). See [LICENSE](LICENSE) file.
+Copyright © 2015-16, [Joachim Bondo](mailto:joachim@bondo.net). See [LICENSE](LICENSE.md) file.
