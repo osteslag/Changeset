@@ -57,7 +57,7 @@
 
 /* Begin PBXFileReference section */
 		29078AC71C895E9F00FBBEC9 /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
-		297DDB501C2BDDC9009EA889 /* Changeset.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Changeset.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		297DDB501C2BDDC9009EA889 /* Changeset.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; path = Changeset.podspec; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		29828DC91C2A899D0056284E /* Changeset.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Changeset.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29828DCE1C2A899D0056284E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29828DD31C2A899E0056284E /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,7 +107,7 @@
 		29828DBF1C2A899D0056284E = {
 			isa = PBXGroup;
 			children = (
-				297DDB501C2BDDC9009EA889 /* Changeset.podspec */,
+				29DA8AE01C969702001B1059 /* Packaging */,
 				29828DCB1C2A899D0056284E /* Changeset */,
 				CC4178661C6EE5E000296FD8 /* Test App */,
 				29828DD71C2A899E0056284E /* Tests */,
@@ -142,6 +142,14 @@
 				29828DDA1C2A899E0056284E /* Info.plist */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		29DA8AE01C969702001B1059 /* Packaging */ = {
+			isa = PBXGroup;
+			children = (
+				297DDB501C2BDDC9009EA889 /* Changeset.podspec */,
+			);
+			name = Packaging;
 			sourceTree = "<group>";
 		};
 		CC4178661C6EE5E000296FD8 /* Test App */ = {
