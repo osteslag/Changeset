@@ -23,20 +23,20 @@ class DataSource {
 	private var data = kDefaultData
 	
 	/// The callback is called after each test to let the caller update its view, or whatever.
-	func runTests(var testData: [String] = kTestData, callback: ((edits: [Edit<Character>], isComplete: Bool) -> Void)) {
-		
-		let next = testData.removeAtIndex(0)
+	func runTests(testData: [String] = kTestData, callback: ((edits: [Edit<Character>], isComplete: Bool) -> Void)) {
+		var nextTestData = testData
+		let next = nextTestData.removeAtIndex(0)
 		let edits = Changeset.editDistance(source: self.data.characters, target: next.characters) // Call naiveEditDistance for a different approach
 		
 		self.data = next
-		callback(edits: edits, isComplete: testData.isEmpty)
+		callback(edits: edits, isComplete: nextTestData.isEmpty)
 		
-		guard !testData.isEmpty else { return }
+		guard !nextTestData.isEmpty else { return }
 		
 		// Schedule next test.
 		let when = dispatch_time(DISPATCH_TIME_NOW, Int64(kTestInterval * Double(NSEC_PER_SEC)))
 		dispatch_after(when, dispatch_get_main_queue()) {
-			self.runTests(testData, callback: callback)
+			self.runTests(nextTestData, callback: callback)
 		}
 	}
 	
