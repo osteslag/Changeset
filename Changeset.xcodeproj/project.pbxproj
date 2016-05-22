@@ -57,13 +57,14 @@
 
 /* Begin PBXFileReference section */
 		29078AC71C895E9F00FBBEC9 /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
-		297DDB501C2BDDC9009EA889 /* Changeset.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Changeset.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		297DDB501C2BDDC9009EA889 /* Changeset.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; path = Changeset.podspec; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		29828DC91C2A899D0056284E /* Changeset.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Changeset.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29828DCE1C2A899D0056284E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29828DD31C2A899E0056284E /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		29828DD81C2A899E0056284E /* ChangesetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangesetTests.swift; sourceTree = "<group>"; };
 		29828DDA1C2A899E0056284E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29828DE31C2A8BD40056284E /* Changeset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Changeset.swift; sourceTree = "<group>"; usesTabs = 1; };
+		29DB54B31C9DEEAB004A6DCE /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		CC3454A91C854BEF00CE0C4D /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		CC4178651C6EE5E000296FD8 /* Changeset.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Changeset.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC4178671C6EE5E000296FD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -107,8 +108,8 @@
 		29828DBF1C2A899D0056284E = {
 			isa = PBXGroup;
 			children = (
-				297DDB501C2BDDC9009EA889 /* Changeset.podspec */,
-				29828DCB1C2A899D0056284E /* Changeset */,
+				29DA8AE01C969702001B1059 /* Packaging */,
+				29828DCB1C2A899D0056284E /* Sources */,
 				CC4178661C6EE5E000296FD8 /* Test App */,
 				29828DD71C2A899E0056284E /* Tests */,
 				29828DCA1C2A899D0056284E /* Products */,
@@ -126,13 +127,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29828DCB1C2A899D0056284E /* Changeset */ = {
+		29828DCB1C2A899D0056284E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				29828DE31C2A8BD40056284E /* Changeset.swift */,
 				29828DCE1C2A899D0056284E /* Info.plist */,
 			);
-			path = Changeset;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		29828DD71C2A899E0056284E /* Tests */ = {
@@ -142,6 +143,15 @@
 				29828DDA1C2A899E0056284E /* Info.plist */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		29DA8AE01C969702001B1059 /* Packaging */ = {
+			isa = PBXGroup;
+			children = (
+				29DB54B31C9DEEAB004A6DCE /* Package.swift */,
+				297DDB501C2BDDC9009EA889 /* Changeset.podspec */,
+			);
+			name = Packaging;
 			sourceTree = "<group>";
 		};
 		CC4178661C6EE5E000296FD8 /* Test App */ = {
@@ -460,7 +470,7 @@
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Changeset/Info.plist;
+				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.bondo.changeset;
@@ -477,7 +487,7 @@
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Changeset/Info.plist;
+				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.bondo.changeset;
