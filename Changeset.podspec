@@ -8,7 +8,7 @@ Pod::Spec.new do |spec|
 	spec.summary = 'Minimal edits from one collection to another'
 	spec.description = 'A Swift value type to compute and hold the edits required to go from one CollectionType of Equatable elements to another.'
 	spec.source = { :git => 'https://github.com/osteslag/Changeset.git', :tag => "v#{spec.version}" }
-	spec.source_files = 'Changeset/*.swift'
+	spec.source_files = 'Sources/*.swift'
 	spec.requires_arc = true
 	spec.ios.deployment_target = '8.0'
 	spec.osx.deployment_target = '10.9'

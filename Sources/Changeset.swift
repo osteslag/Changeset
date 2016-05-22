@@ -1,6 +1,6 @@
 //
 //  Changeset.swift
-//  Copyright (c) 2015 Joachim Bondo. All rights reserved.
+//  Copyright (c) 2015-16 Joachim Bondo. All rights reserved.
 //
 
 /// Defines an atomic edit.
@@ -155,7 +155,7 @@ private func reducedEdits<T: Equatable>(edits: [Edit<T>]) -> [Edit<T>] {
 	}
 }
 
-/// Returns a potential move `Edit` based on an array of `Edit` elements and an `edit` to match up against.
+/// Returns a potential move `Edit` based on an array of `Edit` elements and an edit to match up against.
 ///
 /// If `edit` is a deletion or an insertion, and there is a matching inverse insertion/deletion with the same value in the array, a corresponding `.Move` edit is returned. 
 ///
