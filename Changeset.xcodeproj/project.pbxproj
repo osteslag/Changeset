@@ -65,6 +65,8 @@
 		29828DDA1C2A899E0056284E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29828DE31C2A8BD40056284E /* Changeset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Changeset.swift; sourceTree = "<group>"; usesTabs = 1; };
 		29DB54B31C9DEEAB004A6DCE /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		9019C47D1D23AC8100A34C66 /* Universal-Framework-Target.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Universal-Framework-Target.xcconfig"; sourceTree = "<group>"; };
+		9019C47E1D23AC8100A34C66 /* Universal-Target-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Universal-Target-Base.xcconfig"; sourceTree = "<group>"; };
 		CC3454A91C854BEF00CE0C4D /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		CC4178651C6EE5E000296FD8 /* Changeset.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Changeset.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC4178671C6EE5E000296FD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				29828DCB1C2A899D0056284E /* Sources */,
 				CC4178661C6EE5E000296FD8 /* Test App */,
 				29828DD71C2A899E0056284E /* Tests */,
+				9019C4791D23AC6600A34C66 /* Configuration */,
 				29828DCA1C2A899D0056284E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -152,6 +155,15 @@
 				297DDB501C2BDDC9009EA889 /* Changeset.podspec */,
 			);
 			name = Packaging;
+			sourceTree = "<group>";
+		};
+		9019C4791D23AC6600A34C66 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				9019C47D1D23AC8100A34C66 /* Universal-Framework-Target.xcconfig */,
+				9019C47E1D23AC8100A34C66 /* Universal-Target-Base.xcconfig */,
+			);
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 		CC4178661C6EE5E000296FD8 /* Test App */ = {
@@ -465,6 +477,7 @@
 		};
 		29828DDE1C2A899E0056284E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9019C47D1D23AC8100A34C66 /* Universal-Framework-Target.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
@@ -482,6 +495,7 @@
 		};
 		29828DDF1C2A899E0056284E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9019C47D1D23AC8100A34C66 /* Universal-Framework-Target.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
@@ -498,6 +512,7 @@
 		};
 		29828DE11C2A899E0056284E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9019C47E1D23AC8100A34C66 /* Universal-Target-Base.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -508,6 +523,7 @@
 		};
 		29828DE21C2A899E0056284E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9019C47E1D23AC8100A34C66 /* Universal-Target-Base.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
