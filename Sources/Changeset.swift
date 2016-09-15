@@ -139,7 +139,7 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 	}
 }
 
-/// Returns an array where deletion/insertion pairs of the same element are replaced by `.Move` edits.
+/// Returns an array where deletion/insertion pairs of the same element are replaced by `.move` edits.
 private func reducedEdits<T: Equatable>(_ edits: [Edit<T>]) -> [Edit<T>] {
 	return edits.reduce([Edit<T>]()) {
 		(edits, edit) in
@@ -157,7 +157,7 @@ private func reducedEdits<T: Equatable>(_ edits: [Edit<T>]) -> [Edit<T>] {
 
 /// Returns a potential move `Edit` based on an array of `Edit` elements and an edit to match up against.
 ///
-/// If `edit` is a deletion or an insertion, and there is a matching inverse insertion/deletion with the same value in the array, a corresponding `.Move` edit is returned.
+/// If `edit` is a deletion or an insertion, and there is a matching inverse insertion/deletion with the same value in the array, a corresponding `.move` edit is returned.
 ///
 /// As a convenience, the index of the matched edit into `edits` is returned as well.
 private func moveFromEdits<T: Equatable>(_ edits: [Edit<T>], deletionOrInsertion edit: Edit<T>) -> (move: Edit<T>, index: Int)? {
