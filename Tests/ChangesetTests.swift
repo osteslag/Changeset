@@ -389,8 +389,8 @@ extension Edit: CustomDebugStringConvertible {
 extension Changeset: CustomDebugStringConvertible {
 	public var debugDescription: String {
 		
-		let origin = self.origin.reduce("") { $0 + String($1) }
-		let destination = self.destination.reduce("") { $0 + String($1) }
+		let origin = self.origin.reduce("") { $0 + String(describing: $1) }
+		let destination = self.destination.reduce("") { $0 + String(describing: $1) }
 		
 		var text = "'\(origin)' -> '\(destination)':"
 		for change in self.edits {
