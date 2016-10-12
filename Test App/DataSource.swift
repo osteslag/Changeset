@@ -26,7 +26,7 @@ class DataSource {
 	func runTests(_ testData: [String] = kTestData, callback: @escaping ((_ edits: [Edit<Character>], _ isComplete: Bool) -> Void)) {
 		var nextTestData = testData
 		let next = nextTestData.remove(at: 0)
-		let edits = Changeset.editDistance(source: self.data.characters, target: next.characters) // Call naiveEditDistance for a different approach
+		let edits = Changeset.edits(from: self.data.characters, to: next.characters) // Call naiveEditDistance for a different approach
 		
 		self.data = next
 		callback(edits, nextTestData.isEmpty)

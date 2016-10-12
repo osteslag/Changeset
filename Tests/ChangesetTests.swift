@@ -338,10 +338,10 @@ class ChangesetTests: XCTestCase {
 	
 	func testNoChanges() {
 		
-		var edits = Changeset.editDistance(source: "".characters, target: "".characters)
+		var edits = Changeset.edits(from: "".characters, to: "".characters)
 		XCTAssertEqual(edits.count, 0)
 		
-		edits = Changeset.editDistance(source: "abcd".characters, target: "abcd".characters)
+		edits = Changeset.edits(from: "abcd".characters, to: "abcd".characters)
 		XCTAssertEqual(edits.count, 0)
 	}
 	
