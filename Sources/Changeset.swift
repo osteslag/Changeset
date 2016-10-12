@@ -50,24 +50,24 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 	public init(source origin: T, target destination: T) {
 		self.origin = origin
 		self.destination = destination
-		self.edits = Changeset.editDistance(source: self.origin, target: self.destination)
+		self.edits = Changeset.edits(from: self.origin, to: self.destination)
 	}
 	
-	/// Returns the edit steps required to go from `source` to `target`.
+	/// Returns the edit steps required to go from one collection to another.
 	///
-	/// - note: Indexes in the returned `Edit` elements are into the `source` collection (just like how `UITableView` expects changes in the `beginUpdates`/`endUpdates` block.)
+	/// - note: Indexes in the returned `Edit` elements are into the `from` source collection (just like how `UITableView` expects changes in the `beginUpdates`/`endUpdates` block.)
 	///
 	/// - seealso:
 	///   - [Edit distance and edit steps](http://davedelong.tumblr.com/post/134367865668/edit-distance-and-edit-steps) by [Dave DeLong](https://twitter.com/davedelong).
 	///   - [Explanation of and Pseudo-code for the Wagner-Fischer algorithm](https://en.wikipedia.org/wiki/Wagner–Fischer_algorithm).
 	///
 	/// - parameters:
-	///   - source: The starting-point collection.
-	///   - target: The ending-point collection.
+	///   - from: The starting-point collection.
+	///   - to: The ending-point collection.
 	///
 	/// - returns: An array of `Edit` elements.
 	/// The number of steps is then the `count` of elements.
-	public static func editDistance(source s: T, target t: T) -> [Edit<T.Iterator.Element>] {
+	public static func edits(from s: T, to t: T) -> [Edit<T.Iterator.Element>] {
 		
 		let m = s.count
 		let n = t.count
