@@ -153,8 +153,7 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
   - returns: An array of `Edit` elements.
 */
 private func reducedEdits<T: Equatable>(_ edits: [Edit<T>]) -> [Edit<T>] {
-	return edits.reduce([Edit<T>]()) {
-		(edits, edit) in
+	return edits.reduce([Edit<T>]()) { (edits, edit) in
 		var reducedEdits = edits
 		if let (move, index) = move(from: edit, in: reducedEdits), case .move = move.operation {
 			reducedEdits.remove(at: index)
