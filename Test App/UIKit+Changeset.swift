@@ -47,18 +47,18 @@ private func batchIndexPathsFromEdits<T: Equatable> (_ edits: [Edit<T>], inSecti
 	var updates = [IndexPath]()
 	
 	for edit in edits {
-		let destinationIndexPath = NSIndexPath(row: edit.destination, section: section)
+		let destinationIndexPath = IndexPath(row: edit.destination, section: section)
 		switch edit.operation {
 		case .deletion:
-			deletions.append(destinationIndexPath as IndexPath)
+			deletions.append(destinationIndexPath)
 		case .insertion:
-			insertions.append(destinationIndexPath as IndexPath)
+			insertions.append(destinationIndexPath)
 		case .move(let origin):
-			let originIndexPath = NSIndexPath(row: origin, section: section)
-			deletions.append(originIndexPath as IndexPath)
-			insertions.append(destinationIndexPath as IndexPath)
+			let originIndexPath = IndexPath(row: origin, section: section)
+			deletions.append(originIndexPath)
+			insertions.append(destinationIndexPath)
 		case .substitution:
-			updates.append(destinationIndexPath as IndexPath)
+			updates.append(destinationIndexPath)
 		}
 	}
 	

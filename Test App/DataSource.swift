@@ -47,6 +47,6 @@ class DataSource {
 	}
 	
 	func textForElementAtIndexPath(_ indexPath: IndexPath) -> String {
-		return String(self.data.characters[data.characters.index(data.characters.startIndex, offsetBy: (indexPath as NSIndexPath).row)])
+		return String(self.data.characters[data.characters.index(data.characters.startIndex, offsetBy: indexPath.row)])
 	}
 }
