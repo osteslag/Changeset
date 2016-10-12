@@ -1,3 +1,4 @@
+
 //
 //  ChangesetTests.swift
 //  Changeset
@@ -28,69 +29,69 @@ class ChangesetTests: XCTestCase {
 		
 		changeset = Changeset(source: "kitten".characters, target: "sitting".characters)
 		edits = [
-			Edit(.Substitution, value: "s", destination: 0),
-			Edit(.Substitution, value: "i", destination: 4),
-			Edit(.Insertion, value: "g", destination: 6),
+			Edit(.substitution, value: "s", destination: 0),
+			Edit(.substitution, value: "i", destination: 4),
+			Edit(.insertion, value: "g", destination: 6),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "sitting".characters, target: "kitten".characters)
 		edits = [
-			Edit(.Substitution, value: "k", destination: 0),
-			Edit(.Substitution, value: "e", destination: 4),
-			Edit(.Deletion, value: "g", destination: 6),
+			Edit(.substitution, value: "k", destination: 0),
+			Edit(.substitution, value: "e", destination: 4),
+			Edit(.deletion, value: "g", destination: 6),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "Saturday".characters, target: "Sunday".characters)
 		edits = [
-			Edit(.Deletion, value: "a", destination: 1),
-			Edit(.Deletion, value: "t", destination: 2),
-			Edit(.Substitution, value: "n", destination: 4),
+			Edit(.deletion, value: "a", destination: 1),
+			Edit(.deletion, value: "t", destination: 2),
+			Edit(.substitution, value: "n", destination: 4),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "Sunday".characters, target: "Saturday".characters)
 		edits = [
-			Edit(.Insertion, value: "a", destination: 1),
-			Edit(.Insertion, value: "t", destination: 2),
-			Edit(.Substitution, value: "r", destination: 2),
+			Edit(.insertion, value: "a", destination: 1),
+			Edit(.insertion, value: "t", destination: 2),
+			Edit(.substitution, value: "r", destination: 2),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "sword".characters, target: "words".characters)
 		edits = [
-			Edit(.Move(origin: 0), value: "s", destination: 4),
+			Edit(.move(origin: 0), value: "s", destination: 4),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "words".characters, target: "sword".characters)
 		edits = [
-			Edit(.Move(origin: 4), value: "s", destination: 0),
+			Edit(.move(origin: 4), value: "s", destination: 0),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "abcd".characters, target: "ABCD".characters)
 		edits = [
-			Edit(.Substitution, value: "A", destination: 0),
-			Edit(.Substitution, value: "B", destination: 1),
-			Edit(.Substitution, value: "C", destination: 2),
-			Edit(.Substitution, value: "D", destination: 3),
+			Edit(.substitution, value: "A", destination: 0),
+			Edit(.substitution, value: "B", destination: 1),
+			Edit(.substitution, value: "C", destination: 2),
+			Edit(.substitution, value: "D", destination: 3),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		// GARVEY -> AVERY (http://stackoverflow.com/a/30795531)
 		changeset = Changeset(source: "GARVEY".characters, target: "AVERY".characters)
 		edits = [
-			Edit(.Deletion, value: "G", destination: 0),
-			Edit(.Move(origin: 2), value: "R", destination: 3),
+			Edit(.deletion, value: "G", destination: 0),
+			Edit(.move(origin: 2), value: "R", destination: 3),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "AVERY".characters, target: "GARVEY".characters)
 		edits = [
-			Edit(.Insertion, value: "G", destination: 0),
-			Edit(.Move(origin: 3), value: "R", destination: 2),
+			Edit(.insertion, value: "G", destination: 0),
+			Edit(.move(origin: 3), value: "R", destination: 2),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 	}
@@ -102,33 +103,33 @@ class ChangesetTests: XCTestCase {
 		
 		changeset = Changeset(source: "abcdefgh".characters, target: "bdefijgh".characters)
 		edits = [
-			Edit(.Deletion, value: "a", destination: 0),
-			Edit(.Deletion, value: "c", destination: 2),
-			Edit(.Insertion, value: "i", destination: 4),
-			Edit(.Insertion, value: "j", destination: 5),
+			Edit(.deletion, value: "a", destination: 0),
+			Edit(.deletion, value: "c", destination: 2),
+			Edit(.insertion, value: "i", destination: 4),
+			Edit(.insertion, value: "j", destination: 5),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "bdefijgh".characters, target: "abcdefgh".characters)
 		edits = [
-			Edit(.Insertion, value: "a", destination: 0),
-			Edit(.Insertion, value: "c", destination: 2),
-			Edit(.Deletion, value: "i", destination: 4),
-			Edit(.Deletion, value: "j", destination: 5),
+			Edit(.insertion, value: "a", destination: 0),
+			Edit(.insertion, value: "c", destination: 2),
+			Edit(.deletion, value: "i", destination: 4),
+			Edit(.deletion, value: "j", destination: 5),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "abcdefgh".characters, target: "bdefagch".characters)
 		edits = [
-			Edit(.Move(origin: 0), value: "a", destination: 4),
-			Edit(.Move(origin: 2), value: "c", destination: 6),
+			Edit(.move(origin: 0), value: "a", destination: 4),
+			Edit(.move(origin: 2), value: "c", destination: 6),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "bdefagch".characters, target: "abcdefgh".characters)
 		edits = [
-			Edit(.Move(origin: 4), value: "a", destination: 0),
-			Edit(.Move(origin: 6), value: "c", destination: 2),
+			Edit(.move(origin: 4), value: "a", destination: 0),
+			Edit(.move(origin: 6), value: "c", destination: 2),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 	}
@@ -140,19 +141,19 @@ class ChangesetTests: XCTestCase {
 		
 		changeset = Changeset(source: "abcdefgh".characters, target: "bacefxhi".characters)
 		edits = [
-			Edit(.Move(origin: 1), value: "b", destination: 0),
-			Edit(.Deletion, value: "d", destination: 3),
-			Edit(.Substitution, value: "x", destination: 6),
-			Edit(.Insertion, value: "i", destination: 7),
+			Edit(.move(origin: 1), value: "b", destination: 0),
+			Edit(.deletion, value: "d", destination: 3),
+			Edit(.substitution, value: "x", destination: 6),
+			Edit(.insertion, value: "i", destination: 7),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "bacefxhi".characters, target: "abcdefgh".characters)
 		edits = [
-			Edit(.Move(origin: 1), value: "a", destination: 0),
-			Edit(.Insertion, value: "d", destination: 3),
-			Edit(.Substitution, value: "g", destination: 5),
-			Edit(.Deletion, value: "i", destination: 7),
+			Edit(.move(origin: 1), value: "a", destination: 0),
+			Edit(.insertion, value: "d", destination: 3),
+			Edit(.substitution, value: "g", destination: 5),
+			Edit(.deletion, value: "i", destination: 7),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 	}
@@ -168,18 +169,18 @@ class ChangesetTests: XCTestCase {
 		let target = ["Alaska", "Arizona", "California", "Georgia", "New Jersey", "Virginia"]
 		
 		/* In Apple's example the changeset consists of these five changes:
-		       Edit(.Insertion, value: "Alaska", destination: 0),
-		       Edit(.Deletion, value: "Delaware", destination: 2),
-		       Edit(.Insertion, value: "Georgia", destination: 3),
-		       Edit(.Deletion, value: "Washington", destination: 4),
-		       Edit(.Insertion, value: "Virginia", destination: 5),
+		       Edit(.insertion, value: "Alaska", destination: 0),
+		       Edit(.deletion, value: "Delaware", destination: 2),
+		       Edit(.insertion, value: "Georgia", destination: 3),
+		       Edit(.deletion, value: "Washington", destination: 4),
+		       Edit(.insertion, value: "Virginia", destination: 5),
 		   Changeset reduces this to the following three:*/
 		
 		changeset = Changeset(source: source, target: target)
 		edits = [
-			Edit(.Insertion, value: "Alaska", destination: 0),
-			Edit(.Substitution, value: "Georgia", destination: 2),
-			Edit(.Substitution, value: "Virginia", destination: 4),
+			Edit(.insertion, value: "Alaska", destination: 0),
+			Edit(.substitution, value: "Georgia", destination: 2),
+			Edit(.substitution, value: "Virginia", destination: 4),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 	}
@@ -193,38 +194,38 @@ class ChangesetTests: XCTestCase {
 		
 		changeset = Changeset(source: "words".characters, target: "tsword".characters)
 		edits = [
-			Edit(.Insertion, value: "t", destination: 0),
-			Edit(.Move(origin: 4), value: "s", destination: 1),
+			Edit(.insertion, value: "t", destination: 0),
+			Edit(.move(origin: 4), value: "s", destination: 1),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "abcdefgh".characters, target: "agbcdefh".characters)
 		edits = [
-			Edit(.Move(origin: 6), value: "g", destination: 1),
+			Edit(.move(origin: 6), value: "g", destination: 1),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "stick".characters, target: "tact".characters)
 		edits = [
-			Edit(.Deletion, value: "s", destination: 0),
-			Edit(.Substitution, value: "a", destination: 2),
-			Edit(.Substitution, value: "t", destination: 4),
+			Edit(.deletion, value: "s", destination: 0),
+			Edit(.substitution, value: "a", destination: 2),
+			Edit(.substitution, value: "t", destination: 4),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "12345".characters, target: "2a3".characters)
 		edits = [
-			Edit(.Deletion, value: "1", destination: 0),
-			Edit(.Insertion, value: "a", destination: 1),
-			Edit(.Deletion, value: "4", destination: 3),
-			Edit(.Deletion, value: "5", destination: 4),
+			Edit(.deletion, value: "1", destination: 0),
+			Edit(.insertion, value: "a", destination: 1),
+			Edit(.deletion, value: "4", destination: 3),
+			Edit(.deletion, value: "5", destination: 4),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "dave".characters, target: "david".characters)
 		edits = [
-			Edit(.Substitution, value: "i", destination: 3),
-			Edit(.Insertion, value: "d", destination: 4),
+			Edit(.substitution, value: "i", destination: 3),
+			Edit(.insertion, value: "d", destination: 4),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 	}
@@ -236,17 +237,17 @@ class ChangesetTests: XCTestCase {
 		
 		changeset = Changeset(source: "abc".characters, target: "".characters)
 		edits = [
-			Edit(.Deletion, value: "a", destination: 0),
-			Edit(.Deletion, value: "b", destination: 1),
-			Edit(.Deletion, value: "c", destination: 2),
+			Edit(.deletion, value: "a", destination: 0),
+			Edit(.deletion, value: "b", destination: 1),
+			Edit(.deletion, value: "c", destination: 2),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "".characters, target: "abc".characters)
 		edits = [
-			Edit(.Insertion, value: "a", destination: 0),
-			Edit(.Insertion, value: "b", destination: 1),
-			Edit(.Insertion, value: "c", destination: 2),
+			Edit(.insertion, value: "a", destination: 0),
+			Edit(.insertion, value: "b", destination: 1),
+			Edit(.insertion, value: "c", destination: 2),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 	}
@@ -258,13 +259,13 @@ class ChangesetTests: XCTestCase {
 		
 		changeset = Changeset(source: " ".characters, target: "a".characters)
 		edits = [
-			Edit(.Substitution, value: "a", destination: 0),
+			Edit(.substitution, value: "a", destination: 0),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "a".characters, target: "".characters)
 		edits = [
-			Edit(.Deletion, value: "a", destination: 0),
+			Edit(.deletion, value: "a", destination: 0),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 	}
@@ -276,32 +277,32 @@ class ChangesetTests: XCTestCase {
 		
 		changeset = Changeset(source: "".characters, target: "a".characters)
 		edits = [
-			Edit(.Insertion, value: "a", destination: 0),
+			Edit(.insertion, value: "a", destination: 0),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "".characters, target: "ab".characters)
 		edits = [
-			Edit(.Insertion, value: "a", destination: 0),
-			Edit(.Insertion, value: "b", destination: 1),
+			Edit(.insertion, value: "a", destination: 0),
+			Edit(.insertion, value: "b", destination: 1),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "a".characters, target: "bac".characters)
 		edits = [
-			Edit(.Insertion, value: "b", destination: 0),
-			Edit(.Insertion, value: "c", destination: 2),
+			Edit(.insertion, value: "b", destination: 0),
+			Edit(.insertion, value: "c", destination: 2),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "abcdef".characters, target: "aAbBcCdDeEfF".characters)
 		edits = [
-			Edit(.Insertion, value: "A", destination: 1),
-			Edit(.Insertion, value: "B", destination: 3),
-			Edit(.Insertion, value: "C", destination: 5),
-			Edit(.Insertion, value: "D", destination: 7),
-			Edit(.Insertion, value: "E", destination: 9),
-			Edit(.Insertion, value: "F", destination: 11),
+			Edit(.insertion, value: "A", destination: 1),
+			Edit(.insertion, value: "B", destination: 3),
+			Edit(.insertion, value: "C", destination: 5),
+			Edit(.insertion, value: "D", destination: 7),
+			Edit(.insertion, value: "E", destination: 9),
+			Edit(.insertion, value: "F", destination: 11),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 	}
@@ -313,56 +314,56 @@ class ChangesetTests: XCTestCase {
 		
 		changeset = Changeset(source: "AAAAaaaa".characters, target: "aaaaAAAA".characters)
 		edits = [
-			Edit(.Move(origin: 4), value: "a", destination: 0),
-			Edit(.Move(origin: 5), value: "a", destination: 1),
-			Edit(.Move(origin: 6), value: "a", destination: 2),
-			Edit(.Move(origin: 7), value: "a", destination: 3),
+			Edit(.move(origin: 4), value: "a", destination: 0),
+			Edit(.move(origin: 5), value: "a", destination: 1),
+			Edit(.move(origin: 6), value: "a", destination: 2),
+			Edit(.move(origin: 7), value: "a", destination: 3),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "abbcdefgh".characters, target: "acdefgbbh".characters)
 		edits = [
-			Edit(.Move(origin: 1), value: "b", destination: 6),
-			Edit(.Move(origin: 2), value: "b", destination: 7),
+			Edit(.move(origin: 1), value: "b", destination: 6),
+			Edit(.move(origin: 2), value: "b", destination: 7),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
 		changeset = Changeset(source: "acdefgbbh".characters, target: "abbcdefgh".characters)
 		edits = [
-			Edit(.Move(origin: 6), value: "b", destination: 1),
-			Edit(.Move(origin: 7), value: "b", destination: 2),
+			Edit(.move(origin: 6), value: "b", destination: 1),
+			Edit(.move(origin: 7), value: "b", destination: 2),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 	}
 	
 	func testNoChanges() {
 		
-		var edits = Changeset.editDistance(source: "".characters, target: "".characters)
+		var edits = Changeset.edits(from: "".characters, to: "".characters)
 		XCTAssertEqual(edits.count, 0)
 		
-		edits = Changeset.editDistance(source: "abcd".characters, target: "abcd".characters)
+		edits = Changeset.edits(from: "abcd".characters, to: "abcd".characters)
 		XCTAssertEqual(edits.count, 0)
 	}
 	
 	func testArrayChanges() {
 		
 		let old = [
-			NSURL(string: "http://a.b.c")!,
-			NSURL(string: "http://d.e.f")!,
-			NSURL(string: "http://k.l.m")!,
-			NSURL(string: "http://x.y.z")!,
+			URL(string: "http://a.b.c")!,
+			URL(string: "http://d.e.f")!,
+			URL(string: "http://k.l.m")!,
+			URL(string: "http://x.y.z")!,
 		]
 		let new = [
-			NSURL(string: "http://d.e.f")!,
-			NSURL(string: "http://x.y.z")!,
-			NSURL(string: "http://h.i.j")!,
+			URL(string: "http://d.e.f")!,
+			URL(string: "http://x.y.z")!,
+			URL(string: "http://h.i.j")!,
 		]
 		
 		let changeset = Changeset(source: old, target: new)
 		let changes = [
-			Edit(.Deletion, value: NSURL(string: "http://a.b.c")!, destination: 0),
-			Edit(.Deletion, value: NSURL(string: "http://k.l.m")!, destination: 2),
-			Edit(.Insertion, value: NSURL(string: "http://h.i.j")!, destination: 2),
+			Edit(.deletion, value: URL(string: "http://a.b.c")!, destination: 0),
+			Edit(.deletion, value: URL(string: "http://k.l.m")!, destination: 2),
+			Edit(.insertion, value: URL(string: "http://h.i.j")!, destination: 2),
 		]
 		XCTAssertEqual(changeset.edits, changes)
 	}
@@ -373,13 +374,13 @@ class ChangesetTests: XCTestCase {
 extension Edit: CustomDebugStringConvertible {
 	public var debugDescription: String {
 		switch self.operation {
-		case .Insertion:
+		case .insertion:
 			return "insert \(self.value) at index \(self.destination)"
-		case .Deletion:
+		case .deletion:
 			return "delete \(self.value) at index \(self.destination)"
-		case .Substitution:
+		case .substitution:
 			return "replace with \(self.value) at index \(self.destination)"
-		case .Move(let origin):
+		case .move(let origin):
 			return "move \(self.value) from index \(origin) to \(self.destination)"
 		}
 	}
@@ -388,8 +389,8 @@ extension Edit: CustomDebugStringConvertible {
 extension Changeset: CustomDebugStringConvertible {
 	public var debugDescription: String {
 		
-		let origin = self.origin.reduce("") { $0 + String($1) }
-		let destination = self.destination.reduce("") { $0 + String($1) }
+		let origin = self.origin.reduce("") { $0 + String(describing: $1) }
+		let destination = self.destination.reduce("") { $0 + String(describing: $1) }
 		
 		var text = "'\(origin)' -> '\(destination)':"
 		for change in self.edits {
