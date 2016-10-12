@@ -9,7 +9,7 @@ public struct Edit<T: Equatable> {
 	public let operation: EditOperation
 	public let value: T
 	public let destination: Int
-	
+
 	// Define initializer so that we don't have to add the `operation` label.
 	public init(_ operation: EditOperation, value: T, destination: Int) {
 		self.operation = operation
@@ -34,7 +34,7 @@ public enum EditOperation {
 /// - note: This implementation was inspired by [Dave DeLong](https://twitter.com/davedelong)'s article, [Edit distance and edit steps](http://davedelong.tumblr.com/post/134367865668/edit-distance-and-edit-steps).
 ///
 /// - seealso: `Changeset.editDistance`.
-public struct Changeset<T: Collection where T.Iterator.Element: Equatable, T.IndexDistance == Int> {
+public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.IndexDistance == Int {
 	
 	/// The starting-point collection.
 	public let origin: T
@@ -139,7 +139,7 @@ public struct Changeset<T: Collection where T.Iterator.Element: Equatable, T.Ind
 	}
 }
 
-/// Returns an array where deletion/insertion pairs of the same element are replaced by `.Move` edits.
+/// Returns an array where deletion/insertion pairs of the same element are replaced by `.move` edits.
 private func reducedEdits<T: Equatable>(_ edits: [Edit<T>]) -> [Edit<T>] {
 	return edits.reduce([Edit<T>]()) {
 		(edits, edit) in
@@ -157,20 +157,20 @@ private func reducedEdits<T: Equatable>(_ edits: [Edit<T>]) -> [Edit<T>] {
 
 /// Returns a potential move `Edit` based on an array of `Edit` elements and an edit to match up against.
 ///
-/// If `edit` is a deletion or an insertion, and there is a matching inverse insertion/deletion with the same value in the array, a corresponding `.Move` edit is returned. 
+/// If `edit` is a deletion or an insertion, and there is a matching inverse insertion/deletion with the same value in the array, a corresponding `.move` edit is returned.
 ///
 /// As a convenience, the index of the matched edit into `edits` is returned as well.
 private func moveFromEdits<T: Equatable>(_ edits: [Edit<T>], deletionOrInsertion edit: Edit<T>) -> (move: Edit<T>, index: Int)? {
 	
 	switch edit.operation {
-	
+		
 	case .deletion:
 		if let insertionIndex = edits.index(where: { (earlierEdit) -> Bool in
 			if case .insertion = earlierEdit.operation, earlierEdit.value == edit.value { return true } else { return false }
 		}) {
 			return (Edit(.move(origin: edit.destination), value: edit.value, destination: edits[insertionIndex].destination), insertionIndex)
 		}
-	
+		
 	case .insertion:
 		if let deletionIndex = edits.index(where: { (earlierEdit) -> Bool in
 			if case .deletion = earlierEdit.operation, earlierEdit.value == edit.value { return true } else { return false }

@@ -8,24 +8,24 @@ import Changeset
 
 extension Changeset {
 	
-	public static func naiveEditDistance(source s: T, target t: T) -> [Edit<T.Generator.Element>] {
+	public static func naiveEditDistance(source s: T, target t: T) -> [Edit<T.Iterator.Element>] {
 		
 		var rv:[Edit<T.Generator.Element>] = []
 		
-		for (oldIndex, item) in s.enumerate() {
-			guard let newIndex = t.indexOf(item) else {
-				rv.append(Edit(.Deletion, value:item, destination:oldIndex))
+		for (oldIndex, item) in s.enumerated() {
+			guard let newIndex = t.index(of: item) else {
+				rv.append(Edit(.deletion, value:item, destination:oldIndex))
 				continue
 			}
-			let newIndexI = t.startIndex.distanceTo(newIndex)
+			let newIndexI = t.distance(from: t.startIndex, to: newIndex)
 			if newIndexI != oldIndex {
-				rv.append(Edit(.Move(origin: oldIndex), value:item, destination:newIndexI))
+				rv.append(Edit(.move(origin: oldIndex), value:item, destination:newIndexI))
 			}
 		}
 		
-		for (newIndex, item) in t.enumerate() {
+		for (newIndex, item) in t.enumerated() {
 			if !s.contains(item) {
-				rv.append(Edit(.Insertion, value:item, destination:newIndex))
+				rv.append(Edit(.insertion, value:item, destination:newIndex))
 			}
 		}
 		
