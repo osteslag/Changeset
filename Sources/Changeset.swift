@@ -144,7 +144,7 @@ private func reducedEdits<T: Equatable>(_ edits: [Edit<T>]) -> [Edit<T>] {
 	return edits.reduce([Edit<T>]()) {
 		(edits, edit) in
 		var reducedEdits = edits
-		if let (move, index) = moveFromEdits(reducedEdits, deletionOrInsertion: edit), case .move = move.operation {
+		if let (move, index) = move(from: edit, in: reducedEdits), case .move = move.operation {
 			reducedEdits.remove(at: index)
 			reducedEdits.append(move)
 		} else {
@@ -160,22 +160,22 @@ private func reducedEdits<T: Equatable>(_ edits: [Edit<T>]) -> [Edit<T>] {
 /// If `edit` is a deletion or an insertion, and there is a matching inverse insertion/deletion with the same value in the array, a corresponding `.move` edit is returned.
 ///
 /// As a convenience, the index of the matched edit into `edits` is returned as well.
-private func moveFromEdits<T: Equatable>(_ edits: [Edit<T>], deletionOrInsertion edit: Edit<T>) -> (move: Edit<T>, index: Int)? {
+private func move<T: Equatable>(from deletionOrInsertion: Edit<T>, `in` edits: [Edit<T>]) -> (move: Edit<T>, index: Int)? {
 	
-	switch edit.operation {
+	switch deletionOrInsertion.operation {
 		
 	case .deletion:
 		if let insertionIndex = edits.index(where: { (earlierEdit) -> Bool in
-			if case .insertion = earlierEdit.operation, earlierEdit.value == edit.value { return true } else { return false }
+			if case .insertion = earlierEdit.operation, earlierEdit.value == deletionOrInsertion.value { return true } else { return false }
 		}) {
-			return (Edit(.move(origin: edit.destination), value: edit.value, destination: edits[insertionIndex].destination), insertionIndex)
+			return (Edit(.move(origin: deletionOrInsertion.destination), value: deletionOrInsertion.value, destination: edits[insertionIndex].destination), insertionIndex)
 		}
 		
 	case .insertion:
 		if let deletionIndex = edits.index(where: { (earlierEdit) -> Bool in
-			if case .deletion = earlierEdit.operation, earlierEdit.value == edit.value { return true } else { return false }
+			if case .deletion = earlierEdit.operation, earlierEdit.value == deletionOrInsertion.value { return true } else { return false }
 		}) {
-			return (Edit(.move(origin: edits[deletionIndex].destination), value: edit.value, destination: edit.destination), deletionIndex)
+			return (Edit(.move(origin: edits[deletionIndex].destination), value: deletionOrInsertion.value, destination: deletionOrInsertion.destination), deletionIndex)
 		}
 		
 	default:
