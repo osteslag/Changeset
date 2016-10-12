@@ -169,11 +169,11 @@ class ChangesetTests: XCTestCase {
 		let target = ["Alaska", "Arizona", "California", "Georgia", "New Jersey", "Virginia"]
 		
 		/* In Apple's example the changeset consists of these five changes:
-		       Edit(.Insertion, value: "Alaska", destination: 0),
-		       Edit(.Deletion, value: "Delaware", destination: 2),
-		       Edit(.Insertion, value: "Georgia", destination: 3),
-		       Edit(.Deletion, value: "Washington", destination: 4),
-		       Edit(.Insertion, value: "Virginia", destination: 5),
+		       Edit(.insertion, value: "Alaska", destination: 0),
+		       Edit(.deletion, value: "Delaware", destination: 2),
+		       Edit(.insertion, value: "Georgia", destination: 3),
+		       Edit(.deletion, value: "Washington", destination: 4),
+		       Edit(.insertion, value: "Virginia", destination: 5),
 		   Changeset reduces this to the following three:*/
 		
 		changeset = Changeset(source: source, target: target)
@@ -389,8 +389,8 @@ extension Edit: CustomDebugStringConvertible {
 extension Changeset: CustomDebugStringConvertible {
 	public var debugDescription: String {
 		
-		let origin = self.origin.reduce("") { $0 + String($1) }
-		let destination = self.destination.reduce("") { $0 + String($1) }
+		let origin = self.origin.reduce("") { $0 + String(describing: $1) }
+		let destination = self.destination.reduce("") { $0 + String(describing: $1) }
 		
 		var text = "'\(origin)' -> '\(destination)':"
 		for change in self.edits {

@@ -16,37 +16,37 @@ private let kTestData = [
 	"768952413",
 	kDefaultData,
 ]
-private let kTestInterval: NSTimeInterval = 0.5
+private let kTestInterval: TimeInterval = 0.5
 
 class DataSource {
-	
-	private var data = kDefaultData
-	
+
+	fileprivate var data = kDefaultData
+
 	/// The callback is called after each test to let the caller update its view, or whatever.
-	func runTests(testData: [String] = kTestData, callback: ((edits: [Edit<Character>], isComplete: Bool) -> Void)) {
+	func runTests(_ testData: [String] = kTestData, callback: @escaping ((_ edits: [Edit<Character>], _ isComplete: Bool) -> Void)) {
 		var nextTestData = testData
-		let next = nextTestData.removeAtIndex(0)
+		let next = nextTestData.remove(at: 0)
 		let edits = Changeset.editDistance(source: self.data.characters, target: next.characters) // Call naiveEditDistance for a different approach
-		
+
 		self.data = next
-		callback(edits: edits, isComplete: nextTestData.isEmpty)
-		
+		callback(edits, nextTestData.isEmpty)
+
 		guard !nextTestData.isEmpty else { return }
-		
+
 		// Schedule next test.
-		let when = dispatch_time(DISPATCH_TIME_NOW, Int64(kTestInterval * Double(NSEC_PER_SEC)))
-		dispatch_after(when, dispatch_get_main_queue()) {
+		let when = DispatchTime.now() + Double(Int64(kTestInterval * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+		DispatchQueue.main.asyncAfter(deadline: when) {
 			self.runTests(nextTestData, callback: callback)
 		}
 	}
-	
+
 	// MARK: -
-	
-	func numberOfElementsInSection(section: Int) -> Int {
+
+	func numberOfElementsInSection(_ section: Int) -> Int {
 		return self.data.characters.count
 	}
-	
-	func textForElementAtIndexPath(indexPath: NSIndexPath) -> String {
-		return String(self.data.characters[data.characters.startIndex.advancedBy(indexPath.row)])
+
+	func textForElementAtIndexPath(_ indexPath: IndexPath) -> String {
+		return String(self.data.characters[data.characters.index(data.characters.startIndex, offsetBy: (indexPath as NSIndexPath).row)])
 	}
 }

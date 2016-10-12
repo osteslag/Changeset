@@ -272,6 +272,7 @@
 					};
 					CC4178641C6EE5E000296FD8 = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -549,6 +550,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = changeset.testapp;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)_App";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -564,6 +566,7 @@
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)_App";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
