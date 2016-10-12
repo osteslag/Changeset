@@ -2,8 +2,11 @@
 
 This project uses [semantic versioning](http://semver.org/). Change log is also reflected under [Releases](https://github.com/osteslag/Changeset/releases) on GitHub, inspired by [Keep a CHANGELOG](http://keepachangelog.com).
 
-## [1.0.5]: 2016-05-22 Swift 3.0, SPM Compatibility
+## [1.0.6]: 2016-10-12 tvOS
+### Added
+- Support tvOS.
 
+## [1.0.5]: 2016-05-22 Swift 3.0, SPM Compatibility
 ### Fixed
 - Remove use of deprecated `var` parameters.
 ### Changed
@@ -33,6 +36,7 @@ This project uses [semantic versioning](http://semver.org/). Change log is also 
 
 ## [1.0]: 2015-12-29 Initial Release
 
+[1.0.6]: https://github.com/osteslag/Changeset/compare/v1.0.5...v1.0.6
 [1.0.5]: https://github.com/osteslag/Changeset/compare/v1.0.4...v1.0.5
 [1.0.4]: https://github.com/osteslag/Changeset/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/osteslag/Changeset/compare/v1.0.2...v1.0.3
