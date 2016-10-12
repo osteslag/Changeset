@@ -34,7 +34,7 @@ class DataSource {
 		guard !nextTestData.isEmpty else { return }
 		
 		// Schedule next test.
-		let when = DispatchTime.now() + Double(Int64(kTestInterval * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+		let when = DispatchTime.now() + kTestInterval
 		DispatchQueue.main.asyncAfter(deadline: when) {
 			self.runTests(nextTestData, callback: callback)
 		}
