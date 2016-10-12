@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
 	spec.name = 'Changeset'
-	spec.version = '1.0.5'
+	spec.version = '1.0.6'
 	spec.license = { :type => 'MIT', :file => 'LICENSE.md' }
 	spec.homepage = 'https://github.com/osteslag/Changeset'
 	spec.author = { 'Joachim Bondo' => 'joachim@bondo.net' }
@@ -11,6 +11,7 @@ Pod::Spec.new do |spec|
 	spec.source_files = 'Sources/*.swift'
 	spec.requires_arc = true
 	spec.ios.deployment_target = '8.0'
+	spec.tvos.deployment_target = '9.0'
 	spec.osx.deployment_target = '10.9'
 	spec.watchos.deployment_target = '2.0'
 end
