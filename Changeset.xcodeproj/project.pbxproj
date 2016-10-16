@@ -265,6 +265,7 @@
 					29828DC81C2A899D0056284E = {
 						CreatedOnToolsVersion = 7.2;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 					};
 					29828DD21C2A899E0056284E = {
 						CreatedOnToolsVersion = 7.2;
