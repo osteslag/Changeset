@@ -2,6 +2,10 @@
 
 This project uses [semantic versioning](http://semver.org/). Change log is also reflected under [Releases](https://github.com/osteslag/Changeset/releases) on GitHub, inspired by [Keep a CHANGELOG](http://keepachangelog.com).
 
+## [2.0.1]: 2016-10-20 Automatic Provisioning
+### Changed
+- Framework target set to automatically manage code signing.
+
 ## [2.0]: 2016-10-12 Swift 3
 ### Changed
 - Project defaults to Swift 3 (use the [`swift-2`](https://github.com/osteslag/Changeset/tree/swift-2) tag to stay on Swift 2).
@@ -42,6 +46,7 @@ This project uses [semantic versioning](http://semver.org/). Change log is also 
 
 ## [1.0]: 2015-12-29 Initial Release
 
+[2.0.1]: https://github.com/osteslag/Changeset/compare/v2.0...v2.0.1
 [2.0]: https://github.com/osteslag/Changeset/compare/v1.0.6...v2.0
 [1.0.6]: https://github.com/osteslag/Changeset/compare/v1.0.5...v1.0.6
 [1.0.5]: https://github.com/osteslag/Changeset/compare/v1.0.4...v1.0.5
