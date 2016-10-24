@@ -38,7 +38,9 @@ It detects additions, deletions, substitutions, and moves. Data is a `Collection
   - seealso: `Changeset.editDistance`.
 */
 public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.IndexDistance == Int {
-	
+	/// Closure type to compare two values.
+	public typealias Comparator = (_ lhs: T.Generator.Element, _ rhs: T.Generator.Element) -> Bool
+
 	/// The starting-point collection.
 	public let origin: T
 	
@@ -54,14 +56,19 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 	public let edits: [Edit<T.Iterator.Element>]
 	
 	public init(source origin: T, target destination: T) {
+		self.init(source: origin, target: destination) { $0 == $1 }
+	}
+
+	public init(source origin: T, target destination: T, comparator: Comparator) {
 		self.origin = origin
 		self.destination = destination
-		self.edits = Changeset.edits(from: self.origin, to: self.destination)
+		self.edits = Changeset.edits(from: self.origin, to: self.destination, comparator: comparator)
 	}
 	
 	/** Returns the edit steps required to go from one collection to another.
 	
 	The number of steps is the `count` of elements.
+	It uses a default '==' comparator.
 	
 	  - note: Indexes in the returned `Edit` elements are into the `from` source collection (just like how `UITableView` expects changes in the `beginUpdates`/`endUpdates` block.)
 	
@@ -76,7 +83,28 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 	  - returns: An array of `Edit` elements.
 	*/
 	public static func edits(from s: T, to t: T) -> [Edit<T.Iterator.Element>] {
-		
+		return edits(from: s, to: t) { $0 == $1 }
+	}
+
+	/** Returns the edit steps required to go from one collection to another.
+
+	The number of steps is the `count` of elements.
+	It uses a custom comparator received as an argument.
+
+	- note: Indexes in the returned `Edit` elements are into the `from` source collection (just like how `UITableView` expects changes in the `beginUpdates`/`endUpdates` block.)
+
+	- seealso:
+	- [Edit distance and edit steps](http://davedelong.tumblr.com/post/134367865668/edit-distance-and-edit-steps) by [Dave DeLong](https://twitter.com/davedelong).
+	- [Explanation of and Pseudo-code for the Wagner-Fischer algorithm](https://en.wikipedia.org/wiki/Wagner–Fischer_algorithm).
+
+	- parameters:
+	- from: The starting-point collection.
+	- to: The ending-point collection.
+	- comparator: The closure compares values.
+
+	- returns: An array of `Edit` elements.
+	*/
+	public static func edits(from s: T, to t: T, comparator: Comparator) -> [Edit<T.Iterator.Element>] {
 		let m = s.count
 		let n = t.count
 		
@@ -110,7 +138,7 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 			sx = s.startIndex
 			
 			for i in 1...m {
-				if s[sx] == t[tx] {
+				if comparator(s[sx], t[tx]) {
 					d[i][j] = d[i - 1][j - 1] // no operation
 				} else {
 					
@@ -143,19 +171,22 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 		}
 		
 		// Convert deletion/insertion pairs of same element into moves.
-		return reducedEdits(d[m][n])
+		return reducedEdits(d[m][n], comparator: comparator)
 	}
 }
 
 /** Returns an array where deletion/insertion pairs of the same element are replaced by `.move` edits.
 
-  - parameter edits: An array of `Edit` elements to be reduced.
+  - parameters:
+  - edits: An array of `Edit` elements to be reduced.
+  - comparator: The closure compares values.
+
   - returns: An array of `Edit` elements.
 */
-private func reducedEdits<T: Equatable>(_ edits: [Edit<T>]) -> [Edit<T>] {
+private func reducedEdits<T: Equatable>(_ edits: [Edit<T>], comparator: (_ lhs: T, _ rhs: T) -> Bool) -> [Edit<T>] {
 	return edits.reduce([Edit<T>]()) { (edits, edit) in
 		var reducedEdits = edits
-		if let (move, index) = move(from: edit, in: reducedEdits), case .move = move.operation {
+		if let (move, index) = move(from: edit, in: reducedEdits, comparator: comparator), case .move = move.operation {
 			reducedEdits.remove(at: index)
 			reducedEdits.append(move)
 		} else {
@@ -173,23 +204,24 @@ If `edit` is a deletion or an insertion, and there is a matching opposite insert
   - parameters:
     - deletionOrInsertion: A `.deletion` or `.insertion` edit there will be searched an opposite match for.
     - edits: The array of `Edit` elements to search for a match in.
+    - comparator: The closure compares values.
 
   - returns: An optional tuple consisting of the `.move` `Edit` that corresponds to the given deletion or insertion and an opposite match in `edits`, and the index of the match – if one was found.
 */
-private func move<T: Equatable>(from deletionOrInsertion: Edit<T>, `in` edits: [Edit<T>]) -> (move: Edit<T>, index: Int)? {
+private func move<T: Equatable>(from deletionOrInsertion: Edit<T>, `in` edits: [Edit<T>], comparator: (_ lhs: T, _ rhs: T) -> Bool) -> (move: Edit<T>, index: Int)? {
 	
 	switch deletionOrInsertion.operation {
 		
 	case .deletion:
 		if let insertionIndex = edits.index(where: { (earlierEdit) -> Bool in
-			if case .insertion = earlierEdit.operation, earlierEdit.value == deletionOrInsertion.value { return true } else { return false }
+			if case .insertion = earlierEdit.operation, comparator(earlierEdit.value, deletionOrInsertion.value) { return true } else { return false }
 		}) {
 			return (Edit(.move(origin: deletionOrInsertion.destination), value: deletionOrInsertion.value, destination: edits[insertionIndex].destination), insertionIndex)
 		}
 		
 	case .insertion:
 		if let deletionIndex = edits.index(where: { (earlierEdit) -> Bool in
-			if case .deletion = earlierEdit.operation, earlierEdit.value == deletionOrInsertion.value { return true } else { return false }
+			if case .deletion = earlierEdit.operation, comparator(earlierEdit.value, deletionOrInsertion.value) { return true } else { return false }
 		}) {
 			return (Edit(.move(origin: edits[deletionIndex].destination), value: deletionOrInsertion.value, destination: deletionOrInsertion.destination), deletionIndex)
 		}
