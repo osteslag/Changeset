@@ -9,11 +9,11 @@ import Changeset
 extension UITableView {
 	
 	/// Performs batch updates on the table view, given the edits of a Changeset, and animates the transition.
-	public func updateWithEdits<T: Equatable> (_ edits: [Edit<T>], inSection section: Int) {
+	public func update<T: Equatable>(with edits: [Edit<T>], in section: Int = 0) {
 		
 		guard !edits.isEmpty else { return }
 		
-		let indexPaths = batchIndexPathsFromEdits(edits, inSection: section)
+		let indexPaths = batchIndexPaths(from: edits, in: section)
 		
 		self.beginUpdates()
 		if !indexPaths.deletions.isEmpty { self.deleteRows(at: indexPaths.deletions, with: .automatic) }
@@ -26,11 +26,11 @@ extension UITableView {
 extension UICollectionView {
 	
 	/// Performs batch updates on the table view, given the edits of a Changeset, and animates the transition.
-	public func updateWithEdits<T: Equatable> (_ edits: [Edit<T>], inSection section: Int, completion: ((Bool) -> Void)? = nil) {
+	public func update<T: Equatable>(with edits: [Edit<T>], in section: Int = 0, completion: ((Bool) -> Void)? = nil) {
 		
 		guard !edits.isEmpty else { return }
 		
-		let indexPaths = batchIndexPathsFromEdits(edits, inSection: section)
+		let indexPaths = batchIndexPaths(from: edits, in: section)
 		
 		self.performBatchUpdates({
 			if !indexPaths.deletions.isEmpty { self.deleteItems(at: indexPaths.deletions) }
@@ -40,7 +40,7 @@ extension UICollectionView {
 	}
 }
 
-private func batchIndexPathsFromEdits<T: Equatable> (_ edits: [Edit<T>], inSection section: Int) -> (insertions: [IndexPath], deletions: [IndexPath], updates: [IndexPath]) {
+private func batchIndexPaths<T: Equatable> (from edits: [Edit<T>], in section: Int) -> (insertions: [IndexPath], deletions: [IndexPath], updates: [IndexPath]) {
 	
 	var insertions = [IndexPath]()
 	var deletions = [IndexPath]()
