@@ -1,15 +1,16 @@
 //
 //  UIKit+Changeset.swift
-//  Changeset
+//  Copyright (c) 2016 Joachim Bondo. All rights reserved.
 //
 
+#if os(iOS)
+
 import UIKit
-import Changeset
 
 extension UITableView {
 	
 	/// Performs batch updates on the table view, given the edits of a Changeset, and animates the transition.
-	public func update<T: Equatable>(with edits: [Edit<T>], in section: Int = 0) {
+	open func update<T: Equatable>(with edits: [Edit<T>], in section: Int = 0) {
 		
 		guard !edits.isEmpty else { return }
 		
@@ -26,7 +27,7 @@ extension UITableView {
 extension UICollectionView {
 	
 	/// Performs batch updates on the table view, given the edits of a Changeset, and animates the transition.
-	public func update<T: Equatable>(with edits: [Edit<T>], in section: Int = 0, completion: ((Bool) -> Void)? = nil) {
+	open func update<T: Equatable>(with edits: [Edit<T>], in section: Int = 0, completion: ((Bool) -> Void)? = nil) {
 		
 		guard !edits.isEmpty else { return }
 		
@@ -64,3 +65,5 @@ private func batchIndexPaths<T: Equatable> (from edits: [Edit<T>], in section: I
 	
 	return (insertions: insertions, deletions: deletions, updates: updates)
 }
+
+#endif
