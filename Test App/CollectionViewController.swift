@@ -13,7 +13,7 @@ class CollectionViewController: UICollectionViewController {
 	@IBAction func test(_ sender: UIBarButtonItem) {
 		self.dataSource.runTests() {
 			(edits: [Edit<Character>], isComplete: Bool) in
-			self.collectionView?.updateWithEdits(edits, inSection: 0)
+			self.collectionView?.update(with: edits)
 			sender.isEnabled = isComplete
 		}
 	}

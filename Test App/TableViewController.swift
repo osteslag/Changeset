@@ -13,7 +13,7 @@ class TableViewController: UITableViewController {
 	@IBAction func test(_ sender: UIBarButtonItem) {
 		self.dataSource.runTests() {
 			(edits: [Edit<Character>], isComplete: Bool) in
-			self.tableView.updateWithEdits(edits, inSection: 0)
+			self.tableView.update(with: edits)
 			sender.isEnabled = isComplete
 		}
 	}
