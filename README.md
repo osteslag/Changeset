@@ -61,7 +61,7 @@ tableView.update(with: changeset.edits)
 
 The Xcode project also contains a target to illustrate the usage in an app:
 
-![Test App](Test\ App/Screen.png "Test App")
+![Test App](Test\ App/Screen.gif "Test App")
 
 This uses the extensions mentioned above to animate transitions based on the edits of a `Changeset`.
 
