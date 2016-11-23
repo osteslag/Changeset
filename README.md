@@ -34,11 +34,7 @@ let edits = [
 assert(changeset.edits == edits)
 ```
 
-These index values can be used directly in the animation blocks of `beginUpdates`/`endUpdates` on `UITableView` and `performBatchUpdates` on `UICollectionView` in that `Changeset` follows the principles explained under [_Batch Insertion, Deletion, and Reloading of Rows and Sections_](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/ManageInsertDeleteRow/ManageInsertDeleteRow.html#//apple_ref/doc/uid/TP40007451-CH10-SW9) in Apple’s [Table View Programming Guide for iOS](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/AboutTableViewsiPhone/AboutTableViewsiPhone.html).
-
-In short; first all deletions and substitutions are made, relative to the source collection, then, relative to the resulting collection, insertions. A move is just a deletion followed by an insertion.
-
-If you don’t want the overhead of `Changeset` itself, which also stores the source and target collections, you can call `edits` directly (here with [example data](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/ManageInsertDeleteRow/ManageInsertDeleteRow.html#//apple_ref/doc/uid/TP40007451-CH10-SW16) from Apple’s guide):
+If you don’t want the overhead of `Changeset` itself, which also stores the source and target collections, you can call `edits` directly (here with [example data](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/ManageInsertDeleteRow/ManageInsertDeleteRow.html#//apple_ref/doc/uid/TP40007451-CH10-SW16) from Apple’s [Table View Programming Guide for iOS](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/AboutTableViewsiPhone/AboutTableViewsiPhone.html)):
 
 ```swift
 let source = ["Arizona", "California", "Delaware", "New Jersey", "Washington"]
@@ -48,14 +44,26 @@ let edits = Changeset.edits(from: source, to: target)
 print(edits)
 // [insert Alaska at index 0, replace with Georgia at index 2, replace with Virginia at index 4]
 ```
+
+## UIKit Integration
+
+The index values can be used directly in the animation blocks of `beginUpdates`/`endUpdates` on `UITableView` and `performBatchUpdates` on `UICollectionView` in that `Changeset` follows the principles explained under [_Batch Insertion, Deletion, and Reloading of Rows and Sections_](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/ManageInsertDeleteRow/ManageInsertDeleteRow.html#//apple_ref/doc/uid/TP40007451-CH10-SW9) in Apple’s guide.
+
+In short; first all deletions and substitutions are made, relative to the source collection, then, relative to the resulting collection, insertions. A move is just a deletion followed by an insertion.
+
+In the iOS framework, two convenience extensions (one on `UITableView` and one on `UICollectionView`) have been included to make animated table/collection view updates a breeze. Just call `update`, like this:
+
+```swift
+tableView.update(with: changeset.edits)
+```
   
 ## Test App
 
-The Xcode project contains a target to illustrate the usage in an app:
+The Xcode project also contains a target to illustrate the usage in an app:
 
 ![Test App](Test\ App/Screen.png "Test App")
 
-This includes simple extensions on `UITableview` and `UICollectionView` making it trivial to animate transitions based on the edits of a `Changeset`.
+This uses the extensions mentioned above to animate transitions based on the edits of a `Changeset`.
 
 ## License
 
