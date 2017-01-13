@@ -2,6 +2,10 @@
 
 This project uses [semantic versioning](http://semver.org/). Change log is also reflected under [Releases](https://github.com/osteslag/Changeset/releases) on GitHub, inspired by [Keep a CHANGELOG](http://keepachangelog.com).
 
+## [2.1]: 2016-11-23 UIKit Extensions
+### Added
+- UIKit extensions for `UITableView` and `UICollectionView` for easy updating (were previously only included in the test app)
+
 ## [2.0.1]: 2016-10-20 Automatic Provisioning
 ### Changed
 - Framework target set to automatically manage code signing.
@@ -9,7 +13,7 @@ This project uses [semantic versioning](http://semver.org/). Change log is also 
 ## [2.0]: 2016-10-12 Swift 3
 ### Changed
 - Project defaults to Swift 3 (use the [`swift-2`](https://github.com/osteslag/Changeset/tree/swift-2) tag to stay on Swift 2).
-- Renamed `editDistance(source:target)` on `Changeset` to the Swift 3-friendly `edits(from:to:)`.
+- Renamed `editDistance(source:target:)` on `Changeset` to the Swift 3-friendly `edits(from:to:)`.
 - Updated Quick Help documentation slightly.
 
 ## [1.0.6]: 2016-10-12 tvOS
@@ -46,6 +50,7 @@ This project uses [semantic versioning](http://semver.org/). Change log is also 
 
 ## [1.0]: 2015-12-29 Initial Release
 
+[2.1]: https://github.com/osteslag/Changeset/compare/v2.0.1...v2.1
 [2.0.1]: https://github.com/osteslag/Changeset/compare/v2.0...v2.0.1
 [2.0]: https://github.com/osteslag/Changeset/compare/v1.0.6...v2.0
 [1.0.6]: https://github.com/osteslag/Changeset/compare/v1.0.5...v1.0.6
