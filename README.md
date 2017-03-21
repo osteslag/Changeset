@@ -68,4 +68,4 @@ This uses the extensions mentioned above to animate transitions based on the edi
 ## License
 
 This project is available under [The MIT License](http://opensource.org/licenses/MIT).  
-Copyright © 2015-16, [Joachim Bondo](mailto:joachim@bondo.net). See [LICENSE](LICENSE.md) file.
+Copyright © 2015-17, [Joachim Bondo](mailto:joachim@bondo.net). See [LICENSE](LICENSE.md) file.
