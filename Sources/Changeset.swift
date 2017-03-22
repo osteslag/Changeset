@@ -80,65 +80,65 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 		let rows = source.count
 		let columns = target.count
 		
-		// Fill first row and column of insertions and deletions.
-		
 		var matrix: [[[Edit<T.Iterator.Element>]]] = Array(repeating: Array(repeating: [], count: columns + 1), count: rows + 1)
-		
-		var edits = [Edit<T.Iterator.Element>]()
-		for (row, element) in source.enumerated() {
-			let edit = Edit(.deletion, value: element, destination: row)
-			edits.append(edit)
-			matrix[row + 1][0] = edits
-		}
-		
-		edits.removeAll()
-		for (col, element) in target.enumerated() {
-			let edit = Edit(.insertion, value: element, destination: col)
-			edits.append(edit)
-			matrix[0][col + 1] = edits
-		}
-		
-		guard rows > 0 && columns > 0 else { return matrix[rows][columns] }
 		
 		// Indexes into the two collections.
 		var sourceIndex = source.startIndex
 		var targetIndex: T.Index
 
-		// Fill body of matrix.
+		// Fill first row of insertions.
 
-		for row in 1...rows {
-			targetIndex = target.startIndex
+		var edits = [Edit<T.Iterator.Element>]()
+		for (col, element) in target.enumerated() {
+			let edit = Edit(.insertion, value: element, destination: col)
+			edits.append(edit)
+			matrix[0][col + 1] = edits
+		}
 
-			for column in 1...columns {
-				if source[sourceIndex] == target[targetIndex] {
-					matrix[row][column] = matrix[row - 1][column - 1] // no operation
-				} else {
-					var deletion = matrix[row - 1][column] // a deletion
-					var insertion = matrix[row][column - 1] // an insertion
-					var substitution = matrix[row - 1][column - 1] // a substitution
+		if rows > 0 {
+			for row in 1...rows {
+				targetIndex = target.startIndex
 
-					// Record operation.
-					
-					let minimumCount = min(deletion.count, insertion.count, substitution.count)
-					if deletion.count == minimumCount {
-						let edit = Edit(.deletion, value: source[sourceIndex], destination: row - 1)
-						deletion.append(edit)
-						matrix[row][column] = deletion
-					} else if insertion.count == minimumCount {
-						let edit = Edit(.insertion, value: target[targetIndex], destination: column - 1)
-						insertion.append(edit)
-						matrix[row][column] = insertion
-					} else {
-						let edit = Edit(.substitution, value: target[targetIndex], destination: row - 1)
-						substitution.append(edit)
-						matrix[row][column] = substitution
+				// Fill first cell with deletion.
+
+				var edits = matrix[row - 1][0]
+				let edit = Edit(.deletion, value: source[sourceIndex], destination: row - 1)
+				edits.append(edit)
+				matrix[row][0] = edits
+
+				if columns > 0 {
+					for column in 1...columns {
+						if source[sourceIndex] == target[targetIndex] {
+							matrix[row][column] = matrix[row - 1][column - 1] // no operation
+						} else {
+							var deletion = matrix[row - 1][column] // a deletion
+							var insertion = matrix[row][column - 1] // an insertion
+							var substitution = matrix[row - 1][column - 1] // a substitution
+
+							// Record operation.
+							
+							let minimumCount = min(deletion.count, insertion.count, substitution.count)
+							if deletion.count == minimumCount {
+								let edit = Edit(.deletion, value: source[sourceIndex], destination: row - 1)
+								deletion.append(edit)
+								matrix[row][column] = deletion
+							} else if insertion.count == minimumCount {
+								let edit = Edit(.insertion, value: target[targetIndex], destination: column - 1)
+								insertion.append(edit)
+								matrix[row][column] = insertion
+							} else {
+								let edit = Edit(.substitution, value: target[targetIndex], destination: row - 1)
+								substitution.append(edit)
+								matrix[row][column] = substitution
+							}
+						}
+						
+						targetIndex = target.index(targetIndex, offsetBy: 1)
 					}
 				}
 				
-				targetIndex = target.index(targetIndex, offsetBy: 1)
+				sourceIndex = source.index(sourceIndex, offsetBy: 1)
 			}
-			
-			sourceIndex = source.index(sourceIndex, offsetBy: 1)
 		}
 		
 		// Convert deletion/insertion pairs of same element into moves.
