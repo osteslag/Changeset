@@ -101,15 +101,15 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 		guard rows > 0 && columns > 0 else { return matrix[rows][columns] }
 		
 		// Indexes into the two collections.
-		var sourceIndex: T.Index
-		var targetIndex = target.startIndex
-		
+		var sourceIndex = source.startIndex
+		var targetIndex: T.Index
+
 		// Fill body of matrix.
-		
-		for column in 1...columns {
-			sourceIndex = source.startIndex
-			
-			for row in 1...rows {
+
+		for row in 1...rows {
+			targetIndex = target.startIndex
+
+			for column in 1...columns {
 				if source[sourceIndex] == target[targetIndex] {
 					matrix[row][column] = matrix[row - 1][column - 1] // no operation
 				} else {
@@ -135,10 +135,10 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 					}
 				}
 				
-				sourceIndex = source.index(sourceIndex, offsetBy: 1)
+				targetIndex = target.index(targetIndex, offsetBy: 1)
 			}
 			
-			targetIndex = target.index(targetIndex, offsetBy: 1)
+			sourceIndex = source.index(sourceIndex, offsetBy: 1)
 		}
 		
 		// Convert deletion/insertion pairs of same element into moves.
