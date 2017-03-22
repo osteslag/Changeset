@@ -75,75 +75,74 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 	
 	  - returns: An array of `Edit` elements.
 	*/
-	public static func edits(from s: T, to t: T) -> [Edit<T.Iterator.Element>] {
+	public static func edits(from source: T, to target: T) -> [Edit<T.Iterator.Element>] {
 		
-		let m = s.count
-		let n = t.count
+		let rows = source.count
+		let columns = target.count
 		
 		// Fill first row and column of insertions and deletions.
 		
-		var d: [[[Edit<T.Iterator.Element>]]] = Array(repeating: Array(repeating: [], count: n + 1), count: m + 1)
+		var matrix: [[[Edit<T.Iterator.Element>]]] = Array(repeating: Array(repeating: [], count: columns + 1), count: rows + 1)
 		
 		var edits = [Edit<T.Iterator.Element>]()
-		for (row, element) in s.enumerated() {
-			let deletion = Edit(.deletion, value: element, destination: row)
-			edits.append(deletion)
-			d[row + 1][0] = edits
+		for (row, element) in source.enumerated() {
+			let edit = Edit(.deletion, value: element, destination: row)
+			edits.append(edit)
+			matrix[row + 1][0] = edits
 		}
 		
 		edits.removeAll()
-		for (col, element) in t.enumerated() {
-			let insertion = Edit(.insertion, value: element, destination: col)
-			edits.append(insertion)
-			d[0][col + 1] = edits
+		for (col, element) in target.enumerated() {
+			let edit = Edit(.insertion, value: element, destination: col)
+			edits.append(edit)
+			matrix[0][col + 1] = edits
 		}
 		
-		guard m > 0 && n > 0 else { return d[m][n] }
+		guard rows > 0 && columns > 0 else { return matrix[rows][columns] }
 		
 		// Indexes into the two collections.
-		var sx: T.Index
-		var tx = t.startIndex
+		var sourceIndex: T.Index
+		var targetIndex = target.startIndex
 		
 		// Fill body of matrix.
 		
-		for j in 1...n {
-			sx = s.startIndex
+		for column in 1...columns {
+			sourceIndex = source.startIndex
 			
-			for i in 1...m {
-				if s[sx] == t[tx] {
-					d[i][j] = d[i - 1][j - 1] // no operation
+			for row in 1...rows {
+				if source[sourceIndex] == target[targetIndex] {
+					matrix[row][column] = matrix[row - 1][column - 1] // no operation
 				} else {
-					
-					var del = d[i - 1][j] // a deletion
-					var ins = d[i][j - 1] // an insertion
-					var sub = d[i - 1][j - 1] // a substitution
-					
+					var deletion = matrix[row - 1][column] // a deletion
+					var insertion = matrix[row][column - 1] // an insertion
+					var substitution = matrix[row - 1][column - 1] // a substitution
+
 					// Record operation.
 					
-					let minimumCount = min(del.count, ins.count, sub.count)
-					if del.count == minimumCount {
-						let deletion = Edit(.deletion, value: s[sx], destination: i - 1)
-						del.append(deletion)
-						d[i][j] = del
-					} else if ins.count == minimumCount {
-						let insertion = Edit(.insertion, value: t[tx], destination: j - 1)
-						ins.append(insertion)
-						d[i][j] = ins
+					let minimumCount = min(deletion.count, insertion.count, substitution.count)
+					if deletion.count == minimumCount {
+						let edit = Edit(.deletion, value: source[sourceIndex], destination: row - 1)
+						deletion.append(edit)
+						matrix[row][column] = deletion
+					} else if insertion.count == minimumCount {
+						let edit = Edit(.insertion, value: target[targetIndex], destination: column - 1)
+						insertion.append(edit)
+						matrix[row][column] = insertion
 					} else {
-						let substitution = Edit(.substitution, value: t[tx], destination: i - 1)
-						sub.append(substitution)
-						d[i][j] = sub
+						let edit = Edit(.substitution, value: target[targetIndex], destination: row - 1)
+						substitution.append(edit)
+						matrix[row][column] = substitution
 					}
 				}
 				
-				sx = s.index(sx, offsetBy: 1)
+				sourceIndex = source.index(sourceIndex, offsetBy: 1)
 			}
 			
-			tx = t.index(tx, offsetBy: 1)
+			targetIndex = target.index(targetIndex, offsetBy: 1)
 		}
 		
 		// Convert deletion/insertion pairs of same element into moves.
-		return reducedEdits(d[m][n])
+		return reducedEdits(matrix[rows][columns])
 	}
 }
 
