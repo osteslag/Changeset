@@ -2,6 +2,11 @@
 
 This project uses [semantic versioning](http://semver.org/). Change log is also reflected under [Releases](https://github.com/osteslag/Changeset/releases) on GitHub, inspired by [Keep a CHANGELOG](http://keepachangelog.com).
 
+## [2.1.2]: 2017-03-27 Reduce Memory Footprint
+### Fixed
+- Reduce space complexity to O(m)
+- Expand variable names for readability
+
 ## [2.1.1]: 2017-03-21 Suppress Warning
 ### Fixed 
 - Allow Changeset to be used from within a framework, and outside of an application target.
@@ -54,6 +59,7 @@ This project uses [semantic versioning](http://semver.org/). Change log is also 
 
 ## [1.0]: 2015-12-29 Initial Release
 
+[2.1.2]: https://github.com/osteslag/Changeset/compare/v2.1.1...v2.1.2
 [2.1.1]: https://github.com/osteslag/Changeset/compare/v2.1...v2.1.1
 [2.1]: https://github.com/osteslag/Changeset/compare/v2.0.1...v2.1
 [2.0.1]: https://github.com/osteslag/Changeset/compare/v2.0...v2.0.1
