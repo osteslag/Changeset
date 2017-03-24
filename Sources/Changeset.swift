@@ -10,7 +10,7 @@ public struct Edit<T: Equatable> {
 	public let operation: EditOperation
 	public let value: T
 	public let destination: Int
-
+	
 	// Define initializer so that we don't have to add the `operation` label.
 	public init(_ operation: EditOperation, value: T, destination: Int) {
 		self.operation = operation
@@ -75,75 +75,76 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 	
 	  - returns: An array of `Edit` elements.
 	*/
-	public static func edits(from s: T, to t: T) -> [Edit<T.Iterator.Element>] {
+	public static func edits(from source: T, to target: T) -> [Edit<T.Iterator.Element>] {
 		
-		let m = s.count
-		let n = t.count
+		let rows = source.count
+		let columns = target.count
 		
-		// Fill first row and column of insertions and deletions.
-		
-		var d: [[[Edit<T.Iterator.Element>]]] = Array(repeating: Array(repeating: [], count: n + 1), count: m + 1)
-		
-		var edits = [Edit<T.Iterator.Element>]()
-		for (row, element) in s.enumerated() {
-			let deletion = Edit(.deletion, value: element, destination: row)
-			edits.append(deletion)
-			d[row + 1][0] = edits
-		}
-		
-		edits.removeAll()
-		for (col, element) in t.enumerated() {
-			let insertion = Edit(.insertion, value: element, destination: col)
-			edits.append(insertion)
-			d[0][col + 1] = edits
-		}
-		
-		guard m > 0 && n > 0 else { return d[m][n] }
+		// Only the previous and current row of the matrix are required.
+		var previousRow: [[Edit<T.Iterator.Element>]] = Array(repeating: [], count: columns + 1)
+		var currentRow = [[Edit<T.Iterator.Element>]]()
 		
 		// Indexes into the two collections.
-		var sx: T.Index
-		var tx = t.startIndex
+		var sourceIndex = source.startIndex
+		var targetIndex: T.Index
 		
-		// Fill body of matrix.
+		// Fill first row of insertions.
+		var edits = [Edit<T.Iterator.Element>]()
+		for (column, element) in target.enumerated() {
+			let edit = Edit(.insertion, value: element, destination: column)
+			edits.append(edit)
+			previousRow[column + 1] = edits
+		}
 		
-		for j in 1...n {
-			sx = s.startIndex
-			
-			for i in 1...m {
-				if s[sx] == t[tx] {
-					d[i][j] = d[i - 1][j - 1] // no operation
-				} else {
-					
-					var del = d[i - 1][j] // a deletion
-					var ins = d[i][j - 1] // an insertion
-					var sub = d[i - 1][j - 1] // a substitution
-					
-					// Record operation.
-					
-					let minimumCount = min(del.count, ins.count, sub.count)
-					if del.count == minimumCount {
-						let deletion = Edit(.deletion, value: s[sx], destination: i - 1)
-						del.append(deletion)
-						d[i][j] = del
-					} else if ins.count == minimumCount {
-						let insertion = Edit(.insertion, value: t[tx], destination: j - 1)
-						ins.append(insertion)
-						d[i][j] = ins
-					} else {
-						let substitution = Edit(.substitution, value: t[tx], destination: i - 1)
-						sub.append(substitution)
-						d[i][j] = sub
+		if rows > 0 {
+			for row in 1...rows {
+				targetIndex = target.startIndex
+				
+				currentRow = Array(repeating: [], count: columns + 1)
+				
+				// Fill first cell with deletion.
+				var edits = previousRow[0]
+				let edit = Edit(.deletion, value: source[sourceIndex], destination: row - 1)
+				edits.append(edit)
+				currentRow[0] = edits
+				
+				if columns > 0 {
+					for column in 1...columns {
+						if source[sourceIndex] == target[targetIndex] {
+							currentRow[column] = previousRow[column - 1] // no operation
+						} else {
+							var deletion = previousRow[column] // a deletion
+							var insertion = currentRow[column - 1] // an insertion
+							var substitution = previousRow[column - 1] // a substitution
+							
+							// Record operation.
+							let minimumCount = min(deletion.count, insertion.count, substitution.count)
+							if deletion.count == minimumCount {
+								let edit = Edit(.deletion, value: source[sourceIndex], destination: row - 1)
+								deletion.append(edit)
+								currentRow[column] = deletion
+							} else if insertion.count == minimumCount {
+								let edit = Edit(.insertion, value: target[targetIndex], destination: column - 1)
+								insertion.append(edit)
+								currentRow[column] = insertion
+							} else {
+								let edit = Edit(.substitution, value: target[targetIndex], destination: row - 1)
+								substitution.append(edit)
+								currentRow[column] = substitution
+							}
+						}
+						
+						targetIndex = target.index(targetIndex, offsetBy: 1)
 					}
 				}
 				
-				sx = s.index(sx, offsetBy: 1)
+				previousRow = currentRow
+				sourceIndex = source.index(sourceIndex, offsetBy: 1)
 			}
-			
-			tx = t.index(tx, offsetBy: 1)
 		}
 		
 		// Convert deletion/insertion pairs of same element into moves.
-		return reducedEdits(d[m][n])
+		return reducedEdits(previousRow[columns])
 	}
 }
 
