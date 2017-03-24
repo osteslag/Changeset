@@ -10,7 +10,7 @@ public struct Edit<T: Equatable> {
 	public let operation: EditOperation
 	public let value: T
 	public let destination: Int
-
+	
 	// Define initializer so that we don't have to add the `operation` label.
 	public init(_ operation: EditOperation, value: T, destination: Int) {
 		self.operation = operation
@@ -79,15 +79,15 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 		
 		let rows = source.count
 		let columns = target.count
-
+		
 		// Only the previous and current row of the matrix are required.
 		var previousRow: [[Edit<T.Iterator.Element>]] = Array(repeating: [], count: columns + 1)
 		var currentRow = [[Edit<T.Iterator.Element>]]()
-
+		
 		// Indexes into the two collections.
 		var sourceIndex = source.startIndex
 		var targetIndex: T.Index
-
+		
 		// Fill first row of insertions.
 		var edits = [Edit<T.Iterator.Element>]()
 		for (column, element) in target.enumerated() {
@@ -95,19 +95,19 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 			edits.append(edit)
 			previousRow[column + 1] = edits
 		}
-
+		
 		if rows > 0 {
 			for row in 1...rows {
 				targetIndex = target.startIndex
-
+				
 				currentRow = Array(repeating: [], count: columns + 1)
-
+				
 				// Fill first cell with deletion.
 				var edits = previousRow[0]
 				let edit = Edit(.deletion, value: source[sourceIndex], destination: row - 1)
 				edits.append(edit)
 				currentRow[0] = edits
-
+				
 				if columns > 0 {
 					for column in 1...columns {
 						if source[sourceIndex] == target[targetIndex] {
@@ -116,7 +116,7 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 							var deletion = previousRow[column] // a deletion
 							var insertion = currentRow[column - 1] // an insertion
 							var substitution = previousRow[column - 1] // a substitution
-
+							
 							// Record operation.
 							let minimumCount = min(deletion.count, insertion.count, substitution.count)
 							if deletion.count == minimumCount {
@@ -137,9 +137,8 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 						targetIndex = target.index(targetIndex, offsetBy: 1)
 					}
 				}
-
-				previousRow = currentRow
 				
+				previousRow = currentRow
 				sourceIndex = source.index(sourceIndex, offsetBy: 1)
 			}
 		}
