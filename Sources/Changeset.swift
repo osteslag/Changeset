@@ -3,30 +3,27 @@
 //  Copyright (c) 2015-16 Joachim Bondo. All rights reserved.
 //
 
-/** Defines an atomic edit.
-  - seealso: Note on `EditOperation`.
-*/
+/// Defines an atomic edit.
 public struct Edit<T: Equatable> {
-	public let operation: EditOperation
+	
+	/// Defines the type of an `Edit`.
+	public enum Operation {
+		case insertion
+		case deletion
+		case substitution
+		case move(origin: Int)
+	}
+	
+	public let operation: Operation
 	public let value: T
 	public let destination: Int
 	
 	// Define initializer so that we don't have to add the `operation` label.
-	public init(_ operation: EditOperation, value: T, destination: Int) {
+	public init(_ operation: Operation, value: T, destination: Int) {
 		self.operation = operation
 		self.value = value
 		self.destination = destination
 	}
-}
-
-/** Defines the type of an `Edit`.
-  - note: I would have liked to make it an `Edit.Operation` subtype, but that's currently not allowed inside a generic type.
-*/
-public enum EditOperation {
-	case insertion
-	case deletion
-	case substitution
-	case move(origin: Int)
 }
 
 /** A `Changeset` is a way to describe the edits required to go from one set of data to another.
