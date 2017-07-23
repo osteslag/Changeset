@@ -12,20 +12,20 @@ extension Changeset {
 		
 		var rv:[Edit<T.Generator.Element>] = []
 		
-		for (oldIndex, item) in s.enumerated() {
-			guard let newIndex = t.index(of: item) else {
-				rv.append(Edit(.deletion, value:item, destination:oldIndex))
+		for (oldOffset, item) in s.enumerated() {
+			guard let newOffset = t.index(of: item) else {
+				rv.append(Edit(.deletion, value:item, destination:oldOffset))
 				continue
 			}
-			let newIndexI = t.distance(from: t.startIndex, to: newIndex)
-			if newIndexI != oldIndex {
-				rv.append(Edit(.move(origin: oldIndex), value:item, destination:newIndexI))
+			let newOffsetI = t.distance(from: t.startIndex, to: newOffset)
+			if newOffsetI != oldOffset {
+				rv.append(Edit(.move(origin: oldOffset), value:item, destination:newOffsetI))
 			}
 		}
 		
-		for (newIndex, item) in t.enumerated() {
+		for (newOffset, item) in t.enumerated() {
 			if !s.contains(item) {
-				rv.append(Edit(.insertion, value:item, destination:newIndex))
+				rv.append(Edit(.insertion, value:item, destination:newOffset))
 			}
 		}
 		
