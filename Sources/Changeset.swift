@@ -6,20 +6,28 @@
 /// Defines an atomic edit.
 public struct Edit<T: Equatable> {
 	
+	/** The type used to refer to elements in the collections.
+	
+	Because not all collections are zero-based, let alone `Int`-based, an `Edit` uses *offsets* to elements in the collection. Offsets are the element counts from the first element in the collection.
+	
+	  - seealso: [Discussion on GitHub](https://github.com/osteslag/Changeset/issues/37).
+	*/
+	public typealias Offset = Int
+	
 	/// Defines the type of an `Edit`.
 	public enum Operation {
 		case insertion
 		case deletion
 		case substitution
-		case move(origin: Int)
+		case move(origin: Offset)
 	}
 	
 	public let operation: Operation
 	public let value: T
-	public let destination: Int
+	public let destination: Offset
 	
 	// Define initializer so that we don't have to add the `operation` label.
-	public init(_ operation: Operation, value: T, destination: Int) {
+	public init(_ operation: Operation, value: T, destination: Offset) {
 		self.operation = operation
 		self.value = value
 		self.destination = destination
@@ -34,7 +42,7 @@ It detects additions, deletions, substitutions, and moves. Data is a `Collection
 
   - seealso: `Changeset.editDistance`.
 */
-public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.IndexDistance == Int {
+public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.IndexDistance == Edit<T.Iterator.Element>.Offset {
 	
 	/// The starting-point collection.
 	public let origin: T
@@ -174,7 +182,7 @@ If `edit` is a deletion or an insertion, and there is a matching opposite insert
 
   - returns: An optional tuple consisting of the `.move` `Edit` that corresponds to the given deletion or insertion and an opposite match in `edits`, and the index of the match – if one was found.
 */
-private func move<T: Equatable>(from deletionOrInsertion: Edit<T>, `in` edits: [Edit<T>]) -> (move: Edit<T>, index: Int)? {
+private func move<T: Equatable>(from deletionOrInsertion: Edit<T>, `in` edits: [Edit<T>]) -> (move: Edit<T>, offset: Edit<T>.Offset)? {
 	
 	switch deletionOrInsertion.operation {
 		
