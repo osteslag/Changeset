@@ -18,9 +18,9 @@ let changeset = Changeset(source: "kitten".characters, target: "sitting".charact
 
 print(changeset)
 // 'kitten' -> 'sitting':
-//     replace with s at index 0
-//     replace with i at index 4
-//     insert g at index 6
+//     replace with s at offset 0
+//     replace with i at offset 4
+//     insert g at offset 6
 ```
 
 The following assertion would then succeed:
@@ -42,12 +42,14 @@ let target = ["Alaska", "Arizona", "California", "Georgia", "New Jersey", "Virgi
 let edits = Changeset.edits(from: source, to: target)
 
 print(edits)
-// [insert Alaska at index 0, replace with Georgia at index 2, replace with Virginia at index 4]
+// [insert Alaska at offset 0, replace with Georgia at offset 2, replace with Virginia at offset 4]
 ```
+
+Note that Changeset uses offsets, not indexes, to refer to elements in the collections. This is mainly because Swift collections aren’t guranteed to use zero-based integers. See discussion in [issue #37](https://github.com/osteslag/Changeset/issues/37) for more details.
 
 ## UIKit Integration
 
-The index values can be used directly in the animation blocks of `beginUpdates`/`endUpdates` on `UITableView` and `performBatchUpdates` on `UICollectionView` in that `Changeset` follows the principles explained under [_Batch Insertion, Deletion, and Reloading of Rows and Sections_](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/ManageInsertDeleteRow/ManageInsertDeleteRow.html#//apple_ref/doc/uid/TP40007451-CH10-SW9) in Apple’s guide.
+The offset values can be used directly in the animation blocks of `beginUpdates`/`endUpdates` on `UITableView` and `performBatchUpdates` on `UICollectionView` in that `Changeset` follows the principles explained under [_Batch Insertion, Deletion, and Reloading of Rows and Sections_](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/ManageInsertDeleteRow/ManageInsertDeleteRow.html#//apple_ref/doc/uid/TP40007451-CH10-SW9) in Apple’s guide.
 
 In short; first all deletions and substitutions are made, relative to the source collection, then, relative to the resulting collection, insertions. A move is just a deletion followed by an insertion.
 

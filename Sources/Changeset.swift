@@ -68,7 +68,7 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 	
 	The number of steps is the `count` of elements.
 	
-	  - note: Indexes in the returned `Edit` elements are into the `from` source collection (just like how `UITableView` expects changes in the `beginUpdates`/`endUpdates` block.)
+	  - note: Offsets in the returned `Edit` elements are into the `from` source collection (just like how `UITableView` expects changes in the `beginUpdates`/`endUpdates` block.)
 	
 	  - seealso:
 	    - [Edit distance and edit steps](http://davedelong.tumblr.com/post/134367865668/edit-distance-and-edit-steps) by [Dave DeLong](https://twitter.com/davedelong).
@@ -89,13 +89,13 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 		var previousRow: [[Edit<T.Iterator.Element>]] = Array(repeating: [], count: columns + 1)
 		var currentRow = [[Edit<T.Iterator.Element>]]()
 		
-		// Indexes into the two collections.
-		var sourceIndex = source.startIndex
-		var targetIndex: T.Index
+		// Offsets into the two collections.
+		var sourceOffset = source.startIndex
+		var targetOffset: T.Index
 		
 		// Fill first row of insertions.
 		var edits = [Edit<T.Iterator.Element>]()
-		for (column, element) in target.enumerated() {
+		for (column, element) in target.enumerated() { // Note that enumerated() gives us zero-based offsets which is exactly what we want
 			let edit = Edit(.insertion, value: element, destination: column)
 			edits.append(edit)
 			previousRow[column + 1] = edits
@@ -103,19 +103,19 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 		
 		if rows > 0 {
 			for row in 1...rows {
-				targetIndex = target.startIndex
+				targetOffset = target.startIndex
 				
 				currentRow = Array(repeating: [], count: columns + 1)
 				
 				// Fill first cell with deletion.
 				var edits = previousRow[0]
-				let edit = Edit(.deletion, value: source[sourceIndex], destination: row - 1)
+				let edit = Edit(.deletion, value: source[sourceOffset], destination: row - 1)
 				edits.append(edit)
 				currentRow[0] = edits
 				
 				if columns > 0 {
 					for column in 1...columns {
-						if source[sourceIndex] == target[targetIndex] {
+						if source[sourceOffset] == target[targetOffset] {
 							currentRow[column] = previousRow[column - 1] // no operation
 						} else {
 							var deletion = previousRow[column] // a deletion
@@ -125,26 +125,26 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 							// Record operation.
 							let minimumCount = min(deletion.count, insertion.count, substitution.count)
 							if deletion.count == minimumCount {
-								let edit = Edit(.deletion, value: source[sourceIndex], destination: row - 1)
+								let edit = Edit(.deletion, value: source[sourceOffset], destination: row - 1)
 								deletion.append(edit)
 								currentRow[column] = deletion
 							} else if insertion.count == minimumCount {
-								let edit = Edit(.insertion, value: target[targetIndex], destination: column - 1)
+								let edit = Edit(.insertion, value: target[targetOffset], destination: column - 1)
 								insertion.append(edit)
 								currentRow[column] = insertion
 							} else {
-								let edit = Edit(.substitution, value: target[targetIndex], destination: row - 1)
+								let edit = Edit(.substitution, value: target[targetOffset], destination: row - 1)
 								substitution.append(edit)
 								currentRow[column] = substitution
 							}
 						}
 						
-						targetIndex = target.index(targetIndex, offsetBy: 1)
+						targetOffset = target.index(targetOffset, offsetBy: 1)
 					}
 				}
 				
 				previousRow = currentRow
-				sourceIndex = source.index(sourceIndex, offsetBy: 1)
+				sourceOffset = source.index(sourceOffset, offsetBy: 1)
 			}
 		}
 		
@@ -161,8 +161,8 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 private func reducedEdits<T: Equatable>(_ edits: [Edit<T>]) -> [Edit<T>] {
 	return edits.reduce([Edit<T>]()) { (edits, edit) in
 		var reducedEdits = edits
-		if let (move, index) = move(from: edit, in: reducedEdits), case .move = move.operation {
-			reducedEdits.remove(at: index)
+		if let (move, offset) = move(from: edit, in: reducedEdits), case .move = move.operation {
+			reducedEdits.remove(at: offset)
 			reducedEdits.append(move)
 		} else {
 			reducedEdits.append(edit)
@@ -180,24 +180,24 @@ If `edit` is a deletion or an insertion, and there is a matching opposite insert
     - deletionOrInsertion: A `.deletion` or `.insertion` edit there will be searched an opposite match for.
     - edits: The array of `Edit` elements to search for a match in.
 
-  - returns: An optional tuple consisting of the `.move` `Edit` that corresponds to the given deletion or insertion and an opposite match in `edits`, and the index of the match – if one was found.
+  - returns: An optional tuple consisting of the `.move` `Edit` that corresponds to the given deletion or insertion and an opposite match in `edits`, and the offset of the match – if one was found.
 */
 private func move<T: Equatable>(from deletionOrInsertion: Edit<T>, `in` edits: [Edit<T>]) -> (move: Edit<T>, offset: Edit<T>.Offset)? {
 	
 	switch deletionOrInsertion.operation {
 		
 	case .deletion:
-		if let insertionIndex = edits.index(where: { (earlierEdit) -> Bool in
+		if let insertionOffset = edits.index(where: { (earlierEdit) -> Bool in
 			if case .insertion = earlierEdit.operation, earlierEdit.value == deletionOrInsertion.value { return true } else { return false }
 		}) {
-			return (Edit(.move(origin: deletionOrInsertion.destination), value: deletionOrInsertion.value, destination: edits[insertionIndex].destination), insertionIndex)
+			return (Edit(.move(origin: deletionOrInsertion.destination), value: deletionOrInsertion.value, destination: edits[insertionOffset].destination), insertionOffset)
 		}
 		
 	case .insertion:
-		if let deletionIndex = edits.index(where: { (earlierEdit) -> Bool in
+		if let deletionOffset = edits.index(where: { (earlierEdit) -> Bool in
 			if case .deletion = earlierEdit.operation, earlierEdit.value == deletionOrInsertion.value { return true } else { return false }
 		}) {
-			return (Edit(.move(origin: edits[deletionIndex].destination), value: deletionOrInsertion.value, destination: deletionOrInsertion.destination), deletionIndex)
+			return (Edit(.move(origin: edits[deletionOffset].destination), value: deletionOrInsertion.value, destination: deletionOrInsertion.destination), deletionOffset)
 		}
 		
 	default:
