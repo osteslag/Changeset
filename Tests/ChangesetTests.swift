@@ -375,13 +375,13 @@ extension Edit: CustomDebugStringConvertible {
 	public var debugDescription: String {
 		switch self.operation {
 		case .insertion:
-			return "insert \(self.value) at index \(self.destination)"
+			return "insert \(self.value) at offset \(self.destination)"
 		case .deletion:
-			return "delete \(self.value) at index \(self.destination)"
+			return "delete \(self.value) at offset \(self.destination)"
 		case .substitution:
-			return "replace with \(self.value) at index \(self.destination)"
+			return "replace with \(self.value) at offset \(self.destination)"
 		case .move(let origin):
-			return "move \(self.value) from index \(origin) to \(self.destination)"
+			return "move \(self.value) from offset \(origin) to \(self.destination)"
 		}
 	}
 }
