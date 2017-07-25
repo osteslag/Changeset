@@ -8,7 +8,7 @@ public struct Edit<T: Equatable> {
 	
 	/** The type used to refer to elements in the collections.
 	
-	Because not all collections are zero-based, let alone `Int`-based, an `Edit` uses *offsets* to elements in the collection. Offsets are the element counts from the first element in the collection.
+	Because not all collection indices are zero-based, let alone `Int`-based, an `Edit` uses *offsets* to elements in the collection. Offsets are the element counts from the first element in the collection.
 	
 	  - seealso: [Discussion on GitHub](https://github.com/osteslag/Changeset/issues/37).
 	*/

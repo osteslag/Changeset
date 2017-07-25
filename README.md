@@ -45,7 +45,7 @@ print(edits)
 // [insert Alaska at offset 0, replace with Georgia at offset 2, replace with Virginia at offset 4]
 ```
 
-Note that Changeset uses offsets, not indexes, to refer to elements in the collections. This is mainly because Swift collections aren’t guranteed to use zero-based integers. See discussion in [issue #37](https://github.com/osteslag/Changeset/issues/37) for more details.
+Note that Changeset uses offsets, not indices, to refer to elements in the collections. This is mainly because Swift collections aren’t guaranteed to use zero-based integer indices. See discussion in [issue #37](https://github.com/osteslag/Changeset/issues/37) for more details.
 
 ## UIKit Integration
 
