@@ -23,7 +23,7 @@ class DataSource {
 	fileprivate var data = kDefaultData
 	
 	/// The callback is called after each test to let the caller update its view, or whatever.
-	func runTests(_ testData: [String] = kTestData, callback: @escaping ((_ edits: [Edit<Character>], _ isComplete: Bool) -> Void)) {
+	func runTests(_ testData: [String] = kTestData, callback: @escaping ((_ edits: [Edit<String.CharacterView>], _ isComplete: Bool) -> Void)) {
 		var nextTestData = testData
 		let next = nextTestData.remove(at: 0)
 		let edits = Changeset.edits(from: self.data.characters, to: next.characters) // Call naiveEditDistance for a different approach

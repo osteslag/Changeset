@@ -12,7 +12,7 @@ class CollectionViewController: UICollectionViewController {
 	
 	@IBAction func test(_ sender: UIBarButtonItem) {
 		self.dataSource.runTests() {
-			(edits: [Edit<Character>], isComplete: Bool) in
+			(edits: [Edit<String.CharacterView>], isComplete: Bool) in
 			self.collectionView?.update(with: edits)
 			sender.isEnabled = isComplete
 		}

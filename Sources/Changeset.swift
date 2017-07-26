@@ -3,16 +3,18 @@
 //  Copyright (c) 2015-16 Joachim Bondo. All rights reserved.
 //
 
-/// Defines an atomic edit.
-public struct Edit<T: Equatable> {
+/// Defines an atomic edit on a `Collection` of `Equatable` where we can do basic arithmetic on the `IndexDistance`.
+public struct Edit<C: Collection> where C.Iterator.Element: Equatable, C.IndexDistance == Int {
 	
 	/** The type used to refer to elements in the collections.
 	
-	Because not all collection indices are zero-based, let alone `Int`-based, an `Edit` uses *offsets* to elements in the collection. Offsets are the element counts from the first element in the collection.
+	Because not all collection indices are zero-based, let alone `Int`-based, an `Edit` uses *offsets* to elements in the collection.
 	
-	  - seealso: [Discussion on GitHub](https://github.com/osteslag/Changeset/issues/37).
+	  - seealso: Discussions on GitHub: [#37](https://github.com/osteslag/Changeset/issues/37), [#39](https://github.com/osteslag/Changeset/pull/39#discussion_r129030599).
 	*/
-	public typealias Offset = Int
+	public typealias Offset = C.IndexDistance
+	
+	public typealias Element = C.Iterator.Element
 	
 	/// Defines the type of an `Edit`.
 	public enum Operation {
@@ -23,11 +25,11 @@ public struct Edit<T: Equatable> {
 	}
 	
 	public let operation: Operation
-	public let value: T
+	public let value: Element
 	public let destination: Offset
 	
 	// Define initializer so that we don't have to add the `operation` label.
-	public init(_ operation: Operation, value: T, destination: Offset) {
+	public init(_ operation: Operation, value: Element, destination: Offset) {
 		self.operation = operation
 		self.value = value
 		self.destination = destination
@@ -42,7 +44,7 @@ It detects additions, deletions, substitutions, and moves. Data is a `Collection
 
   - seealso: `Changeset.editDistance`.
 */
-public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.IndexDistance == Edit<T.Iterator.Element>.Offset {
+public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.IndexDistance == Int {
 	
 	/// The starting-point collection.
 	public let origin: T
@@ -56,7 +58,7 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 	
 	  - seealso: [Lazy Properties in Structs](http://oleb.net/blog/2015/12/lazy-properties-in-structs-swift/) by [Ole Begemann](https://twitter.com/olebegemann).
 	*/
-	public let edits: [Edit<T.Iterator.Element>]
+	public let edits: [Edit<T>]
 	
 	public init(source origin: T, target destination: T) {
 		self.origin = origin
@@ -66,7 +68,7 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 	
 	/** Returns the edit steps required to go from one collection to another.
 	
-	The number of steps is the `count` of elements.
+	The number of steps is the `count` of `Edit` elements.
 	
 	  - note: Offsets in the returned `Edit` elements are into the `from` source collection (just like how `UITableView` expects changes in the `beginUpdates`/`endUpdates` block.)
 	
@@ -80,23 +82,23 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 	
 	  - returns: An array of `Edit` elements.
 	*/
-	public static func edits(from source: T, to target: T) -> [Edit<T.Iterator.Element>] {
+	public static func edits(from source: T, to target: T) -> [Edit<T>] {
 		
 		let rows = source.count
 		let columns = target.count
 		
 		// Only the previous and current row of the matrix are required.
-		var previousRow: [[Edit<T.Iterator.Element>]] = Array(repeating: [], count: columns + 1)
-		var currentRow = [[Edit<T.Iterator.Element>]]()
+		var previousRow: [[Edit<T>]] = Array(repeating: [], count: columns + 1)
+		var currentRow = [[Edit<T>]]()
 		
 		// Offsets into the two collections.
 		var sourceOffset = source.startIndex
 		var targetOffset: T.Index
 		
 		// Fill first row of insertions.
-		var edits = [Edit<T.Iterator.Element>]()
+		var edits = [Edit<T>]()
 		for (column, element) in target.enumerated() { // Note that enumerated() gives us zero-based offsets which is exactly what we want
-			let edit = Edit(.insertion, value: element, destination: column)
+			let edit = Edit<T>(.insertion, value: element, destination: column)
 			edits.append(edit)
 			previousRow[column + 1] = edits
 		}
@@ -109,7 +111,7 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 				
 				// Fill first cell with deletion.
 				var edits = previousRow[0]
-				let edit = Edit(.deletion, value: source[sourceOffset], destination: row - 1)
+				let edit = Edit<T>(.deletion, value: source[sourceOffset], destination: row - 1)
 				edits.append(edit)
 				currentRow[0] = edits
 				
@@ -125,15 +127,15 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 							// Record operation.
 							let minimumCount = min(deletion.count, insertion.count, substitution.count)
 							if deletion.count == minimumCount {
-								let edit = Edit(.deletion, value: source[sourceOffset], destination: row - 1)
+								let edit = Edit<T>(.deletion, value: source[sourceOffset], destination: row - 1)
 								deletion.append(edit)
 								currentRow[column] = deletion
 							} else if insertion.count == minimumCount {
-								let edit = Edit(.insertion, value: target[targetOffset], destination: column - 1)
+								let edit = Edit<T>(.insertion, value: target[targetOffset], destination: column - 1)
 								insertion.append(edit)
 								currentRow[column] = insertion
 							} else {
-								let edit = Edit(.substitution, value: target[targetOffset], destination: row - 1)
+								let edit = Edit<T>(.substitution, value: target[targetOffset], destination: row - 1)
 								substitution.append(edit)
 								currentRow[column] = substitution
 							}
@@ -158,7 +160,7 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
   - parameter edits: An array of `Edit` elements to be reduced.
   - returns: An array of `Edit` elements.
 */
-private func reducedEdits<T: Equatable>(_ edits: [Edit<T>]) -> [Edit<T>] {
+private func reducedEdits<T: Collection>(_ edits: [Edit<T>]) -> [Edit<T>] {
 	return edits.reduce([Edit<T>]()) { (edits, edit) in
 		var reducedEdits = edits
 		if let (move, offset) = move(from: edit, in: reducedEdits), case .move = move.operation {
@@ -182,7 +184,7 @@ If `edit` is a deletion or an insertion, and there is a matching opposite insert
 
   - returns: An optional tuple consisting of the `.move` `Edit` that corresponds to the given deletion or insertion and an opposite match in `edits`, and the offset of the match – if one was found.
 */
-private func move<T: Equatable>(from deletionOrInsertion: Edit<T>, `in` edits: [Edit<T>]) -> (move: Edit<T>, offset: Edit<T>.Offset)? {
+private func move<T: Collection>(from deletionOrInsertion: Edit<T>, `in` edits: [Edit<T>]) -> (move: Edit<T>, offset: Edit<T>.Offset)? {
 	
 	switch deletionOrInsertion.operation {
 		
@@ -208,7 +210,7 @@ private func move<T: Equatable>(from deletionOrInsertion: Edit<T>, `in` edits: [
 }
 
 extension Edit: Equatable {}
-public func ==<T: Equatable>(lhs: Edit<T>, rhs: Edit<T>) -> Bool {
+public func ==<T: Collection>(lhs: Edit<T>, rhs: Edit<T>) -> Bool {
 	guard lhs.destination == rhs.destination && lhs.value == rhs.value else { return false }
 	switch (lhs.operation, rhs.operation) {
 	case (.insertion, .insertion), (.deletion, .deletion), (.substitution, .substitution):
