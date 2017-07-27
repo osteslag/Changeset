@@ -4,7 +4,7 @@
 //
 
 /// Defines an atomic edit on a `Collection` of `Equatable` where we can do basic arithmetic on the `IndexDistance`.
-public struct Edit<C: Collection> where C.Iterator.Element: Equatable, C.IndexDistance == Int {
+public struct Edit<C: Collection> where C.Iterator.Element: Equatable {
 	
 	/** The type used to refer to elements in the collections.
 	
@@ -44,7 +44,7 @@ It detects additions, deletions, substitutions, and moves. Data is a `Collection
 
   - seealso: `Changeset.editDistance`.
 */
-public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.IndexDistance == Int {
+public struct Changeset<T: Collection> where T.Iterator.Element: Equatable {
 	
 	/// The starting-point collection.
 	public let origin: T
@@ -84,8 +84,8 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 	*/
 	public static func edits(from source: T, to target: T) -> [Edit<T>] {
 		
-		let rows = source.count
-		let columns = target.count
+		let rows = Int(source.count.toIntMax())
+		let columns = Int(target.count.toIntMax())
 		
 		// Only the previous and current row of the matrix are required.
 		var previousRow: [[Edit<T>]] = Array(repeating: [], count: columns + 1)
@@ -98,7 +98,7 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 		// Fill first row of insertions.
 		var edits = [Edit<T>]()
 		for (column, element) in target.enumerated() { // Note that enumerated() gives us zero-based offsets which is exactly what we want
-			let edit = Edit<T>(.insertion, value: element, destination: column)
+			let edit = Edit<T>(.insertion, value: element, destination: Edit<T>.Offset(column.toIntMax()))
 			edits.append(edit)
 			previousRow[column + 1] = edits
 		}
@@ -111,7 +111,7 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 				
 				// Fill first cell with deletion.
 				var edits = previousRow[0]
-				let edit = Edit<T>(.deletion, value: source[sourceOffset], destination: row - 1)
+				let edit = Edit<T>(.deletion, value: source[sourceOffset], destination: Edit<T>.Offset(row.toIntMax()) - 1)
 				edits.append(edit)
 				currentRow[0] = edits
 				
@@ -127,15 +127,15 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 							// Record operation.
 							let minimumCount = min(deletion.count, insertion.count, substitution.count)
 							if deletion.count == minimumCount {
-								let edit = Edit<T>(.deletion, value: source[sourceOffset], destination: row - 1)
+								let edit = Edit<T>(.deletion, value: source[sourceOffset], destination: Edit<T>.Offset(row.toIntMax()) - 1)
 								deletion.append(edit)
 								currentRow[column] = deletion
 							} else if insertion.count == minimumCount {
-								let edit = Edit<T>(.insertion, value: target[targetOffset], destination: column - 1)
+								let edit = Edit<T>(.insertion, value: target[targetOffset], destination: Edit<T>.Offset(column.toIntMax()) - 1)
 								insertion.append(edit)
 								currentRow[column] = insertion
 							} else {
-								let edit = Edit<T>(.substitution, value: target[targetOffset], destination: row - 1)
+								let edit = Edit<T>(.substitution, value: target[targetOffset], destination: Edit<T>.Offset(row.toIntMax()) - 1)
 								substitution.append(edit)
 								currentRow[column] = substitution
 							}
@@ -164,7 +164,7 @@ private func reducedEdits<T: Collection>(_ edits: [Edit<T>]) -> [Edit<T>] {
 	return edits.reduce([Edit<T>]()) { (edits, edit) in
 		var reducedEdits = edits
 		if let (move, offset) = move(from: edit, in: reducedEdits), case .move = move.operation {
-			reducedEdits.remove(at: offset)
+			reducedEdits.remove(at: Int(offset.toIntMax()))
 			reducedEdits.append(move)
 		} else {
 			reducedEdits.append(edit)
@@ -192,14 +192,14 @@ private func move<T: Collection>(from deletionOrInsertion: Edit<T>, `in` edits: 
 		if let insertionOffset = edits.index(where: { (earlierEdit) -> Bool in
 			if case .insertion = earlierEdit.operation, earlierEdit.value == deletionOrInsertion.value { return true } else { return false }
 		}) {
-			return (Edit(.move(origin: deletionOrInsertion.destination), value: deletionOrInsertion.value, destination: edits[insertionOffset].destination), insertionOffset)
+			return (Edit(.move(origin: deletionOrInsertion.destination), value: deletionOrInsertion.value, destination: edits[insertionOffset].destination), Edit<T>.Offset(insertionOffset.toIntMax()))
 		}
 		
 	case .insertion:
 		if let deletionOffset = edits.index(where: { (earlierEdit) -> Bool in
 			if case .deletion = earlierEdit.operation, earlierEdit.value == deletionOrInsertion.value { return true } else { return false }
 		}) {
-			return (Edit(.move(origin: edits[deletionOffset].destination), value: deletionOrInsertion.value, destination: deletionOrInsertion.destination), deletionOffset)
+			return (Edit(.move(origin: edits[deletionOffset].destination), value: deletionOrInsertion.value, destination: deletionOrInsertion.destination), Edit<T>.Offset(deletionOffset.toIntMax()))
 		}
 		
 	default:
