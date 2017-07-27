@@ -8,9 +8,9 @@ import Changeset
 
 extension Changeset {
 	
-	public static func naiveEditDistance(source s: T, target t: T) -> [Edit<T>] {
+	public static func naiveEditDistance(source s: C, target t: C) -> [Edit<C>] {
 		
-		var rv: [Edit<T>] = []
+		var rv: [Edit<C>] = []
 		
 		for (oldOffset, item) in s.enumerated() {
 			guard let newOffset = t.index(of: item) else {

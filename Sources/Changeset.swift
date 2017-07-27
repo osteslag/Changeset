@@ -44,13 +44,13 @@ It detects additions, deletions, substitutions, and moves. Data is a `Collection
 
   - seealso: `Changeset.editDistance`.
 */
-public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.IndexDistance == Int {
+public struct Changeset<C: Collection> where C.Iterator.Element: Equatable, C.IndexDistance == Int {
 	
 	/// The starting-point collection.
-	public let origin: T
+	public let origin: C
 	
 	/// The ending-point collection.
-	public let destination: T
+	public let destination: C
 	
 	/** The edit steps required to go from `self.origin` to `self.destination`.
 		
@@ -58,9 +58,9 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 	
 	  - seealso: [Lazy Properties in Structs](http://oleb.net/blog/2015/12/lazy-properties-in-structs-swift/) by [Ole Begemann](https://twitter.com/olebegemann).
 	*/
-	public let edits: [Edit<T>]
+	public let edits: [Edit<C>]
 	
-	public init(source origin: T, target destination: T) {
+	public init(source origin: C, target destination: C) {
 		self.origin = origin
 		self.destination = destination
 		self.edits = Changeset.edits(from: self.origin, to: self.destination)
@@ -82,23 +82,23 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 	
 	  - returns: An array of `Edit` elements.
 	*/
-	public static func edits(from source: T, to target: T) -> [Edit<T>] {
+	public static func edits(from source: C, to target: C) -> [Edit<C>] {
 		
 		let rows = source.count
 		let columns = target.count
 		
 		// Only the previous and current row of the matrix are required.
-		var previousRow: [[Edit<T>]] = Array(repeating: [], count: columns + 1)
-		var currentRow = [[Edit<T>]]()
+		var previousRow: [[Edit<C>]] = Array(repeating: [], count: columns + 1)
+		var currentRow = [[Edit<C>]]()
 		
 		// Offsets into the two collections.
 		var sourceOffset = source.startIndex
-		var targetOffset: T.Index
+		var targetOffset: C.Index
 		
 		// Fill first row of insertions.
-		var edits = [Edit<T>]()
+		var edits = [Edit<C>]()
 		for (column, element) in target.enumerated() { // Note that enumerated() gives us zero-based offsets which is exactly what we want
-			let edit = Edit<T>(.insertion, value: element, destination: column)
+			let edit = Edit<C>(.insertion, value: element, destination: column)
 			edits.append(edit)
 			previousRow[column + 1] = edits
 		}
@@ -111,7 +111,7 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 				
 				// Fill first cell with deletion.
 				var edits = previousRow[0]
-				let edit = Edit<T>(.deletion, value: source[sourceOffset], destination: row - 1)
+				let edit = Edit<C>(.deletion, value: source[sourceOffset], destination: row - 1)
 				edits.append(edit)
 				currentRow[0] = edits
 				
@@ -127,15 +127,15 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
 							// Record operation.
 							let minimumCount = min(deletion.count, insertion.count, substitution.count)
 							if deletion.count == minimumCount {
-								let edit = Edit<T>(.deletion, value: source[sourceOffset], destination: row - 1)
+								let edit = Edit<C>(.deletion, value: source[sourceOffset], destination: row - 1)
 								deletion.append(edit)
 								currentRow[column] = deletion
 							} else if insertion.count == minimumCount {
-								let edit = Edit<T>(.insertion, value: target[targetOffset], destination: column - 1)
+								let edit = Edit<C>(.insertion, value: target[targetOffset], destination: column - 1)
 								insertion.append(edit)
 								currentRow[column] = insertion
 							} else {
-								let edit = Edit<T>(.substitution, value: target[targetOffset], destination: row - 1)
+								let edit = Edit<C>(.substitution, value: target[targetOffset], destination: row - 1)
 								substitution.append(edit)
 								currentRow[column] = substitution
 							}
@@ -160,8 +160,8 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
   - parameter edits: An array of `Edit` elements to be reduced.
   - returns: An array of `Edit` elements.
 */
-private func reducedEdits<T>(_ edits: [Edit<T>]) -> [Edit<T>] {
-	return edits.reduce([Edit<T>]()) { (edits, edit) in
+private func reducedEdits<C>(_ edits: [Edit<C>]) -> [Edit<C>] {
+	return edits.reduce([Edit<C>]()) { (edits, edit) in
 		var reducedEdits = edits
 		if let (move, offset) = move(from: edit, in: reducedEdits), case .move = move.operation {
 			reducedEdits.remove(at: offset)
@@ -184,7 +184,7 @@ If `edit` is a deletion or an insertion, and there is a matching opposite insert
 
   - returns: An optional tuple consisting of the `.move` `Edit` that corresponds to the given deletion or insertion and an opposite match in `edits`, and the offset of the match – if one was found.
 */
-private func move<T>(from deletionOrInsertion: Edit<T>, `in` edits: [Edit<T>]) -> (move: Edit<T>, offset: Edit<T>.Offset)? {
+private func move<C>(from deletionOrInsertion: Edit<C>, `in` edits: [Edit<C>]) -> (move: Edit<C>, offset: Edit<C>.Offset)? {
 	
 	switch deletionOrInsertion.operation {
 		
@@ -210,7 +210,7 @@ private func move<T>(from deletionOrInsertion: Edit<T>, `in` edits: [Edit<T>]) -
 }
 
 extension Edit: Equatable {}
-public func ==<T>(lhs: Edit<T>, rhs: Edit<T>) -> Bool {
+public func ==<C>(lhs: Edit<C>, rhs: Edit<C>) -> Bool {
 	guard lhs.destination == rhs.destination && lhs.value == rhs.value else { return false }
 	switch (lhs.operation, rhs.operation) {
 	case (.insertion, .insertion), (.deletion, .deletion), (.substitution, .substitution):
