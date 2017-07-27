@@ -160,7 +160,7 @@ public struct Changeset<T: Collection> where T.Iterator.Element: Equatable, T.In
   - parameter edits: An array of `Edit` elements to be reduced.
   - returns: An array of `Edit` elements.
 */
-private func reducedEdits<T: Collection>(_ edits: [Edit<T>]) -> [Edit<T>] {
+private func reducedEdits<T>(_ edits: [Edit<T>]) -> [Edit<T>] {
 	return edits.reduce([Edit<T>]()) { (edits, edit) in
 		var reducedEdits = edits
 		if let (move, offset) = move(from: edit, in: reducedEdits), case .move = move.operation {
@@ -184,7 +184,7 @@ If `edit` is a deletion or an insertion, and there is a matching opposite insert
 
   - returns: An optional tuple consisting of the `.move` `Edit` that corresponds to the given deletion or insertion and an opposite match in `edits`, and the offset of the match – if one was found.
 */
-private func move<T: Collection>(from deletionOrInsertion: Edit<T>, `in` edits: [Edit<T>]) -> (move: Edit<T>, offset: Edit<T>.Offset)? {
+private func move<T>(from deletionOrInsertion: Edit<T>, `in` edits: [Edit<T>]) -> (move: Edit<T>, offset: Edit<T>.Offset)? {
 	
 	switch deletionOrInsertion.operation {
 		
@@ -210,7 +210,7 @@ private func move<T: Collection>(from deletionOrInsertion: Edit<T>, `in` edits: 
 }
 
 extension Edit: Equatable {}
-public func ==<T: Collection>(lhs: Edit<T>, rhs: Edit<T>) -> Bool {
+public func ==<T>(lhs: Edit<T>, rhs: Edit<T>) -> Bool {
 	guard lhs.destination == rhs.destination && lhs.value == rhs.value else { return false }
 	switch (lhs.operation, rhs.operation) {
 	case (.insertion, .insertion), (.deletion, .deletion), (.substitution, .substitution):
