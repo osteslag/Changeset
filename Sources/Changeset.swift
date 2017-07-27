@@ -36,13 +36,13 @@ public struct Edit<C: Collection> where C.Iterator.Element: Equatable, C.IndexDi
 	}
 }
 
-/** A `Changeset` is a way to describe the edits required to go from one set of data to another.
+/** A `Changeset` describes the edits required to go from one set of data to another.
 
 It detects additions, deletions, substitutions, and moves. Data is a `Collection` of `Equatable` elements.
 
   - note: This implementation was inspired by [Dave DeLong](https://twitter.com/davedelong)'s article, [Edit distance and edit steps](http://davedelong.tumblr.com/post/134367865668/edit-distance-and-edit-steps).
 
-  - seealso: `Changeset.editDistance`.
+  - seealso: `Changeset.edits`.
 */
 public struct Changeset<C: Collection> where C.Iterator.Element: Equatable, C.IndexDistance == Int {
 	
