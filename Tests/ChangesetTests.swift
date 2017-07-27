@@ -25,7 +25,7 @@ class ChangesetTests: XCTestCase {
 	func testSampleChanges() {
 		
 		var changeset: Changeset<String.CharacterView>
-		var edits: Array<Edit<String.CharacterView.Generator.Element>>
+		var edits: Array<Edit<String.CharacterView>>
 		
 		changeset = Changeset(source: "kitten".characters, target: "sitting".characters)
 		edits = [
@@ -99,7 +99,7 @@ class ChangesetTests: XCTestCase {
 	func testInsertionsAfterDeletions() {
 		
 		var changeset: Changeset<String.CharacterView>
-		var edits: Array<Edit<String.CharacterView.Generator.Element>>
+		var edits: Array<Edit<String.CharacterView>>
 		
 		changeset = Changeset(source: "abcdefgh".characters, target: "bdefijgh".characters)
 		edits = [
@@ -137,7 +137,7 @@ class ChangesetTests: XCTestCase {
 	func testComplexChange() {
 		
 		var changeset: Changeset<String.CharacterView>
-		var edits: Array<Edit<String.CharacterView.Generator.Element>>
+		var edits: Array<Edit<String.CharacterView>>
 		
 		changeset = Changeset(source: "abcdefgh".characters, target: "bacefxhi".characters)
 		edits = [
@@ -163,7 +163,7 @@ class ChangesetTests: XCTestCase {
 		// https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/ManageInsertDeleteRow/ManageInsertDeleteRow.html#//apple_ref/doc/uid/TP40007451-CH10-SW16
 		
 		let changeset: Changeset<Array<String>>
-		let edits: Array<Edit<String>>
+		let edits: Array<Edit<Array<String>>>
 		
 		let source = ["Arizona", "California", "Delaware", "New Jersey", "Washington"]
 		let target = ["Alaska", "Arizona", "California", "Georgia", "New Jersey", "Virginia"]
@@ -190,7 +190,7 @@ class ChangesetTests: XCTestCase {
 		// https://twitter.com/davedelong/status/671051521371406336
 		
 		var changeset: Changeset<String.CharacterView>
-		var edits: Array<Edit<String.CharacterView.Generator.Element>>
+		var edits: Array<Edit<String.CharacterView>>
 		
 		changeset = Changeset(source: "words".characters, target: "tsword".characters)
 		edits = [
@@ -233,7 +233,7 @@ class ChangesetTests: XCTestCase {
 	func testEmptyStrings() {
 		
 		var changeset: Changeset<String.CharacterView>
-		var edits: Array<Edit<String.CharacterView.Generator.Element>>
+		var edits: Array<Edit<String.CharacterView>>
 		
 		changeset = Changeset(source: "abc".characters, target: "".characters)
 		edits = [
@@ -255,7 +255,7 @@ class ChangesetTests: XCTestCase {
 	func testOneElementChanges() {
 		
 		var changeset: Changeset<String.CharacterView>
-		var edits: Array<Edit<String.CharacterView.Generator.Element>>
+		var edits: Array<Edit<String.CharacterView>>
 		
 		changeset = Changeset(source: " ".characters, target: "a".characters)
 		edits = [
@@ -273,7 +273,7 @@ class ChangesetTests: XCTestCase {
 	func testInsertions() {
 		
 		var changeset: Changeset<String.CharacterView>
-		var edits: Array<Edit<String.CharacterView.Generator.Element>>
+		var edits: Array<Edit<String.CharacterView>>
 		
 		changeset = Changeset(source: "".characters, target: "a".characters)
 		edits = [
@@ -310,7 +310,7 @@ class ChangesetTests: XCTestCase {
 	func testMoves() {
 		
 		var changeset: Changeset<String.CharacterView>
-		var edits: Array<Edit<String.CharacterView.Generator.Element>>
+		var edits: Array<Edit<String.CharacterView>>
 		
 		changeset = Changeset(source: "AAAAaaaa".characters, target: "aaaaAAAA".characters)
 		edits = [
@@ -361,9 +361,9 @@ class ChangesetTests: XCTestCase {
 		
 		let changeset = Changeset(source: old, target: new)
 		let changes = [
-			Edit(.deletion, value: URL(string: "http://a.b.c")!, destination: 0),
-			Edit(.deletion, value: URL(string: "http://k.l.m")!, destination: 2),
-			Edit(.insertion, value: URL(string: "http://h.i.j")!, destination: 2),
+			Edit<Array<URL>>(.deletion, value: old[0], destination: 0),
+			Edit(.deletion, value: old[2], destination: 2),
+			Edit(.insertion, value: new[2], destination: 2),
 		]
 		XCTAssertEqual(changeset.edits, changes)
 	}
