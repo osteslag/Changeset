@@ -58,7 +58,7 @@ public struct Changeset<C: Collection> where C.Iterator.Element: Equatable, C.In
 	
 	  - seealso: [Lazy Properties in Structs](http://oleb.net/blog/2015/12/lazy-properties-in-structs-swift/) by [Ole Begemann](https://twitter.com/olebegemann).
 	*/
-	public let edits: [Edit<C>]
+	public let edits: Array<Edit<C>>
 	
 	public init(source origin: C, target destination: C) {
 		self.origin = origin
@@ -82,21 +82,21 @@ public struct Changeset<C: Collection> where C.Iterator.Element: Equatable, C.In
 	
 	  - returns: An array of `Edit` elements.
 	*/
-	public static func edits(from source: C, to target: C) -> [Edit<C>] {
+	public static func edits(from source: C, to target: C) -> Array<Edit<C>> {
 		
 		let rows = source.count
 		let columns = target.count
 		
 		// Only the previous and current row of the matrix are required.
-		var previousRow: [[Edit<C>]] = Array(repeating: [], count: columns + 1)
-		var currentRow = [[Edit<C>]]()
+		var previousRow: Array<Array<Edit<C>>> = Array(repeating: [], count: columns + 1)
+		var currentRow = Array<Array<Edit<C>>>()
 		
 		// Offsets into the two collections.
 		var sourceOffset = source.startIndex
 		var targetOffset: C.Index
 		
 		// Fill first row of insertions.
-		var edits = [Edit<C>]()
+		var edits = Array<Edit<C>>()
 		for (column, element) in target.enumerated() { // Note that enumerated() gives us zero-based offsets which is exactly what we want
 			let edit = Edit<C>(.insertion, value: element, destination: column)
 			edits.append(edit)
@@ -160,8 +160,8 @@ public struct Changeset<C: Collection> where C.Iterator.Element: Equatable, C.In
   - parameter edits: An array of `Edit` elements to be reduced.
   - returns: An array of `Edit` elements.
 */
-private func reducedEdits<C>(_ edits: [Edit<C>]) -> [Edit<C>] {
-	return edits.reduce([Edit<C>]()) { (edits, edit) in
+private func reducedEdits<C>(_ edits: Array<Edit<C>>) -> Array<Edit<C>> {
+	return edits.reduce(Array<Edit<C>>()) { (edits, edit) in
 		var reducedEdits = edits
 		if let (move, offset) = move(from: edit, in: reducedEdits), case .move = move.operation {
 			reducedEdits.remove(at: offset)
@@ -184,7 +184,7 @@ If `edit` is a deletion or an insertion, and there is a matching opposite insert
 
   - returns: An optional tuple consisting of the `.move` `Edit` that corresponds to the given deletion or insertion and an opposite match in `edits`, and the offset of the match – if one was found.
 */
-private func move<C>(from deletionOrInsertion: Edit<C>, `in` edits: [Edit<C>]) -> (move: Edit<C>, offset: Edit<C>.Offset)? {
+private func move<C>(from deletionOrInsertion: Edit<C>, `in` edits: Array<Edit<C>>) -> (move: Edit<C>, offset: Edit<C>.Offset)? {
 	
 	switch deletionOrInsertion.operation {
 		
