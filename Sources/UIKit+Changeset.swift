@@ -48,14 +48,14 @@ private func batchIndexPaths<T: Collection> (from edits: [Edit<T>], in section: 
 	var updates = [IndexPath]()
 	
 	for edit in edits {
-		let destinationIndexPath = IndexPath(row: edit.destination, section: section)
+		let destinationIndexPath = IndexPath(row: Int(edit.destination.toIntMax()), section: section)
 		switch edit.operation {
 		case .deletion:
 			deletions.append(destinationIndexPath)
 		case .insertion:
 			insertions.append(destinationIndexPath)
 		case .move(let origin):
-			let originIndexPath = IndexPath(row: origin, section: section)
+			let originIndexPath = IndexPath(row: Int(origin.toIntMax()), section: section)
 			deletions.append(originIndexPath)
 			insertions.append(destinationIndexPath)
 		case .substitution:
