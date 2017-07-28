@@ -14,18 +14,18 @@ extension Changeset {
 		
 		for (oldOffset, item) in s.enumerated() {
 			guard let newOffset = t.index(of: item) else {
-				rv.append(Edit(.deletion, value:item, destination:oldOffset))
+				rv.append(Edit(operation: .deletion, value: item, destination: oldOffset))
 				continue
 			}
 			let newOffsetI = t.distance(from: t.startIndex, to: newOffset)
 			if newOffsetI != oldOffset {
-				rv.append(Edit(.move(origin: oldOffset), value:item, destination:newOffsetI))
+				rv.append(Edit(operation: .move(origin: oldOffset), value: item, destination: newOffsetI))
 			}
 		}
 		
 		for (newOffset, item) in t.enumerated() {
 			if !s.contains(item) {
-				rv.append(Edit(.insertion, value:item, destination:newOffset))
+				rv.append(Edit(operation: .insertion, value: item, destination: newOffset))
 			}
 		}
 		

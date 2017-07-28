@@ -28,8 +28,8 @@ public struct Edit<C: Collection> where C.Iterator.Element: Equatable, C.IndexDi
 	public let value: Element
 	public let destination: Offset
 	
-	// Define initializer so that we don't have to add the `operation` label.
-	public init(_ operation: Operation, value: Element, destination: Offset) {
+	// Why do we have to declare this initializer?
+	public init(operation: Operation, value: Element, destination: Offset) {
 		self.operation = operation
 		self.value = value
 		self.destination = destination
@@ -73,14 +73,14 @@ private func move<C>(from deletionOrInsertion: Edit<C>, `in` edits: Array<Edit<C
 		if let insertionOffset = edits.index(where: { (earlierEdit) -> Bool in
 			if case .insertion = earlierEdit.operation, earlierEdit.value == deletionOrInsertion.value { return true } else { return false }
 		}) {
-			return (Edit(.move(origin: deletionOrInsertion.destination), value: deletionOrInsertion.value, destination: edits[insertionOffset].destination), insertionOffset)
+			return (Edit(operation: .move(origin: deletionOrInsertion.destination), value: deletionOrInsertion.value, destination: edits[insertionOffset].destination), insertionOffset)
 		}
 		
 	case .insertion:
 		if let deletionOffset = edits.index(where: { (earlierEdit) -> Bool in
 			if case .deletion = earlierEdit.operation, earlierEdit.value == deletionOrInsertion.value { return true } else { return false }
 		}) {
-			return (Edit(.move(origin: edits[deletionOffset].destination), value: deletionOrInsertion.value, destination: deletionOrInsertion.destination), deletionOffset)
+			return (Edit(operation: .move(origin: edits[deletionOffset].destination), value: deletionOrInsertion.value, destination: deletionOrInsertion.destination), deletionOffset)
 		}
 		
 	default:

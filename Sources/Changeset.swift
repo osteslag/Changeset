@@ -65,7 +65,7 @@ public struct Changeset<C: Collection> where C.Iterator.Element: Equatable, C.In
 		// Fill first row of insertions.
 		var edits = Array<Edit<C>>()
 		for (column, element) in target.enumerated() { // Note that enumerated() gives us zero-based offsets which is exactly what we want
-			let edit = Edit<C>(.insertion, value: element, destination: column)
+			let edit = Edit<C>(operation: .insertion, value: element, destination: column)
 			edits.append(edit)
 			previousRow[column + 1] = edits
 		}
@@ -78,7 +78,7 @@ public struct Changeset<C: Collection> where C.Iterator.Element: Equatable, C.In
 				
 				// Fill first cell with deletion.
 				var edits = previousRow[0]
-				let edit = Edit<C>(.deletion, value: source[sourceOffset], destination: row - 1)
+				let edit = Edit<C>(operation: .deletion, value: source[sourceOffset], destination: row - 1)
 				edits.append(edit)
 				currentRow[0] = edits
 				
@@ -94,15 +94,15 @@ public struct Changeset<C: Collection> where C.Iterator.Element: Equatable, C.In
 							// Record operation.
 							let minimumCount = min(deletion.count, insertion.count, substitution.count)
 							if deletion.count == minimumCount {
-								let edit = Edit<C>(.deletion, value: source[sourceOffset], destination: row - 1)
+								let edit = Edit<C>(operation: .deletion, value: source[sourceOffset], destination: row - 1)
 								deletion.append(edit)
 								currentRow[column] = deletion
 							} else if insertion.count == minimumCount {
-								let edit = Edit<C>(.insertion, value: target[targetOffset], destination: column - 1)
+								let edit = Edit<C>(operation: .insertion, value: target[targetOffset], destination: column - 1)
 								insertion.append(edit)
 								currentRow[column] = insertion
 							} else {
-								let edit = Edit<C>(.substitution, value: target[targetOffset], destination: row - 1)
+								let edit = Edit<C>(operation: .substitution, value: target[targetOffset], destination: row - 1)
 								substitution.append(edit)
 								currentRow[column] = substitution
 							}
