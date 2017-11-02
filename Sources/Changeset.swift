@@ -25,7 +25,7 @@ public struct Changeset<C: Collection> where C.Iterator.Element: Equatable, C.In
 	
 	  - seealso: [Lazy Properties in Structs](http://oleb.net/blog/2015/12/lazy-properties-in-structs-swift/) by [Ole Begemann](https://twitter.com/olebegemann).
 	*/
-	public let edits: Array<Edit<C>>
+	public let edits: Array<Edit>
 	
 	public init(source origin: C, target destination: C) {
 		self.origin = origin
@@ -49,23 +49,23 @@ public struct Changeset<C: Collection> where C.Iterator.Element: Equatable, C.In
 	
 	  - returns: An array of `Edit` elements.
 	*/
-	public static func edits(from source: C, to target: C) -> Array<Edit<C>> {
+	public static func edits(from source: C, to target: C) -> Array<Edit> {
 		
 		let rows = source.count
 		let columns = target.count
 		
 		// Only the previous and current row of the matrix are required.
-		var previousRow: Array<Array<Edit<C>>> = Array(repeating: [], count: columns + 1)
-		var currentRow = Array<Array<Edit<C>>>()
+		var previousRow: Array<Array<Edit>> = Array(repeating: [], count: columns + 1)
+		var currentRow = Array<Array<Edit>>()
 		
 		// Offsets into the two collections.
 		var sourceOffset = source.startIndex
 		var targetOffset: C.Index
 		
 		// Fill first row of insertions.
-		var edits = Array<Edit<C>>()
+		var edits = Array<Edit>()
 		for (column, element) in target.enumerated() { // Note that enumerated() gives us zero-based offsets which is exactly what we want
-			let edit = Edit<C>(operation: .insertion, value: element, destination: column)
+			let edit = Edit(operation: .insertion, value: element, destination: column)
 			edits.append(edit)
 			previousRow[column + 1] = edits
 		}
@@ -78,7 +78,7 @@ public struct Changeset<C: Collection> where C.Iterator.Element: Equatable, C.In
 				
 				// Fill first cell with deletion.
 				var edits = previousRow[0]
-				let edit = Edit<C>(operation: .deletion, value: source[sourceOffset], destination: row - 1)
+				let edit = Edit(operation: .deletion, value: source[sourceOffset], destination: row - 1)
 				edits.append(edit)
 				currentRow[0] = edits
 				
@@ -94,15 +94,15 @@ public struct Changeset<C: Collection> where C.Iterator.Element: Equatable, C.In
 							// Record operation.
 							let minimumCount = min(deletion.count, insertion.count, substitution.count)
 							if deletion.count == minimumCount {
-								let edit = Edit<C>(operation: .deletion, value: source[sourceOffset], destination: row - 1)
+								let edit = Edit(operation: .deletion, value: source[sourceOffset], destination: row - 1)
 								deletion.append(edit)
 								currentRow[column] = deletion
 							} else if insertion.count == minimumCount {
-								let edit = Edit<C>(operation: .insertion, value: target[targetOffset], destination: column - 1)
+								let edit = Edit(operation: .insertion, value: target[targetOffset], destination: column - 1)
 								insertion.append(edit)
 								currentRow[column] = insertion
 							} else {
-								let edit = Edit<C>(operation: .substitution, value: target[targetOffset], destination: row - 1)
+								let edit = Edit(operation: .substitution, value: target[targetOffset], destination: row - 1)
 								substitution.append(edit)
 								currentRow[column] = substitution
 							}
@@ -118,6 +118,6 @@ public struct Changeset<C: Collection> where C.Iterator.Element: Equatable, C.In
 		}
 		
 		// Convert deletion/insertion pairs of same element into moves.
-		return reducedEdits(previousRow[columns])
+		return Changeset.reducedEdits(previousRow[columns])
 	}
 }
