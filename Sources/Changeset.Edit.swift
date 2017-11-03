@@ -1,5 +1,5 @@
 //
-//  Changeset.swift
+//  Changeset.Edit.swift
 //  Copyright (c) 2017 Joachim Bondo. All rights reserved.
 //
 
