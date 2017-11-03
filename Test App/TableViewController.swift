@@ -11,8 +11,7 @@ class TableViewController: UITableViewController {
 	fileprivate var dataSource = DataSource()
 	
 	@IBAction func test(_ sender: UIBarButtonItem) {
-		self.dataSource.runTests() {
-			(edits: [Edit<Character>], isComplete: Bool) in
+		self.dataSource.runTests() { (edits: Array<Changeset<String>.Edit>, isComplete: Bool) in
 			self.tableView.update(with: edits)
 			sender.isEnabled = isComplete
 		}

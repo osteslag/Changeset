@@ -7,29 +7,29 @@ This is an attempt at implementing the solution outlined in [Dave DeLong](https:
 
 A `Changeset` describes the minimal edits required to go from one `Collection` of `Equatable` elements to another.
 
-It has been written specifically to be used in conjunction with `UITableView` and `UICollectionView` data sources by detecting additions, deletions, substitutions, and moves between the two sets of data.
+It has been written primarily to be used in conjunction with `UITableView` and `UICollectionView` data sources by detecting additions, deletions, substitutions, and moves between the two sets of data. But it can also be used to compute more general changes between two data sets.
 
 ## Usage
 
-The following code computes the minimal edits of the canonical example, going from the `Character` collections “kitten” to “sitting”:
+The following code computes the minimal edits of the canonical example, going from the `String` collections “kitten” to “sitting”:
 
 ```swift
-let changeset = Changeset(source: "kitten".characters, target: "sitting".characters)
+let changeset = Changeset(source: "kitten", target: "sitting")
 
 print(changeset)
 // 'kitten' -> 'sitting':
-//     replace with s at index 0
-//     replace with i at index 4
-//     insert g at index 6
+//     replace with s at offset 0
+//     replace with i at offset 4
+//     insert g at offset 6
 ```
 
 The following assertion would then succeed:
 
 ```swift
 let edits = [
-    Edit(.Substitution, value: "s", destination: 0),
-    Edit(.Substitution, value: "i", destination: 4),
-    Edit(.Insertion, value: "g", destination: 6),
+    Changeset<String>.Edit(operation: .substitution, value: "s", destination: 0),
+    Changeset<String>.Edit(operation: .substitution, value: "i", destination: 4),
+    Changeset<String>.Edit(operation: .insertion, value: "g", destination: 6),
 ]
 assert(changeset.edits == edits)
 ```
@@ -42,12 +42,14 @@ let target = ["Alaska", "Arizona", "California", "Georgia", "New Jersey", "Virgi
 let edits = Changeset.edits(from: source, to: target)
 
 print(edits)
-// [insert Alaska at index 0, replace with Georgia at index 2, replace with Virginia at index 4]
+// [insert Alaska at offset 0, replace with Georgia at offset 2, replace with Virginia at offset 4]
 ```
+
+Note that Changeset uses offsets, not indices, to refer to elements in the collections. This is mainly because Swift collections aren’t guaranteed to use zero-based integer indices. See discussion in [issue #37](https://github.com/osteslag/Changeset/issues/37) for more details.
 
 ## UIKit Integration
 
-The index values can be used directly in the animation blocks of `beginUpdates`/`endUpdates` on `UITableView` and `performBatchUpdates` on `UICollectionView` in that `Changeset` follows the principles explained under [_Batch Insertion, Deletion, and Reloading of Rows and Sections_](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/ManageInsertDeleteRow/ManageInsertDeleteRow.html#//apple_ref/doc/uid/TP40007451-CH10-SW9) in Apple’s guide.
+The offset values can be used directly in the animation blocks of `beginUpdates`/`endUpdates` on `UITableView` and `performBatchUpdates` on `UICollectionView` in that `Changeset` follows the principles explained under [_Batch Insertion, Deletion, and Reloading of Rows and Sections_](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/ManageInsertDeleteRow/ManageInsertDeleteRow.html#//apple_ref/doc/uid/TP40007451-CH10-SW9) in Apple’s guide.
 
 In short; first all deletions and substitutions are made, relative to the source collection, then, relative to the resulting collection, insertions. A move is just a deletion followed by an insertion.
 
