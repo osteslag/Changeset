@@ -10,7 +10,7 @@ import UIKit
 extension UITableView {
 	
 	/// Performs batch updates on the table view, given the edits of a `Changeset`, and animates the transition.
-	open func update<C>(with edits: Array<Edit<C>>, in section: Int = 0) {
+	open func update<C>(with edits: Array<Changeset<C>.Edit>, in section: Int = 0) {
 		
 		guard !edits.isEmpty else { return }
 		
@@ -27,7 +27,7 @@ extension UITableView {
 extension UICollectionView {
 	
 	/// Performs batch updates on the table view, given the edits of a `Changeset`, and animates the transition.
-	open func update<C>(with edits: Array<Edit<C>>, in section: Int = 0, completion: ((Bool) -> Void)? = nil) {
+	open func update<C>(with edits: Array<Changeset<C>.Edit>, in section: Int = 0, completion: ((Bool) -> Void)? = nil) {
 		
 		guard !edits.isEmpty else { return }
 		
@@ -41,7 +41,7 @@ extension UICollectionView {
 	}
 }
 
-private func batchIndexPaths<C> (from edits: Array<Edit<C>>, in section: Int) -> (insertions: Array<IndexPath>, deletions: Array<IndexPath>, updates: Array<IndexPath>) {
+private func batchIndexPaths<C> (from edits: Array<Changeset<C>.Edit>, in section: Int) -> (insertions: Array<IndexPath>, deletions: Array<IndexPath>, updates: Array<IndexPath>) {
 	
 	var insertions: Array<IndexPath> = []
 	var deletions: Array<IndexPath> = []

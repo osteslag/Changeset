@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		29078AC81C895E9F00FBBEC9 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29078AC71C895E9F00FBBEC9 /* DataSource.swift */; };
 		29214F661DE4DF9D000677A7 /* UIKit+Changeset.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41787B1C6EF39100296FD8 /* UIKit+Changeset.swift */; };
-		296C962A1F2A25B700036AAB /* Edit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296C96291F2A25B700036AAB /* Edit.swift */; };
+		296C962A1F2A25B700036AAB /* Changeset.Edit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296C96291F2A25B700036AAB /* Changeset.Edit.swift */; };
 		29828DD41C2A899E0056284E /* Changeset.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29828DC91C2A899D0056284E /* Changeset.framework */; };
 		29828DD91C2A899E0056284E /* ChangesetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29828DD81C2A899E0056284E /* ChangesetTests.swift */; };
 		29828DE41C2A8BD40056284E /* Changeset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29828DE31C2A8BD40056284E /* Changeset.swift */; };
@@ -58,7 +58,7 @@
 
 /* Begin PBXFileReference section */
 		29078AC71C895E9F00FBBEC9 /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
-		296C96291F2A25B700036AAB /* Edit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Edit.swift; sourceTree = "<group>"; };
+		296C96291F2A25B700036AAB /* Changeset.Edit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Changeset.Edit.swift; sourceTree = "<group>"; };
 		297DDB501C2BDDC9009EA889 /* Changeset.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; path = Changeset.podspec; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		29828DC91C2A899D0056284E /* Changeset.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Changeset.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29828DCE1C2A899D0056284E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -136,7 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				29828DE31C2A8BD40056284E /* Changeset.swift */,
-				296C96291F2A25B700036AAB /* Edit.swift */,
+				296C96291F2A25B700036AAB /* Changeset.Edit.swift */,
 				CC41787B1C6EF39100296FD8 /* UIKit+Changeset.swift */,
 				29828DCE1C2A899D0056284E /* Info.plist */,
 			);
@@ -333,7 +333,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				29828DE41C2A8BD40056284E /* Changeset.swift in Sources */,
-				296C962A1F2A25B700036AAB /* Edit.swift in Sources */,
+				296C962A1F2A25B700036AAB /* Changeset.Edit.swift in Sources */,
 				29214F661DE4DF9D000677A7 /* UIKit+Changeset.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
