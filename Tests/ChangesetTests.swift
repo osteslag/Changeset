@@ -22,6 +22,28 @@ class ChangesetTests: XCTestCase {
 		XCTAssertEqual(changeset.edits.count, 3)
 	}
 	
+	func testEquatableEdit() {
+		
+		let edit1 = Changeset<String>.Edit(operation: .substitution, value: "s", destination: 0)
+		let edit2 = Changeset<String>.Edit(operation: .substitution, value: "s", destination: 0)
+		let edit3 = Changeset<String>.Edit(operation: .substitution, value: "s", destination: 1)
+		let edit4 = Changeset<String>.Edit(operation: .insertion, value: "s", destination: 0)
+		let edit5 = Changeset<String>.Edit(operation: .deletion, value: "s", destination: 0)
+		let edit6 = Changeset<String>.Edit(operation: .move(origin: 3), value: "s", destination: 0)
+		
+		XCTAssertEqual(edit1, edit2)
+		XCTAssertNotEqual(edit2, edit3)
+		XCTAssertNotEqual(edit2, edit4)
+		XCTAssertNotEqual(edit2, edit5)
+		XCTAssertNotEqual(edit2, edit6)
+		XCTAssertNotEqual(edit3, edit4)
+		XCTAssertNotEqual(edit3, edit5)
+		XCTAssertNotEqual(edit3, edit6)
+		XCTAssertNotEqual(edit4, edit5)
+		XCTAssertNotEqual(edit4, edit6)
+		XCTAssertNotEqual(edit5, edit6)
+	}
+	
 	func testSampleChanges() {
 		
 		var changeset: Changeset<String>
