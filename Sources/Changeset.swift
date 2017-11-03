@@ -1,6 +1,6 @@
 //
 //  Changeset.swift
-//  Copyright (c) 2015-16 Joachim Bondo. All rights reserved.
+//  Copyright (c) 2015-17 Joachim Bondo. All rights reserved.
 //
 
 /** A `Changeset` describes the edits required to go from one set of data to another.

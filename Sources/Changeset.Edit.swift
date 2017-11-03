@@ -1,6 +1,6 @@
 //
 //  Changeset.Edit.swift
-//  Copyright (c) 2017 Joachim Bondo. All rights reserved.
+//  Copyright (c) 2015-17 Joachim Bondo. All rights reserved.
 //
 
 /// Defines an atomic edit on a `Collection` of `Equatable` where we can do basic arithmetic on the `IndexDistance`.
@@ -38,6 +38,8 @@ public extension Changeset {
 		}
 	}
 }
+
+// MARK: -
 
 public extension Changeset {
 	
@@ -95,6 +97,8 @@ public extension Changeset {
 		return nil
 	}
 }
+
+// MARK: -
 
 extension Changeset.Edit: Equatable {}
 public func ==<C>(lhs: Changeset<C>.Edit, rhs: Changeset<C>.Edit) -> Bool {
