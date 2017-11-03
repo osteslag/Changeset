@@ -14,7 +14,7 @@ class ChangesetTests: XCTestCase {
 		let origin = "kitten"
 		let destination = "sitting"
 		
-		let changeset = Changeset(source: origin.characters, target: destination.characters)
+		let changeset = Changeset(source: origin, target: destination)
 		
 		XCTAssertEqual(String(changeset.origin), origin)
 		XCTAssertEqual(String(changeset.destination), destination)
@@ -24,10 +24,10 @@ class ChangesetTests: XCTestCase {
 	
 	func testSampleChanges() {
 		
-		var changeset: Changeset<String.CharacterView>
-		var edits: Array<Changeset<String.CharacterView>.Edit>
+		var changeset: Changeset<String>
+		var edits: Array<Changeset<String>.Edit>
 		
-		changeset = Changeset(source: "kitten".characters, target: "sitting".characters)
+		changeset = Changeset(source: "kitten", target: "sitting")
 		edits = [
 			Changeset.Edit(operation: .substitution, value: "s", destination: 0),
 			Changeset.Edit(operation: .substitution, value: "i", destination: 4),
@@ -35,7 +35,7 @@ class ChangesetTests: XCTestCase {
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "sitting".characters, target: "kitten".characters)
+		changeset = Changeset(source: "sitting", target: "kitten")
 		edits = [
 			Changeset.Edit(operation: .substitution, value: "k", destination: 0),
 			Changeset.Edit(operation: .substitution, value: "e", destination: 4),
@@ -43,7 +43,7 @@ class ChangesetTests: XCTestCase {
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "Saturday".characters, target: "Sunday".characters)
+		changeset = Changeset(source: "Saturday", target: "Sunday")
 		edits = [
 			Changeset.Edit(operation: .deletion, value: "a", destination: 1),
 			Changeset.Edit(operation: .deletion, value: "t", destination: 2),
@@ -51,7 +51,7 @@ class ChangesetTests: XCTestCase {
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "Sunday".characters, target: "Saturday".characters)
+		changeset = Changeset(source: "Sunday", target: "Saturday")
 		edits = [
 			Changeset.Edit(operation: .insertion, value: "a", destination: 1),
 			Changeset.Edit(operation: .insertion, value: "t", destination: 2),
@@ -59,19 +59,19 @@ class ChangesetTests: XCTestCase {
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "sword".characters, target: "words".characters)
+		changeset = Changeset(source: "sword", target: "words")
 		edits = [
 			Changeset.Edit(operation: .move(origin: 0), value: "s", destination: 4),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "words".characters, target: "sword".characters)
+		changeset = Changeset(source: "words", target: "sword")
 		edits = [
 			Changeset.Edit(operation: .move(origin: 4), value: "s", destination: 0),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "abcd".characters, target: "ABCD".characters)
+		changeset = Changeset(source: "abcd", target: "ABCD")
 		edits = [
 			Changeset.Edit(operation: .substitution, value: "A", destination: 0),
 			Changeset.Edit(operation: .substitution, value: "B", destination: 1),
@@ -81,14 +81,14 @@ class ChangesetTests: XCTestCase {
 		XCTAssertEqual(changeset.edits, edits)
 		
 		// GARVEY -> AVERY (http://stackoverflow.com/a/30795531)
-		changeset = Changeset(source: "GARVEY".characters, target: "AVERY".characters)
+		changeset = Changeset(source: "GARVEY", target: "AVERY")
 		edits = [
 			Changeset.Edit(operation: .deletion, value: "G", destination: 0),
 			Changeset.Edit(operation: .move(origin: 2), value: "R", destination: 3),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "AVERY".characters, target: "GARVEY".characters)
+		changeset = Changeset(source: "AVERY", target: "GARVEY")
 		edits = [
 			Changeset.Edit(operation: .insertion, value: "G", destination: 0),
 			Changeset.Edit(operation: .move(origin: 3), value: "R", destination: 2),
@@ -98,10 +98,10 @@ class ChangesetTests: XCTestCase {
 	
 	func testInsertionsAfterDeletions() {
 		
-		var changeset: Changeset<String.CharacterView>
-		var edits: Array<Changeset<String.CharacterView>.Edit>
+		var changeset: Changeset<String>
+		var edits: Array<Changeset<String>.Edit>
 		
-		changeset = Changeset(source: "abcdefgh".characters, target: "bdefijgh".characters)
+		changeset = Changeset(source: "abcdefgh", target: "bdefijgh")
 		edits = [
 			Changeset.Edit(operation: .deletion, value: "a", destination: 0),
 			Changeset.Edit(operation: .deletion, value: "c", destination: 2),
@@ -110,7 +110,7 @@ class ChangesetTests: XCTestCase {
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "bdefijgh".characters, target: "abcdefgh".characters)
+		changeset = Changeset(source: "bdefijgh", target: "abcdefgh")
 		edits = [
 			Changeset.Edit(operation: .insertion, value: "a", destination: 0),
 			Changeset.Edit(operation: .insertion, value: "c", destination: 2),
@@ -119,14 +119,14 @@ class ChangesetTests: XCTestCase {
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "abcdefgh".characters, target: "bdefagch".characters)
+		changeset = Changeset(source: "abcdefgh", target: "bdefagch")
 		edits = [
 			Changeset.Edit(operation: .move(origin: 0), value: "a", destination: 4),
 			Changeset.Edit(operation: .move(origin: 2), value: "c", destination: 6),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "bdefagch".characters, target: "abcdefgh".characters)
+		changeset = Changeset(source: "bdefagch", target: "abcdefgh")
 		edits = [
 			Changeset.Edit(operation: .move(origin: 4), value: "a", destination: 0),
 			Changeset.Edit(operation: .move(origin: 6), value: "c", destination: 2),
@@ -136,10 +136,10 @@ class ChangesetTests: XCTestCase {
 	
 	func testComplexChange() {
 		
-		var changeset: Changeset<String.CharacterView>
-		var edits: Array<Changeset<String.CharacterView>.Edit>
+		var changeset: Changeset<String>
+		var edits: Array<Changeset<String>.Edit>
 		
-		changeset = Changeset(source: "abcdefgh".characters, target: "bacefxhi".characters)
+		changeset = Changeset(source: "abcdefgh", target: "bacefxhi")
 		edits = [
 			Changeset.Edit(operation: .move(origin: 1), value: "b", destination: 0),
 			Changeset.Edit(operation: .deletion, value: "d", destination: 3),
@@ -148,7 +148,7 @@ class ChangesetTests: XCTestCase {
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "bacefxhi".characters, target: "abcdefgh".characters)
+		changeset = Changeset(source: "bacefxhi", target: "abcdefgh")
 		edits = [
 			Changeset.Edit(operation: .move(origin: 1), value: "a", destination: 0),
 			Changeset.Edit(operation: .insertion, value: "d", destination: 3),
@@ -189,23 +189,23 @@ class ChangesetTests: XCTestCase {
 		
 		// https://twitter.com/davedelong/status/671051521371406336
 		
-		var changeset: Changeset<String.CharacterView>
-		var edits: Array<Changeset<String.CharacterView>.Edit>
+		var changeset: Changeset<String>
+		var edits: Array<Changeset<String>.Edit>
 		
-		changeset = Changeset(source: "words".characters, target: "tsword".characters)
+		changeset = Changeset(source: "words", target: "tsword")
 		edits = [
 			Changeset.Edit(operation: .insertion, value: "t", destination: 0),
 			Changeset.Edit(operation: .move(origin: 4), value: "s", destination: 1),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "abcdefgh".characters, target: "agbcdefh".characters)
+		changeset = Changeset(source: "abcdefgh", target: "agbcdefh")
 		edits = [
 			Changeset.Edit(operation: .move(origin: 6), value: "g", destination: 1),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "stick".characters, target: "tact".characters)
+		changeset = Changeset(source: "stick", target: "tact")
 		edits = [
 			Changeset.Edit(operation: .deletion, value: "s", destination: 0),
 			Changeset.Edit(operation: .substitution, value: "a", destination: 2),
@@ -213,7 +213,7 @@ class ChangesetTests: XCTestCase {
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "12345".characters, target: "2a3".characters)
+		changeset = Changeset(source: "12345", target: "2a3")
 		edits = [
 			Changeset.Edit(operation: .deletion, value: "1", destination: 0),
 			Changeset.Edit(operation: .insertion, value: "a", destination: 1),
@@ -222,7 +222,7 @@ class ChangesetTests: XCTestCase {
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "dave".characters, target: "david".characters)
+		changeset = Changeset(source: "dave", target: "david")
 		edits = [
 			Changeset.Edit(operation: .substitution, value: "i", destination: 3),
 			Changeset.Edit(operation: .insertion, value: "d", destination: 4),
@@ -232,10 +232,10 @@ class ChangesetTests: XCTestCase {
 	
 	func testEmptyStrings() {
 		
-		var changeset: Changeset<String.CharacterView>
-		var edits: Array<Changeset<String.CharacterView>.Edit>
+		var changeset: Changeset<String>
+		var edits: Array<Changeset<String>.Edit>
 		
-		changeset = Changeset(source: "abc".characters, target: "".characters)
+		changeset = Changeset(source: "abc", target: "")
 		edits = [
 			Changeset.Edit(operation: .deletion, value: "a", destination: 0),
 			Changeset.Edit(operation: .deletion, value: "b", destination: 1),
@@ -243,7 +243,7 @@ class ChangesetTests: XCTestCase {
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "".characters, target: "abc".characters)
+		changeset = Changeset(source: "", target: "abc")
 		edits = [
 			Changeset.Edit(operation: .insertion, value: "a", destination: 0),
 			Changeset.Edit(operation: .insertion, value: "b", destination: 1),
@@ -254,16 +254,16 @@ class ChangesetTests: XCTestCase {
 	
 	func testOneElementChanges() {
 		
-		var changeset: Changeset<String.CharacterView>
-		var edits: Array<Changeset<String.CharacterView>.Edit>
+		var changeset: Changeset<String>
+		var edits: Array<Changeset<String>.Edit>
 		
-		changeset = Changeset(source: " ".characters, target: "a".characters)
+		changeset = Changeset(source: " ", target: "a")
 		edits = [
 			Changeset.Edit(operation: .substitution, value: "a", destination: 0),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "a".characters, target: "".characters)
+		changeset = Changeset(source: "a", target: "")
 		edits = [
 			Changeset.Edit(operation: .deletion, value: "a", destination: 0),
 		]
@@ -272,30 +272,30 @@ class ChangesetTests: XCTestCase {
 	
 	func testInsertions() {
 		
-		var changeset: Changeset<String.CharacterView>
-		var edits: Array<Changeset<String.CharacterView>.Edit>
+		var changeset: Changeset<String>
+		var edits: Array<Changeset<String>.Edit>
 		
-		changeset = Changeset(source: "".characters, target: "a".characters)
+		changeset = Changeset(source: "", target: "a")
 		edits = [
 			Changeset.Edit(operation: .insertion, value: "a", destination: 0),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "".characters, target: "ab".characters)
+		changeset = Changeset(source: "", target: "ab")
 		edits = [
 			Changeset.Edit(operation: .insertion, value: "a", destination: 0),
 			Changeset.Edit(operation: .insertion, value: "b", destination: 1),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "a".characters, target: "bac".characters)
+		changeset = Changeset(source: "a", target: "bac")
 		edits = [
 			Changeset.Edit(operation: .insertion, value: "b", destination: 0),
 			Changeset.Edit(operation: .insertion, value: "c", destination: 2),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "abcdef".characters, target: "aAbBcCdDeEfF".characters)
+		changeset = Changeset(source: "abcdef", target: "aAbBcCdDeEfF")
 		edits = [
 			Changeset.Edit(operation: .insertion, value: "A", destination: 1),
 			Changeset.Edit(operation: .insertion, value: "B", destination: 3),
@@ -309,10 +309,10 @@ class ChangesetTests: XCTestCase {
 	
 	func testMoves() {
 		
-		var changeset: Changeset<String.CharacterView>
-		var edits: Array<Changeset<String.CharacterView>.Edit>
+		var changeset: Changeset<String>
+		var edits: Array<Changeset<String>.Edit>
 		
-		changeset = Changeset(source: "AAAAaaaa".characters, target: "aaaaAAAA".characters)
+		changeset = Changeset(source: "AAAAaaaa", target: "aaaaAAAA")
 		edits = [
 			Changeset.Edit(operation: .move(origin: 4), value: "a", destination: 0),
 			Changeset.Edit(operation: .move(origin: 5), value: "a", destination: 1),
@@ -321,14 +321,14 @@ class ChangesetTests: XCTestCase {
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "abbcdefgh".characters, target: "acdefgbbh".characters)
+		changeset = Changeset(source: "abbcdefgh", target: "acdefgbbh")
 		edits = [
 			Changeset.Edit(operation: .move(origin: 1), value: "b", destination: 6),
 			Changeset.Edit(operation: .move(origin: 2), value: "b", destination: 7),
 		]
 		XCTAssertEqual(changeset.edits, edits)
 		
-		changeset = Changeset(source: "acdefgbbh".characters, target: "abbcdefgh".characters)
+		changeset = Changeset(source: "acdefgbbh", target: "abbcdefgh")
 		edits = [
 			Changeset.Edit(operation: .move(origin: 6), value: "b", destination: 1),
 			Changeset.Edit(operation: .move(origin: 7), value: "b", destination: 2),
@@ -338,10 +338,10 @@ class ChangesetTests: XCTestCase {
 	
 	func testNoChanges() {
 		
-		var edits = Changeset.edits(from: "".characters, to: "".characters)
+		var edits = Changeset.edits(from: "", to: "")
 		XCTAssertEqual(edits.count, 0)
 		
-		edits = Changeset.edits(from: "abcd".characters, to: "abcd".characters)
+		edits = Changeset.edits(from: "abcd", to: "abcd")
 		XCTAssertEqual(edits.count, 0)
 	}
 	

@@ -11,7 +11,7 @@ class CollectionViewController: UICollectionViewController {
 	fileprivate var dataSource = DataSource()
 	
 	@IBAction func test(_ sender: UIBarButtonItem) {
-		self.dataSource.runTests() { (edits: Array<Changeset<String.CharacterView>.Edit>, isComplete: Bool) in
+		self.dataSource.runTests() { (edits: Array<Changeset<String>.Edit>, isComplete: Bool) in
 			self.collectionView?.update(with: edits)
 			sender.isEnabled = isComplete
 		}

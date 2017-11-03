@@ -23,10 +23,10 @@ class DataSource {
 	fileprivate var data = kDefaultData
 	
 	/// The callback is called after each test to let the caller update its view, or whatever.
-	func runTests(_ testData: Array<String> = kTestData, callback: @escaping ((_ edits: Array<Changeset<String.CharacterView>.Edit>, _ isComplete: Bool) -> Void)) {
+	func runTests(_ testData: Array<String> = kTestData, callback: @escaping ((_ edits: Array<Changeset<String>.Edit>, _ isComplete: Bool) -> Void)) {
 		var nextTestData = testData
 		let next = nextTestData.remove(at: 0)
-		let edits = Changeset.edits(from: self.data.characters, to: next.characters) // Call naiveEditDistance for a different approach
+		let edits = Changeset.edits(from: self.data, to: next) // Call naiveEditDistance for a different approach
 		
 		self.data = next
 		callback(edits, nextTestData.isEmpty)
@@ -43,10 +43,10 @@ class DataSource {
 	// MARK: -
 	
 	func numberOfElementsInSection(_ section: Int) -> Int {
-		return self.data.characters.count
+		return self.data.count
 	}
 	
 	func textForElementAtIndexPath(_ indexPath: IndexPath) -> String {
-		return String(self.data.characters[data.characters.index(data.characters.startIndex, offsetBy: indexPath.row)])
+		return String(self.data[data.index(data.startIndex, offsetBy: indexPath.row)])
 	}
 }
