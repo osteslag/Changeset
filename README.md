@@ -7,14 +7,14 @@ This is an attempt at implementing the solution outlined in [Dave DeLong](https:
 
 A `Changeset` describes the minimal edits required to go from one `Collection` of `Equatable` elements to another.
 
-It has been written specifically to be used in conjunction with `UITableView` and `UICollectionView` data sources by detecting additions, deletions, substitutions, and moves between the two sets of data.
+It has been written primarily to be used in conjunction with `UITableView` and `UICollectionView` data sources by detecting additions, deletions, substitutions, and moves between the two sets of data. But it can also be used to compute more general changes between two data sets.
 
 ## Usage
 
-The following code computes the minimal edits of the canonical example, going from the `Character` collections “kitten” to “sitting”:
+The following code computes the minimal edits of the canonical example, going from the `String` collections “kitten” to “sitting”:
 
 ```swift
-let changeset = Changeset(source: "kitten".characters, target: "sitting".characters)
+let changeset = Changeset(source: "kitten", target: "sitting")
 
 print(changeset)
 // 'kitten' -> 'sitting':
@@ -27,9 +27,9 @@ The following assertion would then succeed:
 
 ```swift
 let edits = [
-    Edit(.Substitution, value: "s", destination: 0),
-    Edit(.Substitution, value: "i", destination: 4),
-    Edit(.Insertion, value: "g", destination: 6),
+    Changeset<String>.Edit(operation: .substitution, value: "s", destination: 0),
+    Changeset<String>.Edit(operation: .substitution, value: "i", destination: 4),
+    Changeset<String>.Edit(operation: .insertion, value: "g", destination: 6),
 ]
 assert(changeset.edits == edits)
 ```
