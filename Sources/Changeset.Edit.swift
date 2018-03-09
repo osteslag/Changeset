@@ -48,10 +48,10 @@ public extension Changeset {
 	- parameter edits: An array of `Edit` elements to be reduced.
 	- returns: An array of `Edit` elements.
 	*/
-	static internal func reducedEdits(_ edits: Array<Edit>) -> Array<Edit> {
+	static internal func reducedEdits(_ edits: Array<Edit>, comparator: Comparator) -> Array<Edit> {
 		return edits.reduce(Array<Edit>()) { (edits, edit) in
 			var reducedEdits = edits
-			if let (move, offset) = Changeset.move(from: edit, in: reducedEdits), case .move = move.operation {
+			if let (move, offset) = Changeset.move(from: edit, in: reducedEdits, comparator: comparator), case .move = move.operation {
 				reducedEdits.remove(at: offset)
 				reducedEdits.append(move)
 			} else {
@@ -72,20 +72,20 @@ public extension Changeset {
 	
 	- returns: An optional tuple consisting of the `.move` `Edit` that corresponds to the given deletion or insertion and an opposite match in `edits`, and the offset of the match – if one was found.
 	*/
-	static private func move(from deletionOrInsertion: Edit, `in` edits: Array<Edit>) -> (move: Edit, offset: Edit.Offset)? {
+	static private func move(from deletionOrInsertion: Edit, `in` edits: Array<Edit>, comparator: Comparator) -> (move: Edit, offset: Edit.Offset)? {
 		
 		switch deletionOrInsertion.operation {
 			
 		case .deletion:
 			if let insertionOffset = edits.index(where: { (earlierEdit) -> Bool in
-				if case .insertion = earlierEdit.operation, earlierEdit.value == deletionOrInsertion.value { return true } else { return false }
+				if case .insertion = earlierEdit.operation, comparator(earlierEdit.value, deletionOrInsertion.value) { return true } else { return false }
 			}) {
 				return (Edit(operation: .move(origin: deletionOrInsertion.destination), value: deletionOrInsertion.value, destination: edits[insertionOffset].destination), insertionOffset)
 			}
 			
 		case .insertion:
 			if let deletionOffset = edits.index(where: { (earlierEdit) -> Bool in
-				if case .deletion = earlierEdit.operation, earlierEdit.value == deletionOrInsertion.value { return true } else { return false }
+				if case .deletion = earlierEdit.operation, comparator(earlierEdit.value, deletionOrInsertion.value) { return true } else { return false }
 			}) {
 				return (Edit(operation: .move(origin: edits[deletionOffset].destination), value: deletionOrInsertion.value, destination: deletionOrInsertion.destination), deletionOffset)
 			}

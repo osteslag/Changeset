@@ -389,6 +389,27 @@ class ChangesetTests: XCTestCase {
 		]
 		XCTAssertEqual(changeset.edits, changes)
 	}
+
+	func testCustomComparator() {
+		let dontCareAbouA: (Character, Character) -> Bool = {
+			if $0 == "a" || $1 == "a" {
+				return true
+			} else {
+				return $0 == $1
+			}
+		}
+		XCTAssertEqual([], Changeset(source: "ab", target: "bb", comparator: dontCareAbouA).edits)
+
+		let alwaysChangeA: (Character, Character) -> Bool = {
+			if $0 == "a" || $1 == "a" {
+				return false
+			} else {
+				return $0 == $1
+			}
+		}
+		let edits: [Changeset<String>.Edit] = [Changeset.Edit(operation: .substitution, value: "a", destination: 0)]
+		XCTAssertEqual(edits, Changeset(source: "ab", target: "ab", comparator: alwaysChangeA).edits)
+	}
 }
 
 // MARK: -
