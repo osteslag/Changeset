@@ -13,6 +13,9 @@ It detects additions, deletions, substitutions, and moves. Data is a `Collection
 */
 public struct Changeset<C: Collection> where C.Iterator.Element: Equatable, C.IndexDistance == Int {
 	
+	/// Closure used to compare two elements.
+	public typealias Comparator = (C.Iterator.Element, C.Iterator.Element) -> Bool
+
 	/// The starting-point collection.
 	public let origin: C
 	
@@ -27,10 +30,10 @@ public struct Changeset<C: Collection> where C.Iterator.Element: Equatable, C.In
 	*/
 	public let edits: Array<Edit>
 	
-	public init(source origin: C, target destination: C) {
+	public init(source origin: C, target destination: C, comparator: Comparator = (==)) {
 		self.origin = origin
 		self.destination = destination
-		self.edits = Changeset.edits(from: self.origin, to: self.destination)
+		self.edits = Changeset.edits(from: self.origin, to: self.destination, comparator: comparator)
 	}
 	
 	/** Returns the edit steps required to go from one collection to another.
@@ -46,10 +49,11 @@ public struct Changeset<C: Collection> where C.Iterator.Element: Equatable, C.In
 	  - parameters:
 	    - from: The starting-point collection.
 	    - to: The ending-point collection.
+	    - comparator: The comparision function to use.
 	
 	  - returns: An array of `Edit` elements.
 	*/
-	public static func edits(from source: C, to target: C) -> Array<Edit> {
+	public static func edits(from source: C, to target: C, comparator: Comparator = (==)) -> Array<Edit> {
 		
 		let rows = source.count
 		let columns = target.count
@@ -84,7 +88,7 @@ public struct Changeset<C: Collection> where C.Iterator.Element: Equatable, C.In
 				
 				if columns > 0 {
 					for column in 1...columns {
-						if source[sourceOffset] == target[targetOffset] {
+						if comparator(source[sourceOffset], target[targetOffset]) {
 							currentRow[column] = previousRow[column - 1] // no operation
 						} else {
 							var deletion = previousRow[column] // a deletion
@@ -118,6 +122,6 @@ public struct Changeset<C: Collection> where C.Iterator.Element: Equatable, C.In
 		}
 		
 		// Convert deletion/insertion pairs of same element into moves.
-		return Changeset.reducedEdits(previousRow[columns])
+		return Changeset.reducedEdits(previousRow[columns], comparator: comparator)
 	}
 }
