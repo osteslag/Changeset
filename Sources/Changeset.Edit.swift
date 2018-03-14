@@ -1,6 +1,5 @@
 //
 //  Changeset.Edit.swift
-//  Copyright (c) 2015-17 Joachim Bondo. All rights reserved.
 //
 
 /// Defines an atomic edit on a `Collection` of `Equatable` where we can do basic arithmetic on the `IndexDistance`.
