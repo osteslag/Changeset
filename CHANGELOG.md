@@ -2,6 +2,10 @@
 
 This project uses [semantic versioning](http://semver.org/). Change log is also reflected under [Releases](https://github.com/osteslag/Changeset/releases) on GitHub, inspired by [Keep a CHANGELOG](http://keepachangelog.com).
 
+## [3.1]: 2018-03-14(π) Custom Comparator
+### Added
+- Support custom comparator function for comparing collection elements (defaults to `==`)
+
 ## [3.0]: 2017-11-03 Swift 4.0
 ### Changed
 - Update to Swift 4; most noticeably, `String` is now a `Collection`
@@ -68,6 +72,7 @@ This project uses [semantic versioning](http://semver.org/). Change log is also 
 
 ## [1.0]: 2015-12-29 Initial Release
 
+[3.1]: https://github.com/osteslag/Changeset/compare/v3.0...v3.1
 [3.0]: https://github.com/osteslag/Changeset/compare/v2.1.2...v3.0
 [2.1.2]: https://github.com/osteslag/Changeset/compare/v2.1.1...v2.1.2
 [2.1.1]: https://github.com/osteslag/Changeset/compare/v2.1...v2.1.1

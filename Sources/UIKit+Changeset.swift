@@ -1,6 +1,5 @@
 //
 //  UIKit+Changeset.swift
-//  Copyright (c) 2016 Joachim Bondo. All rights reserved.
 //
 
 #if os(iOS)
