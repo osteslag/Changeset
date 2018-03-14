@@ -61,28 +61,28 @@ tableView.update(with: changeset.edits)
 
 ## Custom Comparator
 
-By default `Changeset` uses `==` to compare. It is possible to change the comparator:
+By default a `Changeset` uses `==` to compare elements, but you can write your own comparator, illustrated below, where the occurence of an “a” always triggers a change:
 
 ```swift
 let alwaysChangeA: (Character, Character) -> Bool = {
-  if $0 == "a" || $1 == "a" {
-    return false
-  } else {
-    return $0 == $1
-  }
+    if $0 == "a" || $1 == "a" {
+        return false
+    } else {
+        return $0 == $1
+    }
 }
 let changeset = Changeset(source: "ab", target: "ab", comparator: alwaysChangeA)
 ```
 
-The following assertion would then succeed:
+As a result, the changeset will consist of a substitution of the “a” (to another “a”):
 
 ```swift
-let edits: [Changeset<String>.Edit] = [Changeset.Edit(operation: .substitution, value: "a", destination: 0)]
-assert(changeset.edits == edits)
+let expectedEdits: [Changeset<String>.Edit] = [Changeset.Edit(operation: .substitution, value: "a", destination: 0)]
+assert(changeset.edits == expectedEdits)
 ```
 
-One use of this is when a cell in a `UITableView` or `UICollectionView` shouldn't animate when they change.
-  
+One possible use of this is when a cell in a `UITableView` or `UICollectionView` shouldn’t animate when they change.
+
 ## Test App
 
 The Xcode project also contains a target to illustrate the usage in an app:
