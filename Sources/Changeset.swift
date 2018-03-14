@@ -12,8 +12,8 @@ It detects additions, deletions, substitutions, and moves. Data is a `Collection
   - seealso: `Changeset.edits`.
 */
 public struct Changeset<C: Collection> where C.Iterator.Element: Equatable, C.IndexDistance == Int {
-
-	/// Closure type to compare two values
+	
+	/// Closure used to compare two elements.
 	public typealias Comparator = (C.Iterator.Element, C.Iterator.Element) -> Bool
 
 	/// The starting-point collection.
@@ -49,7 +49,7 @@ public struct Changeset<C: Collection> where C.Iterator.Element: Equatable, C.In
 	  - parameters:
 	    - from: The starting-point collection.
 	    - to: The ending-point collection.
-			- comparator: The comparision function to use
+	    - comparator: The comparision function to use.
 	
 	  - returns: An array of `Edit` elements.
 	*/
