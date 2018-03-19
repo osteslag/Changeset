@@ -2,6 +2,28 @@
 
 This project uses [semantic versioning](http://semver.org/). Change log is also reflected under [Releases](https://github.com/osteslag/Changeset/releases) on GitHub, inspired by [Keep a CHANGELOG](http://keepachangelog.com).
 
+## [3.1]: 2018-03-14(π) Custom Comparator
+### Added
+- Support custom comparator function for comparing collection elements (defaults to `==`)
+
+## [3.0]: 2017-11-03 Swift 4.0
+### Changed
+- Update to Swift 4; most noticeably, `String` is now a `Collection`
+- Make `Edit` a subtype of `Changeset` so that it inherits the same generic constraints
+- Make `Operation` a subtype of `Edit`
+- Use offsets on changeset collections, as opposed to indices
+- Use labels on all initializer parameters (per Swift convention)
+- 100% code coverage on unit tests
+
+## [2.1.2]: 2017-03-27 Reduce Memory Footprint
+### Fixed
+- Reduce space complexity to O(m)
+- Expand variable names for readability
+
+## [2.1.1]: 2017-03-21 Suppress Warning
+### Fixed 
+- Allow Changeset to be used from within a framework, and outside of an application target.
+
 ## [2.1]: 2016-11-23 UIKit Extensions
 ### Added
 - UIKit extensions for `UITableView` and `UICollectionView` for easy updating (were previously only included in the test app)
@@ -50,6 +72,10 @@ This project uses [semantic versioning](http://semver.org/). Change log is also 
 
 ## [1.0]: 2015-12-29 Initial Release
 
+[3.1]: https://github.com/osteslag/Changeset/compare/v3.0...v3.1
+[3.0]: https://github.com/osteslag/Changeset/compare/v2.1.2...v3.0
+[2.1.2]: https://github.com/osteslag/Changeset/compare/v2.1.1...v2.1.2
+[2.1.1]: https://github.com/osteslag/Changeset/compare/v2.1...v2.1.1
 [2.1]: https://github.com/osteslag/Changeset/compare/v2.0.1...v2.1
 [2.0.1]: https://github.com/osteslag/Changeset/compare/v2.0...v2.0.1
 [2.0]: https://github.com/osteslag/Changeset/compare/v1.0.6...v2.0
