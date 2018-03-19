@@ -56,7 +56,7 @@ In short; first all deletions and substitutions are made, relative to the source
 In the iOS framework, two convenience extensions (one on `UITableView` and one on `UICollectionView`) have been included to make animated table/collection view updates a breeze. Just call `update`, like this:
 
 ```swift
-tableView.update(with: changeset.edits)
+tableView.update(with: edits, in: 0)
 ```
 
 ## Custom Comparator
