@@ -26,13 +26,17 @@ extension UITableView {
 extension UICollectionView {
 	
 	/// Performs batch updates on the table view, given the edits of a `Changeset`, and animates the transition.
-	open func update<C>(with edits: Array<Changeset<C>.Edit>, in section: Int = 0, completion: ((Bool) -> Void)? = nil) {
+	/// Because this method performs batch updates, it may cause a reload if your collection's layout is not up to date.
+	/// To prevent issues, update your data model in the optional `batchUpdatesDidBegin` closure, or ensure your layout is
+	/// updated before invoking this method.
+	open func update<C>(with edits: Array<Changeset<C>.Edit>, in section: Int = 0, batchUpdatesDidBegin: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
 		
 		guard !edits.isEmpty else { return }
 		
 		let indexPaths = batchIndexPaths(from: edits, in: section)
 		
 		self.performBatchUpdates({
+			batchUpdatesDidBegin?()
 			if !indexPaths.deletions.isEmpty { self.deleteItems(at: indexPaths.deletions) }
 			if !indexPaths.insertions.isEmpty { self.insertItems(at: indexPaths.insertions) }
 			if !indexPaths.updates.isEmpty { self.reloadItems(at: indexPaths.updates) }
