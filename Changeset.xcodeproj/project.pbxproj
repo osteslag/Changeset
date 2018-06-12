@@ -549,6 +549,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9019C47E1D23AC8100A34C66 /* Universal-Target-Base.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = changeset.tests;
@@ -560,6 +561,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9019C47E1D23AC8100A34C66 /* Universal-Target-Base.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = changeset.tests;
