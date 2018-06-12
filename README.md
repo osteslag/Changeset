@@ -45,8 +45,6 @@ print(edits)
 // [insert Alaska at offset 0, replace with Georgia at offset 2, replace with Virginia at offset 4]
 ```
 
-Note that Changeset uses offsets, not indices, to refer to elements in the collections. This is mainly because Swift collections aren’t guaranteed to use zero-based integer indices. See discussion in [issue #37](https://github.com/osteslag/Changeset/issues/37) for more details.
-
 ## UIKit Integration
 
 The offset values can be used directly in the animation blocks of `beginUpdates`/`endUpdates` on `UITableView` and `performBatchUpdates` on `UICollectionView` in that `Changeset` follows the principles explained under [_Batch Insertion, Deletion, and Reloading of Rows and Sections_](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/ManageInsertDeleteRow/ManageInsertDeleteRow.html#//apple_ref/doc/uid/TP40007451-CH10-SW9) in Apple’s guide.
