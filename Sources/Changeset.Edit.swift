@@ -13,7 +13,7 @@ public extension Changeset {
 		
 		- seealso: Discussions on GitHub: [#37](https://github.com/osteslag/Changeset/issues/37), [#39](https://github.com/osteslag/Changeset/pull/39#discussion_r129030599).
 		*/
-		public typealias Offset = C.IndexDistance
+		public typealias Offset = Int
 		
 		public typealias Element = C.Iterator.Element
 		

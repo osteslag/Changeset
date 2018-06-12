@@ -10,7 +10,7 @@ It detects additions, deletions, substitutions, and moves. Data is a `Collection
 
   - seealso: `Changeset.edits`.
 */
-public struct Changeset<C: Collection> where C.Iterator.Element: Equatable, C.IndexDistance == Int {
+public struct Changeset<C: Collection> where C.Iterator.Element: Equatable {
 	
 	/// Closure used to compare two elements.
 	public typealias Comparator = (C.Iterator.Element, C.Iterator.Element) -> Bool
