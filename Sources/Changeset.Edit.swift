@@ -7,14 +7,10 @@ public extension Changeset {
 	
 	public struct Edit {
 		
-		/** The type used to refer to elements in the collections.
-		
-		Because not all collection indices are zero-based, let alone `Int`-based, an `Edit` uses *offsets* to elements in the collection.
-		
-		- seealso: Discussions on GitHub: [#37](https://github.com/osteslag/Changeset/issues/37), [#39](https://github.com/osteslag/Changeset/pull/39#discussion_r129030599).
-		*/
+		/// The type used to refer to elements in the collections.
 		public typealias Offset = Int
 		
+		/// The type used to refer to the element type of a collection.
 		public typealias Element = C.Iterator.Element
 		
 		/// Defines the type of an `Edit`.
