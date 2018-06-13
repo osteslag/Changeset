@@ -25,7 +25,13 @@ extension UITableView {
 
 extension UICollectionView {
 	
-	/// Performs batch updates on the table view, given the edits of a `Changeset`, and animates the transition.
+	/** Performs batch updates on the collection view, given the edits of a `Changeset`, and animates the transition.
+	
+	- note: As per the [Collection View Programming Guide for iOS](https://developer.apple.com/library/content/documentation/WindowsViews/Conceptual/CollectionViewPGforIOS/), we should update the model before doing any incremental collection view updates. However, if the collection view is in a certain state and needs layout, the `UICollectionViewDataSource` methods are called immediately when the `performBatchUpdates` call is invoked. This updates the internal state, causing the incremental updates to be applied on an already up-to-date model. To prevent this issue from happening, ensure your view is in a consistent state and the model is updated before calling this method. This issue should go away when Apple fixes the issue.
+	
+	- seealso: Discussion on [Pull Request #26](https://github.com/osteslag/Changeset/pull/46).
+	- seealso: [Open Radar 28167779](https://github.com/PSPDFKit-labs/radar.apple.com/tree/master/28167779%20-%20CollectionViewBatchingIssue).
+	*/
 	open func update<C>(with edits: Array<Changeset<C>.Edit>, in section: Int = 0, completion: ((Bool) -> Void)? = nil) {
 		
 		guard !edits.isEmpty else { return }
