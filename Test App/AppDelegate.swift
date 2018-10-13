@@ -11,7 +11,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions:
-		Dictionary<UIApplicationLaunchOptionsKey, Any>?) -> Bool {
+		Dictionary<UIApplication.LaunchOptionsKey, Any>?) -> Bool {
 		return true
 	}
 }

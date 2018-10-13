@@ -9,7 +9,7 @@ import UIKit
 extension UITableView {
 	
 	/// Performs batch updates on the table view, given the edits of a `Changeset`, and animates the transition.
-	open func update<C>(with edits: Array<Changeset<C>.Edit>, in section: Int = 0, animation: UITableViewRowAnimation = .automatic) {
+	open func update<C>(with edits: Array<Changeset<C>.Edit>, in section: Int = 0, animation: UITableView.RowAnimation = .automatic) {
 		
 		guard !edits.isEmpty else { return }
 		
