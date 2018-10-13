@@ -2,6 +2,12 @@
 
 This project uses [semantic versioning](http://semver.org/). Change log is also reflected under [Releases](https://github.com/osteslag/Changeset/releases) on GitHub, inspired by [Keep a CHANGELOG](http://keepachangelog.com).
 
+## [3.1.1]: 2018-10-13 Swift 4.2
+### Changed
+- Update to a few nested UIKit types ([PR #52](https://github.com/osteslag/Changeset/pull/52))
+- Clarify issue around a data/view inconsistency with `UICollectionView`, discussed in [PR #26](https://github.com/osteslag/Changeset/pull/46)
+- Also, since version 3.1: assume `IndexDistance` is always of type `Int` ([PR #48](https://github.com/osteslag/Changeset/pull/48))
+
 ## [3.1]: 2018-03-14(π) Custom Comparator
 ### Added
 - Support custom comparator function for comparing collection elements (defaults to `==`)
@@ -72,6 +78,7 @@ This project uses [semantic versioning](http://semver.org/). Change log is also 
 
 ## [1.0]: 2015-12-29 Initial Release
 
+[3.1.1]: https://github.com/osteslag/Changeset/compare/v3.1...v3.1.1
 [3.1]: https://github.com/osteslag/Changeset/compare/v3.0...v3.1
 [3.0]: https://github.com/osteslag/Changeset/compare/v2.1.2...v3.0
 [2.1.2]: https://github.com/osteslag/Changeset/compare/v2.1.1...v2.1.2
