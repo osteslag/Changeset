@@ -10,7 +10,7 @@ Pod::Spec.new do |spec|
 	spec.source = { :git => 'https://github.com/osteslag/Changeset.git', :tag => "v#{spec.version}" }
 	spec.source_files = 'Sources/*.swift'
 	spec.requires_arc = true
-	spec.swift_version = '4.0'
+	spec.swift_version = '4.2'
 	spec.ios.deployment_target = '8.0'
 	spec.tvos.deployment_target = '9.0'
 	spec.osx.deployment_target = '10.9'
