@@ -5,7 +5,7 @@
 /// Defines an atomic edit on a `Collection` of `Equatable` where we can do basic arithmetic on the `IndexDistance`.
 public extension Changeset {
 	
-	public struct Edit {
+	struct Edit {
 		
 		/** The type used to refer to elements in the collections.
 		
