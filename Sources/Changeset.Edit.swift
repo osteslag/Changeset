@@ -77,14 +77,14 @@ public extension Changeset {
 		switch deletionOrInsertion.operation {
 			
 		case .deletion:
-			if let insertionOffset = edits.index(where: { (earlierEdit) -> Bool in
+			if let insertionOffset = edits.firstIndex(where: { (earlierEdit) -> Bool in
 				if case .insertion = earlierEdit.operation, comparator(earlierEdit.value, deletionOrInsertion.value) { return true } else { return false }
 			}) {
 				return (Edit(operation: .move(origin: deletionOrInsertion.destination), value: deletionOrInsertion.value, destination: edits[insertionOffset].destination), insertionOffset)
 			}
 			
 		case .insertion:
-			if let deletionOffset = edits.index(where: { (earlierEdit) -> Bool in
+			if let deletionOffset = edits.firstIndex(where: { (earlierEdit) -> Bool in
 				if case .deletion = earlierEdit.operation, comparator(earlierEdit.value, deletionOrInsertion.value) { return true } else { return false }
 			}) {
 				return (Edit(operation: .move(origin: edits[deletionOffset].destination), value: deletionOrInsertion.value, destination: deletionOrInsertion.destination), deletionOffset)

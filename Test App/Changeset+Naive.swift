@@ -13,7 +13,7 @@ extension Changeset {
 		var rv: [Changeset<C>.Edit] = []
 		
 		for (oldOffset, item) in s.enumerated() {
-			guard let newOffset = t.index(of: item) else {
+			guard let newOffset = t.firstIndex(of: item) else {
 				rv.append(Edit(operation: .deletion, value: item, destination: oldOffset))
 				continue
 			}
