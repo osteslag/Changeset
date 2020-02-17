@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
 	spec.name = 'Changeset'
-	spec.version = '3.1.1'
+	spec.version = '3.2'
 	spec.license = { :type => 'MIT', :file => 'LICENSE.md' }
 	spec.homepage = 'https://github.com/osteslag/Changeset'
 	spec.author = { 'Joachim Bondo' => 'joachim@bondo.net' }
@@ -10,7 +10,7 @@ Pod::Spec.new do |spec|
 	spec.source = { :git => 'https://github.com/osteslag/Changeset.git', :tag => "v#{spec.version}" }
 	spec.source_files = 'Sources/*.swift'
 	spec.requires_arc = true
-	spec.swift_version = '4.2'
+	spec.swift_version = '5.0'
 	spec.ios.deployment_target = '8.0'
 	spec.tvos.deployment_target = '9.0'
 	spec.osx.deployment_target = '10.9'
