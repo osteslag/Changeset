@@ -2,6 +2,10 @@
 
 This project uses [semantic versioning](http://semver.org/). Change log is also reflected under [Releases](https://github.com/osteslag/Changeset/releases) on GitHub, inspired by [Keep a CHANGELOG](http://keepachangelog.com).
 
+## [3.2]: 2020-02-17 Swift 5, SPM
+### Changed
+- Update Package.swift to latest syntax, fix Xcode 11.3 warnings ([PR #54](https://github.com/osteslag/Changeset/pull/54))
+
 ## [3.1.1]: 2018-10-13 Swift 4.2
 ### Changed
 - Update to a few nested UIKit types ([PR #52](https://github.com/osteslag/Changeset/pull/52))
@@ -78,6 +82,7 @@ This project uses [semantic versioning](http://semver.org/). Change log is also 
 
 ## [1.0]: 2015-12-29 Initial Release
 
+[3.2]: https://github.com/osteslag/Changeset/compare/v3.1.1...v3.2
 [3.1.1]: https://github.com/osteslag/Changeset/compare/v3.1...v3.1.1
 [3.1]: https://github.com/osteslag/Changeset/compare/v3.0...v3.1
 [3.0]: https://github.com/osteslag/Changeset/compare/v2.1.2...v3.0
