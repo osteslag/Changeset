@@ -5,13 +5,6 @@ import PackageDescription
 
 let package = Package(
 	name: "Changeset",
-	platforms: [
-		.macOS(.v10_10),
-		.iOS(.v8),
-		.tvOS(.v9),
-		.watchOS(.v2)
-		// Note: These might not be accurate
-	],
 	products: [
 		.library(
 			name: "Changeset",
